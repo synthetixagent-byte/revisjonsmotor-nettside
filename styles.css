@@ -98,6 +98,17 @@ h3 { font-size: 18px; font-weight: 600; letter-spacing: -0.018em; margin: 0 0 9p
   .nav-links-extra { display: none; }
 }
 
+/* Telefon: rydd opp i toppmenyen (logo + «Be om demo» får god plass) */
+@media (max-width: 640px) {
+  .nav-shell { padding: 8px 10px 8px 16px; }
+  .nav-shell .btn-outline { display: none; }   /* «Gå til Revisjonsmotor» skjules på liten skjerm */
+  .pill { padding: 9px 16px; }
+}
+/* Smal telefon: stable navn/firma-feltene i demo-skjemaet */
+@media (max-width: 520px) {
+  #demo-form > div:first-child { grid-template-columns: 1fr !important; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .blob { animation: none !important; }
