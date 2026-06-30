@@ -3,6 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; frame-ancestors 'none'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com; font-src 'self' https://cdn.jsdelivr.net https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; form-action 'self' mailto:">
   <title>Revisjonsmotor — Automatiseringsmotor for norsk revisjon</title>
   <meta name="description" content="Revisjonsmotor automatiserer kontrollarbeidet i norsk revisjon — henter data rett fra kildene og kontrollerer 100 % av transaksjonene: bilag, MVA, periodisering og avstemming. Det usikre flagges til gjennomgang. Data lagret i Norge.">
   <link rel="canonical" href="https://revisjonsmotor.no/">
@@ -92,7 +94,7 @@
             <button id="demo-run" class="demo-run" type="button">Kjør kontroll<i class="bi bi-play-fill"></i></button>
           </div>
 
-          <div class="demo-stats">
+          <div class="demo-stats" aria-live="polite">
             <div class="demo-stat"><div class="n" id="d-kontrollert">0</div><div class="l">Kontrollert</div></div>
             <div class="demo-stat"><div class="n" id="d-gjennomgang" style="color:#9a6a00;">0</div><div class="l">Til gjennomgang</div></div>
             <div class="demo-stat"><div class="n" id="d-avvik" style="color:#c4231a;">0</div><div class="l">Avvik</div></div>
@@ -208,6 +210,8 @@
         <p class="lead" style="color:rgba(255,255,255,.68); margin:0 0 32px;">Book en demo på 30 minutter. Vi kjører en kontroll på et anonymisert datasett.</p>
         <!-- TODO før lansering: koble skjemaet til et ekte endepunkt (egen API / Formspree e.l.). -->
         <form id="demo-form" style="background:rgba(255,255,255,.08); backdrop-filter:blur(var(--blur)); -webkit-backdrop-filter:blur(var(--blur)); border:1px solid rgba(255,255,255,.16); border-radius:22px; padding:30px; box-shadow:0 1px 2px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.18); text-align:left; display:flex; flex-direction:column; gap:14px;">
+          <!-- honeypot: skjult for mennesker, fanger bots -->
+          <input type="text" name="firmanavn_bekreft" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute; left:-9999px; width:1px; height:1px; opacity:0;">
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
             <input name="navn" required autocomplete="name" aria-label="Navn" placeholder="Navn" style="width:100%; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.18); border-radius:11px; padding:12px 14px; font-size:14.5px; font-family:inherit; color:#fff; outline:none;">
             <input name="firma" required autocomplete="organization" aria-label="Firma" placeholder="Firma" style="width:100%; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.18); border-radius:11px; padding:12px 14px; font-size:14.5px; font-family:inherit; color:#fff; outline:none;">
@@ -248,13 +252,15 @@
   <script>
     (function () {
       var hero = document.getElementById('hero');
-      if (hero) {
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (hero && !reduce) {
         var raf = 0;
         window.addEventListener('pointermove', function (e) {
           if (raf) return;
           raf = requestAnimationFrame(function () {
             raf = 0;
             var r = hero.getBoundingClientRect();
+            if (r.bottom < 0 || r.top > window.innerHeight) return;   // musa er utenfor heroen
             hero.style.setProperty('--sx', (((e.clientX - r.left) / r.width) * 100).toFixed(2) + '%');
             hero.style.setProperty('--sy', (((e.clientY - r.top) / r.height) * 100).toFixed(2) + '%');
           });
@@ -264,12 +270,18 @@
       if (form) {
         form.addEventListener('submit', function (e) {
           e.preventDefault();
+          if (form.firmanavn_bekreft && form.firmanavn_bekreft.value) return;   // honeypot utfylt → bot, ignorer
           if (!form.reportValidity()) return;
+          // Ingen backend ennå: åpne en EKTE e-post i stedet for å foregi at noe er sendt.
+          // TODO: bytt til et reelt endepunkt (Formspree e.l.) og vis bekreftelse FØRST når serveren svarer.
+          var firma = form.firma.value;
+          var body = 'Navn: ' + form.navn.value + '\nFirma: ' + firma + '\nE-post: ' + form.epost.value + '\n\nØnsker en demo av Revisjonsmotor.';
+          window.location.href = 'mailto:info@revisjonsmotor.no?subject=' + encodeURIComponent('Demo-forespørsel — ' + firma) + '&body=' + encodeURIComponent(body);
           form.innerHTML =
             '<div style="text-align:center; padding:22px 0; color:#fff;">' +
-            '<i class="bi bi-check-circle" style="font-size:32px; color:#34c759;"></i>' +
-            '<div style="font-size:17px; font-weight:600; margin-top:12px;">Takk! Vi tar kontakt snart.</div>' +
-            '<div style="font-size:14px; color:rgba(255,255,255,.6); margin-top:6px;">Du kan også nå oss på info@revisjonsmotor.no</div>' +
+            '<i class="bi bi-envelope-check" style="font-size:32px; color:#34c759;"></i>' +
+            '<div style="font-size:17px; font-weight:600; margin-top:12px;">Åpner e-posten din …</div>' +
+            '<div style="font-size:14px; color:rgba(255,255,255,.6); margin-top:6px;">Kommer den ikke opp, send oss gjerne en e-post på <a href="mailto:info@revisjonsmotor.no" style="color:#5aa6ff;">info@revisjonsmotor.no</a>.</div>' +
             '</div>';
         });
       }
@@ -282,9 +294,9 @@
           { id: '1042', name: 'Husleie kontor',          sub: 'Konto 6300 · 31.01.2025', amount: '48 500',  st: 'ok',     label: 'Stemmer' },
           { id: '1043', name: 'Strøm',                   sub: 'Konto 6340 · 31.01.2025', amount: '7 210',   st: 'ok',     label: 'Stemmer' },
           { id: '1051', name: 'Konsulent fra utlandet',  sub: 'Konto 6700 · 14.02.2025', amount: '92 000',  st: 'review', label: 'Til gjennomgang' },
-          { id: '1067', name: 'Representasjon',          sub: 'Konto 7350 · 20.02.2025', amount: '3 980',   st: 'avvik',  label: 'Avvik' },
+          { id: '1067', name: 'Representasjon',          sub: 'Konto 7350 · 20.02.2025', amount: '3 980',   st: 'review', label: 'Til gjennomgang' },
           { id: '1078', name: 'Varekjøp',                sub: 'Konto 4300 · 28.02.2025', amount: '121 400', st: 'ok',     label: 'Stemmer' },
-          { id: '1090', name: 'Reise og diett',          sub: 'Konto 7140 · 05.03.2025', amount: '12 760',  st: 'review', label: 'Til gjennomgang' },
+          { id: '1090', name: 'Innkjøp uten bilag',      sub: 'Konto 6790 · 05.03.2025', amount: '12 760',  st: 'avvik',  label: 'Avvik' },
           { id: '1112', name: 'Forsikring',              sub: 'Konto 7500 · 31.03.2025', amount: '18 900',  st: 'ok',     label: 'Stemmer' }
         ];
         var bar = document.getElementById('d-bar'), pct = document.getElementById('d-pct'),
