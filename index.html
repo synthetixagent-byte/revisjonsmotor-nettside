@@ -32,8 +32,8 @@
 
     <!-- ===================== HERO ===================== -->
     <header id="hero" style="position:relative; overflow:hidden; background:linear-gradient(165deg,#e6eeff 0%,#f3f8ff 50%,#eef5ff 80%,#eef5ff 100%); --sx:50%; --sy:30%;">
-      <div class="blob" style="top:-150px; left:-70px; width:500px; height:500px; background:rgba(var(--accent-rgb),.26); filter:blur(95px); animation:aurora1 18s ease-in-out infinite;"></div>
-      <div class="blob" style="top:40px; right:-110px; width:460px; height:460px; background:rgba(90,166,255,.28); filter:blur(95px); animation:aurora2 21s ease-in-out infinite;"></div>
+      <div class="blob" style="top:-150px; left:-70px; width:500px; height:500px; background:rgba(var(--accent-rgb),.26); filter:blur(95px); animation:aurora1 34s ease-in-out infinite;"></div>
+      <div class="blob" style="top:40px; right:-110px; width:460px; height:460px; background:rgba(90,166,255,.28); filter:blur(95px); animation:aurora2 40s ease-in-out infinite;"></div>
       <div id="spotlight" style="position:absolute; inset:0; pointer-events:none; background:radial-gradient(var(--glow-size) circle at var(--sx) var(--sy), rgba(255,255,255,var(--glow-alpha)), transparent var(--glow-stop));"></div>
 
       <nav style="position:relative; max-width:1200px; margin:18px auto 0; padding:18px 24px;">
@@ -79,7 +79,7 @@
 
       <div style="position:relative; max-width:760px; margin:0 auto; padding:64px 24px 30px; text-align:center;">
         <span style="display:inline-flex; align-items:center; gap:8px; background:rgba(255,255,255,.6); backdrop-filter:blur(var(--blur)); border:1px solid rgba(255,255,255,.8); color:var(--accent); font-size:13px; font-weight:500; padding:7px 14px; border-radius:980px; margin-bottom:22px; box-shadow:0 1px 2px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.06);"><i class="bi bi-cpu"></i>Automatiseringsmotor for norsk revisjon</span>
-        <h1 style="font-size:52px;">Kontrollarbeidet, i full bredde.</h1>
+        <h1 style="font-size:clamp(34px, 7vw, 52px);">Kontrollarbeidet, i full bredde.</h1>
         <p class="lead" style="margin:0 auto 24px; max-width:560px; font-size:19px;">Motoren kontrollerer 100&nbsp;% av transaksjonene — bilag, MVA, periodisering og avstemming. Det usikre flagges til gjennomgang. <strong>Prøv den under.</strong></p>
       </div>
 
@@ -96,7 +96,7 @@
 
           <div class="demo-stats" aria-live="polite">
             <div class="demo-stat"><div class="n" id="d-kontrollert">0</div><div class="l">Kontrollert</div></div>
-            <div class="demo-stat"><div class="n" id="d-gjennomgang" style="color:#9a6a00;">0</div><div class="l">Til gjennomgang</div></div>
+            <div class="demo-stat"><div class="n" id="d-gjennomgang" style="color:#8a5d00;">0</div><div class="l">Til gjennomgang</div></div>
             <div class="demo-stat"><div class="n" id="d-avvik" style="color:#c4231a;">0</div><div class="l">Avvik</div></div>
           </div>
 
