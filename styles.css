@@ -46,6 +46,12 @@ a { text-decoration: none; color: inherit; }
 .lift:hover { transform: translateY(-4px); box-shadow: 0 1px 2px rgba(0,0,0,.05), 0 18px 44px rgba(0,0,0,.10); }
 input:focus, textarea:focus { border-color: var(--accent) !important; }
 
+/* synlig tastatur-fokus (tilgjengelighet) */
+a:focus-visible, button:focus-visible, input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
 /* sekundærknapp («Gå til Revisjonsmotor») */
 .btn-outline {
   border: 1px solid rgba(0,0,0,.14); color: var(--ink); font-size: 14px; font-weight: 500;
@@ -118,9 +124,10 @@ h3 { font-size: 18px; font-weight: 600; letter-spacing: -0.018em; margin: 0 0 9p
   .nav-shell .btn-outline { display: none; }   /* «Gå til Revisjonsmotor» skjules på liten skjerm */
   .pill { padding: 9px 16px; }
 }
-/* Smal telefon: stable navn/firma-feltene i demo-skjemaet */
+/* Smal telefon: stable navn/firma-feltene i demo-skjemaet, skjul trust-skillestreker */
 @media (max-width: 520px) {
   #demo-form > div:first-child { grid-template-columns: 1fr !important; }
+  .trust-divider { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
