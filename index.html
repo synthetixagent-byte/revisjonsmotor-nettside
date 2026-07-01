@@ -3,351 +3,79 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="referrer" content="strict-origin-when-cross-origin">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; frame-ancestors 'none'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com; font-src 'self' https://cdn.jsdelivr.net https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; form-action 'self' mailto:">
-  <title>Revisjonsmotor — Automatiseringsmotor for norsk revisjon</title>
-  <meta name="description" content="Revisjonsmotor automatiserer kontrollarbeidet i norsk revisjon — henter data rett fra kildene og kontrollerer 100 % av transaksjonene: bilag, MVA, periodisering og avstemming. Det usikre flagges til gjennomgang. Data lagret i Norge.">
+  <meta name="robots" content="noindex">
+  <title>Revisjonsmotor</title>
+  <meta name="description" content="Revisjonsmotor — kommer snart.">
   <link rel="canonical" href="https://revisjonsmotor.no/">
   <meta name="theme-color" content="#0071e3">
-
-  <meta property="og:type" content="website">
-  <meta property="og:locale" content="nb_NO">
-  <meta property="og:site_name" content="Revisjonsmotor">
-  <meta property="og:title" content="Revisjonsmotor — automatiseringsmotor for norsk revisjon">
-  <meta property="og:description" content="Henter data rett fra kildene og kontrollerer 100 % av transaksjonene. Det usikre flagges til gjennomgang. Data lagret i Norge.">
-  <meta property="og:url" content="https://revisjonsmotor.no/">
-  <meta property="og:image" content="https://revisjonsmotor.no/og-image.png"><!-- TODO: delebilde 1200×630 -->
-  <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='%230071e3'/%3E%3Cpath d='M32 51 l12 12 l24-28' fill='none' stroke='white' stroke-width='9' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+  <style>
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: 'Inter', -apple-system, 'SF Pro Text', 'Segoe UI', Roboto, system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      color: #1d1d1f;
+      background: linear-gradient(165deg, #e6eeff 0%, #f3f8ff 55%, #eef5ff 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+      position: relative;
+    }
+    .glow {
+      position: absolute;
+      top: 42%; left: 50%;
+      width: 620px; height: 620px;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(0,113,227,.18), transparent 62%);
+      filter: blur(60px);
+      pointer-events: none;
+      animation: breathe 9s ease-in-out infinite;
+    }
+    @keyframes breathe { 0%,100% { opacity: .75; } 50% { opacity: 1; } }
+    .mark { width: 76px; height: 76px; color: #0071e3; margin-bottom: 26px; position: relative; }
+    .mark svg { width: 100%; height: 100%; display: block; overflow: visible; }
+    .word {
+      font-size: 34px; font-weight: 600; letter-spacing: -0.022em; color: #11131a;
+      position: relative; margin: 0;
+    }
+    .soon {
+      margin: 14px 0 0; font-size: 17px; font-weight: 400; color: #6e6e73;
+      letter-spacing: -0.005em; position: relative;
+    }
+    .foot {
+      position: absolute; bottom: 26px; left: 0; right: 0;
+      font-size: 12.5px; color: #9a9aa0;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .glow { animation: none; }
+    }
+  </style>
 </head>
 <body>
+  <div class="glow"></div>
 
-  <div id="page" style="min-height:100vh;">
-
-    <!-- ===================== HERO ===================== -->
-    <header id="hero" style="position:relative; overflow:hidden; background:linear-gradient(165deg,#e6eeff 0%,#f3f8ff 50%,#eef5ff 80%,#eef5ff 100%); --sx:50%; --sy:30%;">
-      <div class="blob" style="top:-150px; left:-70px; width:500px; height:500px; background:rgba(var(--accent-rgb),.26); filter:blur(95px); animation:aurora1 34s ease-in-out infinite;"></div>
-      <div class="blob" style="top:40px; right:-110px; width:460px; height:460px; background:rgba(90,166,255,.28); filter:blur(95px); animation:aurora2 40s ease-in-out infinite;"></div>
-      <div id="spotlight" style="position:absolute; inset:0; pointer-events:none; background:radial-gradient(var(--glow-size) circle at var(--sx) var(--sy), rgba(255,255,255,var(--glow-alpha)), transparent var(--glow-stop));"></div>
-
-      <nav style="position:relative; max-width:1200px; margin:18px auto 0; padding:18px 24px;">
-        <div class="nav-shell">
-          <a href="#hero" aria-label="Revisjonsmotor — til toppen" style="display:flex; align-items:center; gap:12px;">
-            <span style="width:33px; height:33px; color:var(--accent); display:inline-block;">
-              <svg viewBox="0 0 100 100" aria-hidden="true" style="width:100%; height:100%; display:block; overflow:visible;">
-                <path d="M 92.84 53.75 A 43 43 0 0 0 50.00 7.00" fill="none" stroke="currentColor" stroke-width="5"></path>
-                <path d="M 31.83 11.03 A 43 43 0 0 0 12.76 71.50" fill="none" stroke="currentColor" stroke-width="5"></path>
-                <path d="M 25.34 85.22 A 43 43 0 0 0 87.24 71.50" fill="none" stroke="currentColor" stroke-width="5"></path>
-                <path d="M 41.00 7.00 L 53.00 0.00 L 53.00 14.00 Z" fill="currentColor"></path>
-                <path d="M 17.26 79.29 L 5.20 72.40 L 17.32 65.40 Z" fill="currentColor"></path>
-                <path d="M 91.74 63.71 L 91.80 77.60 L 79.68 70.60 Z" fill="currentColor"></path>
-                <g fill="currentColor">
-                  <rect x="47" y="22" width="6" height="10" rx="1.3"></rect>
-                  <rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(36 50 50)"></rect>
-                  <rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(72 50 50)"></rect>
-                  <rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(108 50 50)"></rect>
-                  <rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(144 50 50)"></rect>
-                  <rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(180 50 50)"></rect>
-                  <rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(216 50 50)"></rect>
-                  <rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(252 50 50)"></rect>
-                  <rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(288 50 50)"></rect>
-                  <rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(324 50 50)"></rect>
-                </g>
-                <circle cx="50" cy="50" r="20" fill="currentColor"></circle>
-                <circle cx="50" cy="50" r="12.5" fill="#eef3fb"></circle>
-                <path d="M44.5 50 L48 53.5 L56 43.5" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
-              </svg>
-            </span>
-            <span style="font-size:20px; font-weight:700; letter-spacing:-0.022em;">Revisjonsmotor</span>
-          </a>
-          <div style="display:flex; align-items:center; gap:22px;">
-            <a class="nav-link nav-links-extra" href="#integrasjoner" style="font-size:14px; font-weight:500;">Integrasjoner</a>
-            <a class="nav-link nav-links-extra" href="slik-fungerer-det.html" style="font-size:14px; font-weight:500;">Slik fungerer det</a>
-            <a class="nav-link nav-links-extra" href="#trygghet" style="font-size:14px; font-weight:500;">Trygghet</a>
-            <!-- TODO: pek til den faktiske app-URL-en (f.eks. https://app.revisjonsmotor.no/) -->
-            <a class="btn-outline" href="https://app.revisjonsmotor.no/">Gå til Revisjonsmotor</a>
-            <a class="pill mag" href="#kontakt">Be om demo</a>
-          </div>
-        </div>
-      </nav>
-
-      <div style="position:relative; max-width:760px; margin:0 auto; padding:64px 24px 30px; text-align:center;">
-        <div style="color:var(--accent); font-size:14px; font-weight:600; letter-spacing:-0.005em; margin-bottom:var(--space-3);">Automatiseringsmotor for norsk revisjon</div>
-        <h1 style="font-size:clamp(34px, 7vw, 52px);">Kontrollarbeidet, i full bredde.</h1>
-        <p class="lead" style="margin:0 auto 24px; max-width:560px; font-size:19px;">Motoren kontrollerer 100&nbsp;% av transaksjonene — bilag, MVA, periodisering og avstemming. Det usikre flagges til gjennomgang. <strong>Prøv den under.</strong></p>
-      </div>
-
-      <!-- ===== Interaktiv demo (heroens midtpunkt) ===== -->
-      <div style="position:relative; padding:0 20px 80px;">
-        <div class="demo-card">
-          <div class="demo-head">
-            <div>
-              <div style="font-size:15.5px; font-weight:700;">Kontrolloversikt</div>
-              <div style="font-size:12.5px; color:var(--ink-mut);">Nordvik Eiendom AS · regnskapsår 2025 · <em>eksempeldata</em></div>
-            </div>
-            <button id="demo-run" class="demo-run" type="button">Kjør kontroll<i class="bi bi-play-fill"></i></button>
-          </div>
-
-          <div class="demo-stats" aria-live="polite">
-            <div class="demo-stat"><div class="n" id="d-kontrollert">0</div><div class="l">Kontrollert</div></div>
-            <div class="demo-stat"><div class="n" id="d-gjennomgang" style="color:#8a5d00;">0</div><div class="l">Til gjennomgang</div></div>
-            <div class="demo-stat"><div class="n" id="d-avvik" style="color:#c4231a;">0</div><div class="l">Avvik</div></div>
-          </div>
-
-          <div style="display:flex; align-items:center; gap:10px;">
-            <div class="demo-bar" style="flex:1;"><i id="d-bar"></i></div>
-            <div id="d-pct" style="font-size:12.5px; color:var(--ink-mut); width:62px; text-align:right;">0 %</div>
-          </div>
-          <div style="font-size:11.5px; color:var(--ink-mut); margin:5px 0 8px;">Dekning av populasjonen</div>
-
-          <div id="demo-rows"></div>
-
-          <div style="font-size:12px; color:var(--ink-mut); margin-top:12px; display:flex; align-items:center; gap:7px;"><i class="bi bi-shield-check" style="color:var(--ok-ink);"></i><span id="demo-footer">Trykk «Kjør kontroll» for å se motoren jobbe — ingen konklusjon uten bevis.</span></div>
-        </div>
-
-        <div style="text-align:center; margin-top:26px;">
-          <a class="mag btn-accent" href="#kontakt" style="background:var(--accent); color:#fff; font-size:16px; font-weight:500; padding:14px 28px; border-radius:980px; display:inline-flex; align-items:center; gap:9px; box-shadow:0 8px 30px rgba(var(--accent-rgb),.35);">Be om demo på dine egne tall<i class="bi bi-arrow-right"></i></a>
-        </div>
-      </div>
-    </header>
-
-    <!-- ===================== KONTROLLENE (kort) ===================== -->
-    <section id="kontroller" class="section" style="background:linear-gradient(180deg,#eef5ff,#f5f9ff);">
-      <div class="wrap">
-        <div style="text-align:center; max-width:680px; margin:0 auto 46px;">
-          <div class="eyebrow">Kontrollene</div>
-          <h2>Hele kontrollarbeidet, automatisert</h2>
-          <p class="lead" style="margin:0;">Motoren kjører kontrollene en revisor ellers gjør manuelt — på alle transaksjoner, ikke et utvalg. <a class="nav-link" href="slik-fungerer-det.html" style="color:var(--accent); font-weight:600;">Se i detalj hvordan den fungerer →</a></p>
-        </div>
-        <div class="grid-3">
-          <div class="glass-card lift"><div class="icon-tile"><i class="bi bi-receipt"></i></div><h3>Bilagskontroll</h3><p style="font-size:14.5px; line-height:1.5; color:#5a5a62; margin:0;">Leser hvert bilag og kontrollerer beløp, MVA-kode, konto og dato. Avvik over vesentlighetsgrensen flagges.</p></div>
-          <div class="glass-card lift"><div class="icon-tile"><i class="bi bi-percent"></i></div><h3>MVA-kontroll</h3><p style="font-size:14.5px; line-height:1.5; color:#5a5a62; margin:0;">Skyldig MVA, omsetning, inngående fradrag og betaling per termin — avstemt mot bokføring og Skatteetaten.</p></div>
-          <div class="glass-card lift"><div class="icon-tile"><i class="bi bi-arrow-left-right"></i></div><h3>Avstemming</h3><p style="font-size:14.5px; line-height:1.5; color:#5a5a62; margin:0;">Hver balansepost kontrolleres mot dokumentasjon — bank, fordringer, varelager, renteinntekt og mer.</p></div>
-          <div class="glass-card lift"><div class="icon-tile"><i class="bi bi-calendar-range"></i></div><h3>Periodisering</h3><p style="font-size:14.5px; line-height:1.5; color:#5a5a62; margin:0;">Kontrollerer at kostnader og inntekter er ført i riktig periode, og flagger det som ser feilperiodisert ut.</p></div>
-          <div class="glass-card lift"><div class="icon-tile"><i class="bi bi-graph-up-arrow"></i></div><h3>Analyse og vesentlighet</h3><p style="font-size:14.5px; line-height:1.5; color:#5a5a62; margin:0;">Beregner vesentlighet og arbeidsvesentlighet, og vurderer avvik mot grensen for ubetydelige feil.</p></div>
-          <div class="glass-card lift"><div class="icon-tile"><i class="bi bi-bank"></i></div><h3>Skatt og offentlige krav</h3><p style="font-size:14.5px; line-height:1.5; color:#5a5a62; margin:0;">Avstemmer skattemessig resultat og terminbetalinger mot skattemelding og Skatteetatens kontoutskrift.</p></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===================== MØRKT BAND: slik ser en kjøring ut ===================== -->
-    <section class="section dark-band" style="padding:84px 24px;">
-      <div class="blob" style="top:-100px; left:22%; width:460px; height:380px; background:radial-gradient(circle, rgba(var(--accent-rgb),.45), transparent 62%); filter:blur(50px);"></div>
-      <div class="wrap" style="position:relative;">
-        <div style="text-align:center; max-width:640px; margin:0 auto 44px;">
-          <div class="eyebrow" style="color:#5aa6ff;">Slik ser en kjøring ut</div>
-          <h2 style="color:#fff;">Hele populasjonen — på minutter</h2>
-          <p class="lead" style="color:rgba(255,255,255,.66); margin:0;">Et illustrativt eksempel på en kontrollkjøring. Motoren kontrollerer alt, og løfter kun det usikre til revisor.</p>
-        </div>
-        <div class="grid-4" style="max-width:860px; margin:0 auto;">
-          <div class="stat-big"><div class="n">100&nbsp;%</div><div class="l">av transaksjonene kontrollert</div></div>
-          <div class="stat-big"><div class="n">12&nbsp;480</div><div class="l">bilag kontrollert</div></div>
-          <div class="stat-big"><div class="n" style="color:#ffc23d;">24</div><div class="l">til gjennomgang</div></div>
-          <div class="stat-big"><div class="n" style="color:#ff6b61;">3</div><div class="l">avvik funnet</div></div>
-        </div>
-        <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:42px;">
-          <span class="badge-chip"><i class="bi bi-file-earmark-text" style="color:#5aa6ff;"></i>SAF-T</span>
-          <span class="badge-chip"><i class="bi bi-journal-check" style="color:#5aa6ff;"></i>Bokføringsloven</span>
-          <span class="badge-chip"><i class="bi bi-patch-check" style="color:#5aa6ff;"></i>ISA-standardene</span>
-          <span class="badge-chip"><i class="bi bi-geo-alt" style="color:#5aa6ff;"></i>Data i Norge/EØS</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===================== INTEGRASJONER ===================== -->
-    <section id="integrasjoner" class="section" style="background:linear-gradient(180deg,#f5f9ff 0%,#f3f8ff 100%); scroll-margin-top:20px;">
-      <div class="blob" style="top:-90px; right:8%; width:360px; height:360px; background:rgba(var(--accent-rgb),.14); filter:blur(95px);"></div>
-      <div class="wrap">
-        <div style="text-align:center; max-width:680px; margin:0 auto 46px;">
-          <div class="eyebrow">Integrasjoner</div>
-          <h2>Direkte API-tilgang til kildene</h2>
-          <p class="lead" style="margin:0;">Revisjonsmotor kobler seg rett på kildesystemene via API og henter dataene automatisk — uten manuell eksport eller filopplasting. Alt er kontrollerbart og fullt sporbart.</p>
-        </div>
-        <div class="grid-3" style="gap:34px 28px; max-width:940px; margin:0 auto;">
-          <div style="display:flex; align-items:center; gap:15px;"><div style="width:54px; height:54px; border-radius:14px; background:rgba(var(--accent-rgb),.10); display:flex; align-items:center; justify-content:center; flex:none;"><i class="bi bi-box-seam" style="font-size:24px; color:var(--accent);"></i></div><div><div style="font-size:16.5px; font-weight:600; color:#11131a;">Tripletex</div><div style="font-size:12.5px; color:var(--ink-mut); margin-top:3px;">Regnskapssystem</div></div></div>
-          <div style="display:flex; align-items:center; gap:15px;"><div style="width:54px; height:54px; border-radius:14px; background:rgba(var(--accent-rgb),.10); display:flex; align-items:center; justify-content:center; flex:none;"><i class="bi bi-building" style="font-size:24px; color:var(--accent);"></i></div><div><div style="font-size:16.5px; font-weight:600; color:#11131a;">PowerOffice</div><div style="font-size:12.5px; color:var(--ink-mut); margin-top:3px;">Regnskapssystem</div></div></div>
-          <div style="display:flex; align-items:center; gap:15px;"><div style="width:54px; height:54px; border-radius:14px; background:rgba(var(--accent-rgb),.10); display:flex; align-items:center; justify-content:center; flex:none;"><i class="bi bi-bank" style="font-size:24px; color:var(--accent);"></i></div><div><div style="font-size:16.5px; font-weight:600; color:#11131a;">Skatteetaten</div><div style="font-size:12.5px; color:var(--ink-mut); margin-top:3px;">MVA og skatt</div></div></div>
-          <div style="display:flex; align-items:center; gap:15px;"><div style="width:54px; height:54px; border-radius:14px; background:rgba(var(--accent-rgb),.10); display:flex; align-items:center; justify-content:center; flex:none;"><i class="bi bi-file-earmark-text" style="font-size:24px; color:var(--accent);"></i></div><div><div style="font-size:16.5px; font-weight:600; color:#11131a;">Altinn</div><div style="font-size:12.5px; color:var(--ink-mut); margin-top:3px;">Innrapportering</div></div></div>
-          <div style="display:flex; align-items:center; gap:15px;"><div style="width:54px; height:54px; border-radius:14px; background:rgba(var(--accent-rgb),.10); display:flex; align-items:center; justify-content:center; flex:none;"><i class="bi bi-journals" style="font-size:24px; color:var(--accent);"></i></div><div><div style="font-size:16.5px; font-weight:600; color:#11131a;">Brønnøysundregistrene</div><div style="font-size:12.5px; color:var(--ink-mut); margin-top:3px;">Foretaksdata</div></div></div>
-          <div style="display:flex; align-items:center; gap:15px;"><div style="width:54px; height:54px; border-radius:14px; background:rgba(var(--accent-rgb),.10); display:flex; align-items:center; justify-content:center; flex:none;"><i class="bi bi-truck" style="font-size:24px; color:var(--accent);"></i></div><div><div style="font-size:16.5px; font-weight:600; color:#11131a;">Statens vegvesen</div><div style="font-size:12.5px; color:var(--ink-mut); margin-top:3px;">Kjøretøydata</div></div></div>
-        </div>
-        <p style="text-align:center; font-size:13.5px; color:#78787e; margin:36px 0 0;">… og flere via standard SAF-T og åpne API-er.</p>
-      </div>
-    </section>
-
-    <!-- ===================== TEKNISK TRYGGHET ===================== -->
-    <section id="trygghet" class="section" style="background:linear-gradient(180deg,#eef4fd,#f7faff); padding:100px 40px;">
-      <div class="blob" style="top:-100px; right:6%; width:380px; height:380px; background:rgba(var(--accent-rgb),.16); filter:blur(90px);"></div>
-      <div class="blob" style="bottom:-120px; left:4%; width:360px; height:360px; background:rgba(52,199,89,.10); filter:blur(90px);"></div>
-      <div class="wrap">
-        <div style="text-align:center; max-width:640px; margin:0 auto 52px;">
-          <div class="eyebrow">Teknisk trygghet</div>
-          <h2>Bygget for tilliten revisjon krever</h2>
-          <p class="lead" style="margin:0;">Sikkerhet og etterprøvbarhet er en del av kontrollen — ikke et tillegg. Ingen konklusjon uten bevis.</p>
-        </div>
-        <div class="grid-3">
-          <div class="glass-card lift"><div class="icon-tile"><i class="bi bi-lock-fill"></i></div><h3>Kryptering</h3><p style="font-size:14.5px; line-height:1.5; color:#5a5a62; margin:0;">Plattformen bygges med kryptering i transport og i hvile, slik at regnskapsdata aldri håndteres ukryptert.</p></div>
-          <div class="glass-card lift"><div class="icon-tile"><i class="bi bi-geo-alt-fill"></i></div><h3>Data i Norge/EØS</h3><p style="font-size:14.5px; line-height:1.5; color:#5a5a62; margin:0;">Regnskapsdata skal lagres innenfor Norge/EØS, i tråd med GDPR og norsk personvern.</p></div>
-          <div class="glass-card lift"><div class="icon-tile"><i class="bi bi-clipboard2-check-fill"></i></div><h3>Fullt revisjonsspor</h3><p style="font-size:14.5px; line-height:1.5; color:#5a5a62; margin:0;">Hver kontroll logges med regel, kilde og beløp. Alt er etterprøvbart og klart for arbeidspapirene.</p></div>
-          <div class="glass-card lift"><div class="icon-tile"><i class="bi bi-person-badge-fill"></i></div><h3>Tilgangsstyring</h3><p style="font-size:14.5px; line-height:1.5; color:#5a5a62; margin:0;">Rollebasert tilgang er en del av designet — hver bruker skal kun se klientene de har tilgang til.</p></div>
-          <div class="glass-card lift"><div class="icon-tile"><i class="bi bi-journal-check"></i></div><h3>Bygget på ISA</h3><p style="font-size:14.5px; line-height:1.5; color:#5a5a62; margin:0;">Kontrollene bygger på ISA-standardene og norsk bokføringslov, slik at dokumentasjonen er revisjonsklar.</p></div>
-          <div class="glass-card lift"><div class="icon-tile"><i class="bi bi-shield-check"></i></div><h3>Ingen konklusjon uten bevis</h3><p style="font-size:14.5px; line-height:1.5; color:#5a5a62; margin:0;">Det usikre flagges «til gjennomgang» — aldri som falske avvik. Tillit bygges på presisjon.</p></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===================== KONTAKT ===================== -->
-    <section id="kontakt" class="section" style="background:#0b0f1a; color:#fff; scroll-margin-top:20px;">
-      <div class="blob" style="top:-120px; left:30%; width:480px; height:420px; background:radial-gradient(circle, rgba(var(--accent-rgb),.4), transparent 62%); filter:blur(40px);"></div>
-      <div style="position:relative; max-width:560px; margin:0 auto; text-align:center;">
-        <h2 style="color:#fff;">Se motoren på dine egne tall</h2>
-        <p class="lead" style="color:rgba(255,255,255,.68); margin:0 0 32px;">Book en demo på 30 minutter. Vi kjører en kontroll på et anonymisert datasett.</p>
-        <!-- TODO før lansering: koble skjemaet til et ekte endepunkt (egen API / Formspree e.l.). -->
-        <form id="demo-form" style="background:rgba(255,255,255,.08); backdrop-filter:blur(var(--blur)); -webkit-backdrop-filter:blur(var(--blur)); border:1px solid rgba(255,255,255,.16); border-radius:22px; padding:30px; box-shadow:0 1px 2px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.18); text-align:left; display:flex; flex-direction:column; gap:14px;">
-          <!-- honeypot: skjult for mennesker, fanger bots -->
-          <input type="text" name="firmanavn_bekreft" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute; left:-9999px; width:1px; height:1px; opacity:0;">
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
-            <input name="navn" required autocomplete="name" aria-label="Navn" placeholder="Navn" style="width:100%; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.18); border-radius:11px; padding:12px 14px; font-size:14.5px; font-family:inherit; color:#fff; outline:none;">
-            <input name="firma" required autocomplete="organization" aria-label="Firma" placeholder="Firma" style="width:100%; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.18); border-radius:11px; padding:12px 14px; font-size:14.5px; font-family:inherit; color:#fff; outline:none;">
-          </div>
-          <input name="epost" required type="email" autocomplete="email" aria-label="Jobb-e-post" placeholder="Jobb-e-post" style="width:100%; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.18); border-radius:11px; padding:12px 14px; font-size:14.5px; font-family:inherit; color:#fff; outline:none;">
-          <button class="btn-accent" type="submit" style="background:var(--accent); color:#fff; font-size:15.5px; font-weight:500; padding:14px; border:none; border-radius:980px; cursor:pointer; font-family:inherit; display:flex; align-items:center; justify-content:center; gap:9px;">Be om demo<i class="bi bi-arrow-right"></i></button>
-        </form>
-        <div style="display:flex; align-items:center; justify-content:center; gap:26px; flex-wrap:wrap; font-size:14.5px; color:rgba(255,255,255,.6); margin-top:26px;">
-          <span style="display:flex; align-items:center; gap:8px;"><i class="bi bi-envelope" style="color:#5aa6ff;"></i><a href="mailto:info@revisjonsmotor.no" style="color:inherit;">info@revisjonsmotor.no</a></span>
-        </div>
-      </div>
-      <div style="position:relative; max-width:1080px; margin:54px auto 0; padding-top:26px; border-top:1px solid rgba(255,255,255,.12); display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap;">
-        <div style="display:flex; align-items:center; gap:10px;">
-          <span style="width:22px; height:22px; color:#fff; display:inline-block;">
-            <svg viewBox="0 0 100 100" aria-hidden="true" style="width:100%; height:100%; display:block; overflow:visible;">
-              <path d="M 92.84 53.75 A 43 43 0 0 0 50.00 7.00" fill="none" stroke="currentColor" stroke-width="5"></path>
-              <path d="M 31.83 11.03 A 43 43 0 0 0 12.76 71.50" fill="none" stroke="currentColor" stroke-width="5"></path>
-              <path d="M 25.34 85.22 A 43 43 0 0 0 87.24 71.50" fill="none" stroke="currentColor" stroke-width="5"></path>
-              <circle cx="50" cy="50" r="20" fill="currentColor"></circle>
-              <circle cx="50" cy="50" r="12.5" fill="#0b0f1a"></circle>
-              <path d="M44.5 50 L48 53.5 L56 43.5" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg>
-          </span>
-          <span style="font-size:14.5px; font-weight:600; letter-spacing:-0.02em;">Revisjonsmotor</span>
-        </div>
-        <nav class="footer-legal" style="display:flex; gap:22px; flex-wrap:wrap; font-size:13.5px;">
-          <a href="personvern.html">Personvernerklæring</a>
-          <a href="vilkar.html">Vilkår for bruk</a>
-          <a href="databehandleravtale.html">Databehandleravtale</a>
-          <a href="systemsikkerhet.html">Systemsikkerhet</a>
-        </nav>
-        <div style="font-size:13px; color:rgba(255,255,255,.45);">© 2026 Revisjonsmotor AS · Ingen konklusjon uten bevis.</div>
-      </div>
-    </section>
-
+  <div class="mark">
+    <svg viewBox="0 0 100 100" aria-hidden="true">
+      <path d="M 92.84 53.75 A 43 43 0 0 0 50.00 7.00" fill="none" stroke="currentColor" stroke-width="5"></path>
+      <path d="M 31.83 11.03 A 43 43 0 0 0 12.76 71.50" fill="none" stroke="currentColor" stroke-width="5"></path>
+      <path d="M 25.34 85.22 A 43 43 0 0 0 87.24 71.50" fill="none" stroke="currentColor" stroke-width="5"></path>
+      <circle cx="50" cy="50" r="20" fill="currentColor"></circle>
+      <circle cx="50" cy="50" r="12.5" fill="#eef3fb"></circle>
+      <path d="M44.5 50 L48 53.5 L56 43.5" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
+    </svg>
   </div>
 
-  <script>
-    (function () {
-      var hero = document.getElementById('hero');
-      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (hero && !reduce) {
-        var raf = 0;
-        window.addEventListener('pointermove', function (e) {
-          if (raf) return;
-          raf = requestAnimationFrame(function () {
-            raf = 0;
-            var r = hero.getBoundingClientRect();
-            if (r.bottom < 0 || r.top > window.innerHeight) return;   // musa er utenfor heroen
-            hero.style.setProperty('--sx', (((e.clientX - r.left) / r.width) * 100).toFixed(2) + '%');
-            hero.style.setProperty('--sy', (((e.clientY - r.top) / r.height) * 100).toFixed(2) + '%');
-          });
-        }, { passive: true });
-      }
-      var form = document.getElementById('demo-form');
-      if (form) {
-        form.addEventListener('submit', function (e) {
-          e.preventDefault();
-          if (form.firmanavn_bekreft && form.firmanavn_bekreft.value) return;   // honeypot utfylt → bot, ignorer
-          if (!form.reportValidity()) return;
-          // Ingen backend ennå: åpne en EKTE e-post i stedet for å foregi at noe er sendt.
-          // TODO: bytt til et reelt endepunkt (Formspree e.l.) og vis bekreftelse FØRST når serveren svarer.
-          var firma = form.firma.value;
-          var body = 'Navn: ' + form.navn.value + '\nFirma: ' + firma + '\nE-post: ' + form.epost.value + '\n\nØnsker en demo av Revisjonsmotor.';
-          window.location.href = 'mailto:info@revisjonsmotor.no?subject=' + encodeURIComponent('Demo-forespørsel — ' + firma) + '&body=' + encodeURIComponent(body);
-          form.innerHTML =
-            '<div style="text-align:center; padding:22px 0; color:#fff;">' +
-            '<i class="bi bi-envelope-check" style="font-size:32px; color:#34c759;"></i>' +
-            '<div style="font-size:17px; font-weight:600; margin-top:12px;">Åpner e-posten din …</div>' +
-            '<div style="font-size:14px; color:rgba(255,255,255,.6); margin-top:6px;">Kommer den ikke opp, send oss gjerne en e-post på <a href="mailto:info@revisjonsmotor.no" style="color:#5aa6ff;">info@revisjonsmotor.no</a>.</div>' +
-            '</div>';
-        });
-      }
+  <h1 class="word">Revisjonsmotor</h1>
+  <p class="soon">Kommer snart.</p>
 
-      // ===== Interaktiv «Prøv motoren»-demo =====
-      var RUN = document.getElementById('demo-run');
-      var ROWS = document.getElementById('demo-rows');
-      if (RUN && ROWS) {
-        var data = [
-          { id: '1042', name: 'Husleie kontor',          sub: 'Konto 6300 · 31.01.2025', amount: '48 500',  st: 'ok',     label: 'Stemmer' },
-          { id: '1043', name: 'Strøm',                   sub: 'Konto 6340 · 31.01.2025', amount: '7 210',   st: 'ok',     label: 'Stemmer' },
-          { id: '1051', name: 'Konsulent fra utlandet',  sub: 'Konto 6700 · 14.02.2025', amount: '92 000',  st: 'review', label: 'Til gjennomgang' },
-          { id: '1067', name: 'Representasjon',          sub: 'Konto 7350 · 20.02.2025', amount: '3 980',   st: 'review', label: 'Til gjennomgang' },
-          { id: '1078', name: 'Varekjøp',                sub: 'Konto 4300 · 28.02.2025', amount: '121 400', st: 'ok',     label: 'Stemmer' },
-          { id: '1090', name: 'Innkjøp uten bilag',      sub: 'Konto 6790 · 05.03.2025', amount: '12 760',  st: 'avvik',  label: 'Avvik' },
-          { id: '1112', name: 'Forsikring',              sub: 'Konto 7500 · 31.03.2025', amount: '18 900',  st: 'ok',     label: 'Stemmer' }
-        ];
-        var bar = document.getElementById('d-bar'), pct = document.getElementById('d-pct'),
-            cK = document.getElementById('d-kontrollert'), cG = document.getElementById('d-gjennomgang'),
-            cA = document.getElementById('d-avvik'), foot = document.getElementById('demo-footer');
-        var timer = null;
-
-        function render() {
-          ROWS.innerHTML = data.map(function (r, i) {
-            return '<div class="demo-row" id="row-' + i + '">' +
-              '<div style="min-width:0;"><span style="font-weight:600;">Bilag ' + r.id + '</span> <span style="color:var(--ink-mut);">· ' + r.name + '</span>' +
-              '<div style="font-size:12px; color:var(--ink-mut);">' + r.sub + '</div></div>' +
-              '<div style="display:flex; align-items:center; gap:12px;"><span class="status pending" id="pill-' + i + '"><span class="dot"></span>Venter</span>' +
-              '<span style="font-weight:600; white-space:nowrap; min-width:92px; text-align:right;">kr ' + r.amount + '</span></div></div>';
-          }).join('');
-        }
-        function reset() {
-          if (timer) { clearInterval(timer); timer = null; }
-          render();
-          cK.textContent = '0'; cG.textContent = '0'; cA.textContent = '0';
-          bar.style.width = '0%'; pct.textContent = '0 %';
-          foot.textContent = 'Trykk «Kjør kontroll» for å se motoren jobbe — ingen konklusjon uten bevis.';
-        }
-        function run() {
-          reset();
-          RUN.disabled = true; RUN.innerHTML = 'Kjører … <i class="bi bi-arrow-repeat"></i>';
-          var i = 0, k = 0, g = 0, a = 0;
-          timer = setInterval(function () {
-            if (i >= data.length) {
-              clearInterval(timer); timer = null;
-              RUN.disabled = false; RUN.innerHTML = 'Kjør på nytt <i class="bi bi-arrow-repeat"></i>';
-              foot.textContent = 'Ferdig — ' + k + ' kontrollert, ' + g + ' til gjennomgang, ' + a + ' avvik flagget til revisor.';
-              return;
-            }
-            var r = data[i];
-            document.getElementById('row-' + i).classList.add('done');
-            var pill = document.getElementById('pill-' + i);
-            pill.className = 'status ' + r.st;
-            pill.innerHTML = '<span class="dot"></span>' + r.label;
-            k++; if (r.st === 'review') g++; if (r.st === 'avvik') a++;
-            cK.textContent = k; cG.textContent = g; cA.textContent = a;
-            var p = Math.round(((i + 1) / data.length) * 100);
-            bar.style.width = p + '%'; pct.textContent = p + ' %';
-            i++;
-          }, 320);
-        }
-        render();
-        RUN.addEventListener('click', run);
-      }
-    })();
-  </script>
-
+  <div class="foot">© 2026 Revisjonsmotor AS</div>
 </body>
 </html>
