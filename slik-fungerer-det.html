@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Slik fungerer Revisjonsmotor — kontrollene forklart</title>
+  <title>Slik fungerer Revisjonsmotor: kontrollene forklart</title>
   <meta name="description" content="Detaljert forklaring av hvordan Revisjonsmotor henter data fra kildene, leser dokumenter med AI og kontrollerer 100 % av transaksjonene deterministisk: bilag, MVA, avstemming, periodisering, vesentlighet og etterprøvbarhet.">
   <link rel="canonical" href="https://revisjonsmotor.no/slik-fungerer-det.html">
   <meta name="theme-color" content="#0071e3">
@@ -11,7 +11,7 @@
   <meta property="og:locale" content="nb_NO">
   <meta property="og:site_name" content="Revisjonsmotor">
   <meta property="og:title" content="Slik fungerer Revisjonsmotor">
-  <meta property="og:description" content="AI leser dokumentene, koden kontrollerer tallene. Slik kontrollerer motoren 100 % av transaksjonene — etterprøvbart. Ingen konklusjon uten bevis.">
+  <meta property="og:description" content="AI leser dokumentene, koden kontrollerer tallene. Slik kontrollerer motoren 100 % av transaksjonene, etterprøvbart. Ingen konklusjon uten bevis.">
   <meta property="og:url" content="https://revisjonsmotor.no/slik-fungerer-det.html">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='%230071e3'/%3E%3Cpath d='M32 51 l12 12 l24-28' fill='none' stroke='white' stroke-width='9' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -39,16 +39,9 @@
 
     <nav style="position:relative; max-width:1200px; margin:18px auto 0; padding:18px 24px;">
       <div class="nav-shell">
-        <a href="index.html" aria-label="Revisjonsmotor — forsiden" style="display:flex; align-items:center; gap:12px;">
+        <a href="index.html" aria-label="Revisjonsmotor, forsiden" style="display:flex; align-items:center; gap:12px;">
           <span style="width:33px; height:33px; color:var(--accent); display:inline-block;">
-            <svg viewBox="0 0 100 100" aria-hidden="true" style="width:100%; height:100%; display:block; overflow:visible;">
-              <path d="M 92.84 53.75 A 43 43 0 0 0 50.00 7.00" fill="none" stroke="currentColor" stroke-width="5"></path>
-              <path d="M 31.83 11.03 A 43 43 0 0 0 12.76 71.50" fill="none" stroke="currentColor" stroke-width="5"></path>
-              <path d="M 25.34 85.22 A 43 43 0 0 0 87.24 71.50" fill="none" stroke="currentColor" stroke-width="5"></path>
-              <circle cx="50" cy="50" r="20" fill="currentColor"></circle>
-              <circle cx="50" cy="50" r="12.5" fill="#eef3fb"></circle>
-              <path d="M44.5 50 L48 53.5 L56 43.5" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg>
+            <svg viewBox="0 0 100 100" aria-hidden="true" style="width:100%; height:100%; display:block; overflow:visible;"><g class="rm-orbit"><path d="M 92.84 53.75 A 43 43 0 0 0 50 7" fill="none" stroke="currentColor" stroke-width="5"/><path d="M 31.83 11.03 A 43 43 0 0 0 12.76 71.5" fill="none" stroke="currentColor" stroke-width="5"/><path d="M 25.34 85.22 A 43 43 0 0 0 87.24 71.5" fill="none" stroke="currentColor" stroke-width="5"/><path d="M 41 7 L 53 0 L 53 14 Z" fill="currentColor"/><path d="M 17.26 79.29 L 5.2 72.4 L 17.32 65.4 Z" fill="currentColor"/><path d="M 91.74 63.71 L 91.8 77.6 L 79.68 70.6 Z" fill="currentColor"/></g><g fill="currentColor"><rect x="47" y="22" width="6" height="10" rx="1.3"/><rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(36 50 50)"/><rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(72 50 50)"/><rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(108 50 50)"/><rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(144 50 50)"/><rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(180 50 50)"/><rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(216 50 50)"/><rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(252 50 50)"/><rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(288 50 50)"/><rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(324 50 50)"/></g><circle cx="50" cy="50" r="20" fill="currentColor"/><circle cx="50" cy="50" r="12.5" fill="#eef3fb"/><path d="M44.5 52 L48 55.5 L56 45.5" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </span>
           <span style="font-size:20px; font-weight:700; letter-spacing:-0.022em;">Revisjonsmotor</span>
         </a>
@@ -64,7 +57,7 @@
     <div class="doc" style="position:relative; padding:74px 24px 64px; text-align:center;">
       <div class="eyebrow">Slik fungerer det</div>
       <h1 style="font-size:52px;">Hvordan motoren kontrollerer</h1>
-      <p class="lead" style="font-size:19px; max-width:620px; margin:0 auto;">En åpen forklaring av hva Revisjonsmotor gjør, steg for steg — fra den henter dataene til den leverer en etterprøvbar konklusjon. Denne siden oppdateres løpende etter hvert som motoren utvides.</p>
+      <p class="lead" style="font-size:19px; max-width:620px; margin:0 auto;">En åpen forklaring av hva Revisjonsmotor gjør, steg for steg, fra den henter dataene til den leverer en etterprøvbar konklusjon. Denne siden oppdateres løpende etter hvert som motoren utvides.</p>
       <div class="anchor-nav" style="display:flex; gap:18px; justify-content:center; flex-wrap:wrap; margin-top:26px;">
         <a href="#prinsipp">Prinsippet</a><a href="#data">Datakilder</a><a href="#kontroller">Kontrollene</a><a href="#vesentlighet">Vesentlighet</a><a href="#etterprovbar">Etterprøvbarhet</a>
       </div>
@@ -76,12 +69,12 @@
     <div class="doc">
       <div class="eyebrow">Prinsippet</div>
       <h2>AI leser. Koden kontrollerer.</h2>
-      <p>Revisjonsmotor er bygget på ett enkelt skille som er avgjørende for tilliten: <strong>kunstig intelligens brukes kun til å lese</strong> — å forstå et ustrukturert dokument og hente ut tallene som står der — mens <strong>selve kontrollen gjøres deterministisk i kode</strong>. Datoer, beløp, summer og sammenligninger regnes ut av regler som gir samme svar hver gang, ikke av en språkmodell.</p>
-      <p>Det betyr at en faktura, en bankavstemming eller en MVA-oppstilling leses av AI og gjøres om til strukturerte tall — men spørsmålet «stemmer dette?» avgjøres av etterprøvbar logikk mot kilden. Klarer ikke AI å lese et tall sikkert, antar den ingenting: posten flagges «til gjennomgang». Motoren produserer aldri et grønt «stemmer» uten at det faktisk er bekreftet mot et tall.</p>
+      <p>Revisjonsmotor er bygget på ett enkelt skille som er avgjørende for tilliten: <strong>kunstig intelligens brukes kun til å lese</strong>, å forstå et ustrukturert dokument og hente ut tallene som står der, mens <strong>selve kontrollen gjøres deterministisk i kode</strong>. Datoer, beløp, summer og sammenligninger regnes ut av regler som gir samme svar hver gang, ikke av en språkmodell.</p>
+      <p>Det betyr at en faktura, en bankavstemming eller en MVA-oppstilling leses av AI og gjøres om til strukturerte tall, men spørsmålet «stemmer dette?» avgjøres av etterprøvbar logikk mot kilden. Klarer ikke AI å lese et tall sikkert, antar den ingenting: posten flagges «til gjennomgang». Motoren produserer aldri et grønt «stemmer» uten at det faktisk er bekreftet mot et tall.</p>
       <div class="grid-3" style="margin-top:34px;">
-        <div class="glass-card lift"><div class="icon-tile"><i class="bi bi-eye"></i></div><h3>AI leser</h3><p style="font-size:14.5px; line-height:1.5; color:#5a5a62; margin:0;">Forstår ustrukturerte dokumenter — faktura-PDF, bankutskrift, avstemming i Excel — og henter ut beløp, datoer og parter.</p></div>
-        <div class="glass-card lift"><div class="icon-tile"><i class="bi bi-cpu"></i></div><h3>Koden kontrollerer</h3><p style="font-size:14.5px; line-height:1.5; color:#5a5a62; margin:0;">Regler regner ut og sammenligner mot bokføringen. Samme inndata gir alltid samme svar — fullt etterprøvbart.</p></div>
-        <div class="glass-card lift"><div class="icon-tile"><i class="bi bi-flag"></i></div><h3>Ingen konklusjon uten bevis</h3><p style="font-size:14.5px; line-height:1.5; color:#5a5a62; margin:0;">Det usikre flagges til revisor — aldri stemplet grønt på antakelser. Revisor konkluderer.</p></div>
+        <div class="glass-card lift"><div class="icon-tile"><i class="bi bi-eye"></i></div><h3>AI leser</h3><p style="font-size:14.5px; line-height:1.5; color:#5a5a62; margin:0;">Forstår ustrukturerte dokumenter som faktura-PDF, bankutskrift og avstemming i Excel, og henter ut beløp, datoer og parter.</p></div>
+        <div class="glass-card lift"><div class="icon-tile"><i class="bi bi-cpu"></i></div><h3>Koden kontrollerer</h3><p style="font-size:14.5px; line-height:1.5; color:#5a5a62; margin:0;">Regler regner ut og sammenligner mot bokføringen. Samme inndata gir alltid samme svar, fullt etterprøvbart.</p></div>
+        <div class="glass-card lift"><div class="icon-tile"><i class="bi bi-flag"></i></div><h3>Ingen konklusjon uten bevis</h3><p style="font-size:14.5px; line-height:1.5; color:#5a5a62; margin:0;">Det usikre flagges til revisor, aldri stemplet grønt på antakelser. Revisor konkluderer.</p></div>
       </div>
     </div>
   </section>
@@ -91,11 +84,11 @@
     <div class="doc">
       <div class="eyebrow">Datakilder</div>
       <h2>Dataene hentes rett fra kilden</h2>
-      <p>Motoren henter regnskapsdataene direkte fra kildesystemene — enten via <strong>API</strong> (kontinuerlig og automatisk) eller via en <strong>SAF-T-fil</strong> (Skatteetatens standardformat for regnskapsdata). Alle kilder normaliseres til én felles datamodell, slik at kontrollene fungerer likt uansett hvor dataene kommer fra.</p>
+      <p>Motoren henter regnskapsdataene direkte fra kildesystemene, enten via <strong>API</strong> (kontinuerlig og automatisk) eller via en <strong>SAF-T-fil</strong> (Skatteetatens standardformat for regnskapsdata). Alle kilder normaliseres til én felles datamodell, slik at kontrollene fungerer likt uansett hvor dataene kommer fra.</p>
       <p>Fordelen med direkte tilkobling er at revisor slipper manuell eksport og opplasting, at dataene alltid er ferske, og at hele veien fra kilde til konklusjon er sporbar. Bilag og dokumentasjon kan også lastes opp manuelt der en kilde ikke har API.</p>
       <div class="glass-card" style="margin-top:30px;">
         <div class="grid-2" style="gap:14px 30px;">
-          <div style="display:flex; gap:12px; align-items:flex-start;"><i class="bi bi-box-seam" style="color:var(--accent); font-size:20px; margin-top:2px;"></i><div><strong>Regnskapssystem</strong><div style="font-size:14px; color:#5a5a62;">Tripletex, PowerOffice m.fl. — hovedbok, bilag og saldobalanse.</div></div></div>
+          <div style="display:flex; gap:12px; align-items:flex-start;"><i class="bi bi-box-seam" style="color:var(--accent); font-size:20px; margin-top:2px;"></i><div><strong>Regnskapssystem</strong><div style="font-size:14px; color:#5a5a62;">Tripletex, PowerOffice m.fl. Henter hovedbok, bilag og saldobalanse.</div></div></div>
           <div style="display:flex; gap:12px; align-items:flex-start;"><i class="bi bi-bank" style="color:var(--accent); font-size:20px; margin-top:2px;"></i><div><strong>Skatteetaten</strong><div style="font-size:14px; color:#5a5a62;">MVA-meldinger, kontoutskrift og skatteoppgjør.</div></div></div>
           <div style="display:flex; gap:12px; align-items:flex-start;"><i class="bi bi-journals" style="color:var(--accent); font-size:20px; margin-top:2px;"></i><div><strong>Brønnøysundregistrene</strong><div style="font-size:14px; color:#5a5a62;">Foretaksdata, roller og org.nr.-oppslag.</div></div></div>
           <div style="display:flex; gap:12px; align-items:flex-start;"><i class="bi bi-file-earmark-arrow-down" style="color:var(--accent); font-size:20px; margin-top:2px;"></i><div><strong>SAF-T</strong><div style="font-size:14px; color:#5a5a62;">Standardformat som dekker systemene uten direkte API.</div></div></div>
@@ -109,12 +102,12 @@
     <div class="doc">
       <div class="eyebrow">Kontrollene</div>
       <h2>Hva motoren faktisk kontrollerer</h2>
-      <p>Motoren kontrollerer <strong>100 % av transaksjonene</strong> — ikke et tilfeldig utvalg. Under er de viktigste kontrollene forklart. Hver av dem ender med én av tre tilstander: <em>stemmer</em> (bekreftet mot kilde), <em>kontroller</em> (avvik over grensen — til revisor), eller <em>mangler dokumentasjon</em>.</p>
+      <p>Motoren kontrollerer <strong>100 % av transaksjonene</strong>, ikke et tilfeldig utvalg. Under er de viktigste kontrollene forklart. Hver av dem ender med én av tre tilstander: <em>stemmer</em> (bekreftet mot kilde), <em>kontroller</em> (avvik over grensen går til revisor), eller <em>mangler dokumentasjon</em>.</p>
 
       <!-- Bilagskontroll -->
       <div class="glass-card" style="margin-top:30px;">
         <h3 style="font-size:21px;"><i class="bi bi-receipt" style="color:var(--accent); margin-right:8px;"></i>Bilagskontroll</h3>
-        <p style="margin:8px 0 0;">Hvert bilag leses og kontrolleres mot bokføringen: stemmer beløpet, er riktig MVA-kode brukt, er det ført på en konto som passer kjøpet, og er datoen rimelig? Avvik vurderes mot vesentlighetsgrensen — ubetydelige avvik godkjennes automatisk, mens det vesentlige flagges. Fremmed valuta håndteres ved at dokumentets egen omregning til NOK brukes, slik at kursdifferanser ikke gir falske avvik.</p>
+        <p style="margin:8px 0 0;">Hvert bilag leses og kontrolleres mot bokføringen: stemmer beløpet, er riktig MVA-kode brukt, er det ført på en konto som passer kjøpet, og er datoen rimelig? Avvik vurderes mot vesentlighetsgrensen. Ubetydelige avvik godkjennes automatisk, mens det vesentlige flagges. Fremmed valuta håndteres ved at dokumentets egen omregning til NOK brukes, slik at kursdifferanser ikke gir falske avvik.</p>
       </div>
 
       <!-- MVA -->
@@ -122,10 +115,10 @@
         <h3 style="font-size:21px;"><i class="bi bi-percent" style="color:var(--accent); margin-right:8px;"></i>MVA-kontroll</h3>
         <p style="margin:8px 0 18px;">MVA kontrolleres i fire trinn, hver avstemt mot en uavhengig kilde:</p>
         <div style="display:flex; flex-direction:column; gap:16px;">
-          <div class="step"><div class="step-no">1</div><div><strong>Skyldig MVA</strong> — bokført på oppgjørskontoen (2740) avstemmes mot skyldig MVA for siste termin i regnskapsførers MVA-avstemming, og kryssjekkes i tillegg mot terminoppgaven.</div></div>
-          <div class="step"><div class="step-no">2</div><div><strong>Omsetning</strong> — bokført omsetning sammenlignes mot avstemmingen, fordelt på avgiftspliktig, avgiftsfri og omsetning utenfor avgiftsområdet. Omsetning ført på feil kontoserie fanges opp.</div></div>
-          <div class="step"><div class="step-no">3</div><div><strong>Inngående fradrag</strong> — en fornuftighetsvurdering: de bokførte fradragsberettigede kostnadene summeres (med innførsel og omvendt avgiftsplikt holdt utenfor) og sammenlignes med fradragsgrunnlaget i avstemmingen.</div></div>
-          <div class="step"><div class="step-no">4</div><div><strong>Betaling per termin</strong> — Skatteetatens kontoutskrift leses, og hver av de seks terminene kontrolleres for om den er betalt innen forfall.</div></div>
+          <div class="step"><div class="step-no">1</div><div><strong>Skyldig MVA:</strong> bokført på oppgjørskontoen (2740) avstemmes mot skyldig MVA for siste termin i regnskapsførers MVA-avstemming, og kryssjekkes i tillegg mot terminoppgaven.</div></div>
+          <div class="step"><div class="step-no">2</div><div><strong>Omsetning:</strong> bokført omsetning sammenlignes mot avstemmingen, fordelt på avgiftspliktig, avgiftsfri og omsetning utenfor avgiftsområdet. Omsetning ført på feil kontoserie fanges opp.</div></div>
+          <div class="step"><div class="step-no">3</div><div><strong>Inngående fradrag:</strong> en fornuftighetsvurdering: de bokførte fradragsberettigede kostnadene summeres (med innførsel og omvendt avgiftsplikt holdt utenfor) og sammenlignes med fradragsgrunnlaget i avstemmingen.</div></div>
+          <div class="step"><div class="step-no">4</div><div><strong>Betaling per termin:</strong> Skatteetatens kontoutskrift leses, og hver av de seks terminene kontrolleres for om den er betalt innen forfall.</div></div>
         </div>
       </div>
 
@@ -158,7 +151,7 @@
     <div class="doc" style="position:relative;">
       <div class="eyebrow">Etterprøvbarhet</div>
       <h2 style="color:#fff;">Hver konklusjon kan etterprøves</h2>
-      <p style="color:rgba(255,255,255,.74);">Et revisjonsverktøy er bare så godt som sporet det etterlater. Hver kontroll logges med <strong style="color:#fff;">regel, kilde og beløp</strong> — hvilken kontroll som ble kjørt, mot hvilket tall, og med hvilket resultat. Dokumentasjonen er bygget for å gå rett inn i arbeidspapirene, og «grønt» betyr alltid <em>faktisk bekreftet mot en kilde</em>, aldri en antakelse. Sikkerheten er en del av kontrollen: plattformen bygges med kryptering i transport og i hvile, lagring innenfor Norge/EØS, og rollebasert tilgang slik at hver bruker kun ser sine klienter.</p>
+      <p style="color:rgba(255,255,255,.74);">Et revisjonsverktøy er bare så godt som sporet det etterlater. Hver kontroll logges med <strong style="color:#fff;">regel, kilde og beløp</strong>: hvilken kontroll som ble kjørt, mot hvilket tall, og med hvilket resultat. Dokumentasjonen er bygget for å gå rett inn i arbeidspapirene, og «grønt» betyr alltid <em>faktisk bekreftet mot en kilde</em>, aldri en antakelse. Sikkerheten er en del av kontrollen: plattformen bygges med kryptering i transport og i hvile, lagring innenfor Norge/EØS, og rollebasert tilgang slik at hver bruker kun ser sine klienter.</p>
       <div style="margin-top:30px; display:flex; gap:13px; flex-wrap:wrap;">
         <a class="mag btn-accent" href="index.html#kontakt" style="background:var(--accent); color:#fff; font-size:15.5px; font-weight:500; padding:13px 26px; border-radius:980px; display:inline-flex; align-items:center; gap:9px;">Be om demo<i class="bi bi-arrow-right"></i></a>
         <a class="btn-outline" href="index.html" style="background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.2); color:#fff;">Tilbake til forsiden</a>

@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Revisjonsmotor for Tripletex — automatisk revisjonskontroll</title>
-  <meta name="description" content="Revisjonsmotor kobler seg direkte til Tripletex og henter kontoplan, bilag, posteringer og MVA-koder automatisk. Kontrollene kjører på 100 % av transaksjonene. Utelukkende lesetilgang — vi skriver aldri tilbake til regnskapet.">
+  <title>Revisjonsmotor for Tripletex: automatisk revisjonskontroll</title>
+  <meta name="description" content="Revisjonsmotor kobler seg direkte til Tripletex og henter kontoplan, bilag, posteringer og MVA-koder automatisk. Kontrollene kjører på 100 % av transaksjonene. Utelukkende lesetilgang. Vi skriver aldri tilbake til regnskapet.">
   <link rel="canonical" href="https://revisjonsmotor.no/tripletex.html">
   <meta name="theme-color" content="#0071e3">
   <meta property="og:type" content="article">
@@ -22,7 +22,7 @@
   <style>
     .doc { max-width: 900px; margin: 0 auto; }
     .doc p { font-size: 16.5px; line-height: 1.62; color: var(--ink-soft); }
-    /* Tripletex' logo skal ha luft rundt seg og ligge på hvit flate — deres
+    /* Tripletex' logo skal ha luft rundt seg og ligge på hvit flate. Det er deres
        merkevare, ikke vår. Ingen omfarging, ingen sammenslåing med vår logo. */
     .ttx-logo { height: 34px; width: auto; display: block; }
     .ttx-lockup { display: flex; align-items: center; gap: 22px; flex-wrap: wrap;
@@ -49,16 +49,9 @@
 
     <nav style="position:relative; max-width:1200px; margin:18px auto 0; padding:18px 24px;">
       <div class="nav-shell">
-        <a href="index.html" aria-label="Revisjonsmotor — forsiden" style="display:flex; align-items:center; gap:12px;">
+        <a href="index.html" aria-label="Revisjonsmotor, forsiden" style="display:flex; align-items:center; gap:12px;">
           <span style="width:33px; height:33px; color:var(--accent); display:inline-block;">
-            <svg viewBox="0 0 100 100" aria-hidden="true" style="width:100%; height:100%; display:block; overflow:visible;">
-              <path d="M 92.84 53.75 A 43 43 0 0 0 50.00 7.00" fill="none" stroke="currentColor" stroke-width="5"></path>
-              <path d="M 31.83 11.03 A 43 43 0 0 0 12.76 71.50" fill="none" stroke="currentColor" stroke-width="5"></path>
-              <path d="M 25.34 85.22 A 43 43 0 0 0 87.24 71.50" fill="none" stroke="currentColor" stroke-width="5"></path>
-              <circle cx="50" cy="50" r="20" fill="currentColor"></circle>
-              <circle cx="50" cy="50" r="12.5" fill="#eef3fb"></circle>
-              <path d="M44.5 50 L48 53.5 L56 43.5" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg>
+            <svg viewBox="0 0 100 100" aria-hidden="true" style="width:100%; height:100%; display:block; overflow:visible;"><g class="rm-orbit"><path d="M 92.84 53.75 A 43 43 0 0 0 50 7" fill="none" stroke="currentColor" stroke-width="5"/><path d="M 31.83 11.03 A 43 43 0 0 0 12.76 71.5" fill="none" stroke="currentColor" stroke-width="5"/><path d="M 25.34 85.22 A 43 43 0 0 0 87.24 71.5" fill="none" stroke="currentColor" stroke-width="5"/><path d="M 41 7 L 53 0 L 53 14 Z" fill="currentColor"/><path d="M 17.26 79.29 L 5.2 72.4 L 17.32 65.4 Z" fill="currentColor"/><path d="M 91.74 63.71 L 91.8 77.6 L 79.68 70.6 Z" fill="currentColor"/></g><g fill="currentColor"><rect x="47" y="22" width="6" height="10" rx="1.3"/><rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(36 50 50)"/><rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(72 50 50)"/><rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(108 50 50)"/><rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(144 50 50)"/><rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(180 50 50)"/><rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(216 50 50)"/><rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(252 50 50)"/><rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(288 50 50)"/><rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(324 50 50)"/></g><circle cx="50" cy="50" r="20" fill="currentColor"/><circle cx="50" cy="50" r="12.5" fill="#eef3fb"/><path d="M44.5 52 L48 55.5 L56 45.5" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </span>
           <span style="font-size:20px; font-weight:700; letter-spacing:-0.022em;">Revisjonsmotor</span>
         </a>
@@ -76,14 +69,14 @@
       <h1 style="margin:10px 0 18px;">Revisjonsmotor for Tripletex</h1>
       <p class="lead" style="max-width:660px; margin:0 0 34px;">
         Koble Revisjonsmotor direkte til Tripletex, og hent kontoplan, bilag, posteringer
-        og MVA-koder automatisk. Kontrollene kjører på alle transaksjonene — ikke et utvalg.
+        og MVA-koder automatisk. Kontrollene kjører på alle transaksjonene, ikke et utvalg.
       </p>
 
       <div class="ttx-lockup" style="max-width:520px;">
         <span style="font-size:17px; font-weight:700; letter-spacing:-0.02em; color:#11131a;">Revisjonsmotor</span>
         <span class="ttx-sep" aria-hidden="true"></span>
         <a href="https://www.tripletex.no/" target="_blank" rel="noopener"
-           aria-label="Tripletex — åpne tripletex.no">
+           aria-label="Tripletex, åpne tripletex.no">
           <img src="tripletex-logo.svg" alt="Tripletex" class="ttx-logo">
         </a>
       </div>
@@ -130,7 +123,7 @@
             <h2 style="margin:8px 0 16px;">Vi skriver aldri til regnskapet</h2>
             <p style="margin:0 0 14px;">
               Integrasjonen er utelukkende lesende. Revisjonsmotor endrer ingenting i
-              Tripletex — ikke en konto, ikke et bilag, ikke en postering.
+              Tripletex: ikke en konto, ikke et bilag, ikke en postering.
             </p>
             <p style="margin:0;">
               Det er et bevisst valg, ikke en begrensning: en revisor skal ikke kunne
@@ -142,42 +135,12 @@
             <h3>Nøkkelen tilhører kunden</h3>
             <p style="font-size:14.5px; line-height:1.55; color:#5a5a62; margin:0 0 12px;">
               Tilgangen gis med en API-brukernøkkel kunden selv oppretter i Tripletex,
-              og kan trekkes tilbake når som helst — uten å gå veien om oss.
+              og kan trekkes tilbake når som helst, uten å gå veien om oss.
             </p>
             <p style="font-size:14.5px; line-height:1.55; color:#5a5a62; margin:0;">
               Regnskapsdataene lagres i Norge.
             </p>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===================== KOM I GANG ===================== -->
-    <section id="kom-i-gang" class="section" style="background:#fff;">
-      <div class="wrap doc">
-        <div class="eyebrow">Kom i gang</div>
-        <h2 style="margin:8px 0 16px;">Fire steg, cirka fem minutter</h2>
-        <p style="margin:0 0 34px;">
-          Oppsettet gjøres én gang per selskap. Regnskapskontor med flere klienter kan
-          bruke én felles nøkkel for hele porteføljen.
-        </p>
-
-        <div style="display:grid; gap:26px;">
-          <div class="step"><div class="step-no">1</div><div>
-            <h3 style="margin:2px 0 6px; font-size:17px;">Aktiver API-tilgang i Tripletex</h3>
-            <p style="margin:0; font-size:15.5px;">Krever Smart-pakke eller høyere. Finnes under Bedriftsopplysninger → Tilleggstjenester.</p></div></div>
-
-          <div class="step"><div class="step-no">2</div><div>
-            <h3 style="margin:2px 0 6px; font-size:17px;">Opprett en API-brukernøkkel</h3>
-            <p style="margin:0; font-size:15.5px;">På en ansatt eller kontakt med systemtilgang, under fanen «API-tilgang». Velg <strong>Revisjonsmotor</strong> i Applikasjon-feltet.</p></div></div>
-
-          <div class="step"><div class="step-no">3</div><div>
-            <h3 style="margin:2px 0 6px; font-size:17px;">Lim nøkkelen inn i Revisjonsmotor</h3>
-            <p style="margin:0; font-size:15.5px;">Velg regnskapsår og start importen. Nøkkelen lagres ikke — den brukes kun til hentingen.</p></div></div>
-
-          <div class="step"><div class="step-no">4</div><div>
-            <h3 style="margin:2px 0 6px; font-size:17px;">Kontrollene kjører</h3>
-            <p style="margin:0; font-size:15.5px;">Bilag, MVA, balanse og avstemminger gjennomgås automatisk. Revisor får avvikene med begrunnelse — og det usikre løftes til gjennomgang i stedet for å bli konkludert.</p></div></div>
         </div>
       </div>
     </section>
@@ -188,7 +151,7 @@
         <div class="eyebrow">Hva som kontrolleres</div>
         <h2 style="margin:8px 0 30px;">Kontrollene som kjører på Tripletex-data</h2>
         <div class="grid-2" style="gap:20px;">
-          <div class="glass-card lift"><div class="icon-tile"><i class="bi bi-receipt"></i></div><h3>Bilagskontroll</h3><p style="font-size:14.5px; line-height:1.5; color:#5a5a62; margin:0;">Hvert kostnadsbilag leses og sammenlignes mot bokført beløp, MVA og leverandørens organisasjonsnummer — som verifiseres mot Enhetsregisteret.</p></div>
+          <div class="glass-card lift"><div class="icon-tile"><i class="bi bi-receipt"></i></div><h3>Bilagskontroll</h3><p style="font-size:14.5px; line-height:1.5; color:#5a5a62; margin:0;">Hvert kostnadsbilag leses og sammenlignes mot bokført beløp, MVA og leverandørens organisasjonsnummer, som verifiseres mot Enhetsregisteret.</p></div>
           <div class="glass-card lift"><div class="icon-tile"><i class="bi bi-percent"></i></div><h3>MVA-avstemming</h3><p style="font-size:14.5px; line-height:1.5; color:#5a5a62; margin:0;">Skyldig MVA, omsetning og inngående fradrag avstemmes mot MVA-meldingen, og hver termin kontrolleres mot betaling og forfall.</p></div>
           <div class="glass-card lift"><div class="icon-tile"><i class="bi bi-diagram-3"></i></div><h3>Balansekontroll</h3><p style="font-size:14.5px; line-height:1.5; color:#5a5a62; margin:0;">Hver balansepost kobles mot dokumentasjonen som bekrefter den. Mangler dokumentasjonen, sies det tydelig fra.</p></div>
           <div class="glass-card lift"><div class="icon-tile"><i class="bi bi-clipboard2-check-fill"></i></div><h3>Avstemminger</h3><p style="font-size:14.5px; line-height:1.5; color:#5a5a62; margin:0;">Bank, langsiktig gjeld og kundefordringer avstemmes mot årsoppgaver, saldolister og åpne poster.</p></div>
