@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Revisjonsmotor for Tripletex — automatisk revisjonskontroll</title>
+  <meta name="description" content="Revisjonsmotor kobler seg direkte til Tripletex og henter kontoplan, bilag, posteringer og MVA-koder automatisk. Kontrollene kjører på 100 % av transaksjonene. Utelukkende lesetilgang — vi skriver aldri tilbake til regnskapet.">
+  <link rel="canonical" href="https://revisjonsmotor.no/tripletex.html">
+  <meta name="theme-color" content="#0071e3">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="nb_NO">
+  <meta property="og:site_name" content="Revisjonsmotor">
+  <meta property="og:title" content="Revisjonsmotor for Tripletex">
+  <meta property="og:description" content="Henter regnskapsdata rett fra Tripletex og kontrollerer alle transaksjonene. Kun lesetilgang.">
+  <meta property="og:url" content="https://revisjonsmotor.no/tripletex.html">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='%230071e3'/%3E%3Cpath d='M32 51 l12 12 l24-28' fill='none' stroke='white' stroke-width='9' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .doc { max-width: 900px; margin: 0 auto; }
+    .doc p { font-size: 16.5px; line-height: 1.62; color: var(--ink-soft); }
+    /* Tripletex' logo skal ha luft rundt seg og ligge på hvit flate — deres
+       merkevare, ikke vår. Ingen omfarging, ingen sammenslåing med vår logo. */
+    .ttx-logo { height: 34px; width: auto; display: block; }
+    .ttx-lockup { display: flex; align-items: center; gap: 22px; flex-wrap: wrap;
+                  background: #fff; border: 1px solid rgba(0,0,0,.07);
+                  border-radius: 18px; padding: 22px 26px;
+                  box-shadow: 0 1px 2px rgba(0,0,0,.04), 0 10px 30px rgba(0,0,0,.05); }
+    .ttx-sep { width: 1px; height: 34px; background: rgba(0,0,0,.10); }
+    .hent-liste { list-style: none; padding: 0; margin: 0; display: grid; gap: 14px; }
+    .hent-liste li { display: flex; gap: 13px; align-items: flex-start;
+                     font-size: 15.5px; color: var(--ink-soft); line-height: 1.55; }
+    .hent-liste i { color: var(--accent); font-size: 18px; flex: none; margin-top: 2px; }
+    .step { display: flex; gap: 18px; align-items: flex-start; }
+    .step-no { flex: none; width: 34px; height: 34px; border-radius: 50%;
+               background: var(--accent); color: #fff; font-weight: 600; font-size: 15px;
+               display: flex; align-items: center; justify-content: center; }
+    section[id] { scroll-margin-top: 90px; }
+  </style>
+</head>
+<body>
+
+  <header style="position:relative; background:linear-gradient(165deg,#e6eeff,#f3f8ff); overflow:hidden; --sx:50%; --sy:0%;">
+    <div class="blob" style="top:-160px; left:-60px; width:460px; height:460px; background:rgba(var(--accent-rgb),.22); filter:blur(95px); animation:aurora1 18s ease-in-out infinite;"></div>
+    <div id="spotlight" style="position:absolute; inset:0; pointer-events:none; background:radial-gradient(520px circle at var(--sx) var(--sy), rgba(255,255,255,.55), transparent 50%);"></div>
+
+    <nav style="position:relative; max-width:1200px; margin:18px auto 0; padding:18px 24px;">
+      <div class="nav-shell">
+        <a href="index.html" aria-label="Revisjonsmotor — forsiden" style="display:flex; align-items:center; gap:12px;">
+          <span style="width:33px; height:33px; color:var(--accent); display:inline-block;">
+            <svg viewBox="0 0 100 100" aria-hidden="true" style="width:100%; height:100%; display:block; overflow:visible;">
+              <path d="M 92.84 53.75 A 43 43 0 0 0 50.00 7.00" fill="none" stroke="currentColor" stroke-width="5"></path>
+              <path d="M 31.83 11.03 A 43 43 0 0 0 12.76 71.50" fill="none" stroke="currentColor" stroke-width="5"></path>
+              <path d="M 25.34 85.22 A 43 43 0 0 0 87.24 71.50" fill="none" stroke="currentColor" stroke-width="5"></path>
+              <circle cx="50" cy="50" r="20" fill="currentColor"></circle>
+              <circle cx="50" cy="50" r="12.5" fill="#eef3fb"></circle>
+              <path d="M44.5 50 L48 53.5 L56 43.5" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </span>
+          <span style="font-size:20px; font-weight:700; letter-spacing:-0.022em;">Revisjonsmotor</span>
+        </a>
+        <div style="display:flex; align-items:center; gap:22px;">
+          <a class="nav-link nav-links-extra" href="index.html#integrasjoner" style="font-size:14px; font-weight:500;">Integrasjoner</a>
+          <a class="nav-link nav-links-extra" href="slik-fungerer-det.html" style="font-size:14px; font-weight:500;">Slik fungerer det</a>
+          <a class="btn-outline" href="https://app.revisjonsmotor.no/">Gå til Revisjonsmotor</a>
+          <a class="pill mag" href="index.html#kontakt">Be om demo</a>
+        </div>
+      </div>
+    </nav>
+
+    <div style="position:relative; max-width:900px; margin:0 auto; padding:56px 24px 74px;">
+      <div class="eyebrow">Integrasjon</div>
+      <h1 style="margin:10px 0 18px;">Revisjonsmotor for Tripletex</h1>
+      <p class="lead" style="max-width:660px; margin:0 0 34px;">
+        Koble Revisjonsmotor direkte til Tripletex, og hent kontoplan, bilag, posteringer
+        og MVA-koder automatisk. Kontrollene kjører på alle transaksjonene — ikke et utvalg.
+      </p>
+
+      <div class="ttx-lockup" style="max-width:520px;">
+        <span style="font-size:17px; font-weight:700; letter-spacing:-0.02em; color:#11131a;">Revisjonsmotor</span>
+        <span class="ttx-sep" aria-hidden="true"></span>
+        <a href="https://www.tripletex.no/" target="_blank" rel="noopener"
+           aria-label="Tripletex — åpne tripletex.no">
+          <img src="tripletex-logo.svg" alt="Tripletex" class="ttx-logo">
+        </a>
+      </div>
+      <p style="font-size:13.5px; color:var(--ink-mut); margin:14px 0 0;">
+        Tripletex er et registrert varemerke som tilhører Tripletex AS.
+        Les mer på <a href="https://www.tripletex.no/" target="_blank" rel="noopener">tripletex.no</a>.
+      </p>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ===================== HVA VI HENTER ===================== -->
+    <section id="hva-hentes" class="section" style="background:#fff;">
+      <div class="wrap doc">
+        <div class="eyebrow">Hva vi henter</div>
+        <h2 style="margin:8px 0 16px;">Dataene kontrollen bygger på</h2>
+        <p style="margin:0 0 30px;">
+          Revisjonsmotor henter kun det kontrollene faktisk trenger. Ingenting annet
+          leses, og ingenting skrives tilbake.
+        </p>
+
+        <div class="grid-2" style="gap:30px;">
+          <ul class="hent-liste">
+            <li><i class="bi bi-list-columns-reverse"></i><span><strong>Kontoplan og saldoer</strong><br>Grunnlaget for balansekontroll og avstemminger.</span></li>
+            <li><i class="bi bi-journal-text"></i><span><strong>Posteringer og bilagslinjer</strong><br>Hver eneste transaksjon i regnskapsåret.</span></li>
+            <li><i class="bi bi-paperclip"></i><span><strong>Bilag med vedlegg</strong><br>Fakturaen hentes med, så revisor slipper å laste den opp.</span></li>
+          </ul>
+          <ul class="hent-liste">
+            <li><i class="bi bi-percent"></i><span><strong>MVA-koder</strong><br>Brukes til avstemming mot MVA-meldingen.</span></li>
+            <li><i class="bi bi-people"></i><span><strong>Leverandører</strong><br>Organisasjonsnummer kontrolleres mot Enhetsregisteret.</span></li>
+            <li><i class="bi bi-currency-exchange"></i><span><strong>Valuta og originalbeløp</strong><br>Utenlandske fakturaer avstemmes i sin egen valuta.</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== KUN LESETILGANG ===================== -->
+    <section class="section" style="background:linear-gradient(180deg,#f5f9ff,#f3f8ff);">
+      <div class="wrap doc">
+        <div class="grid-2" style="gap:34px; align-items:start;">
+          <div>
+            <div class="eyebrow">Sikkerhet</div>
+            <h2 style="margin:8px 0 16px;">Vi skriver aldri til regnskapet</h2>
+            <p style="margin:0 0 14px;">
+              Integrasjonen er utelukkende lesende. Revisjonsmotor endrer ingenting i
+              Tripletex — ikke en konto, ikke et bilag, ikke en postering.
+            </p>
+            <p style="margin:0;">
+              Det er et bevisst valg, ikke en begrensning: en revisor skal ikke kunne
+              endre det hun kontrollerer.
+            </p>
+          </div>
+          <div class="glass-card">
+            <div class="icon-tile"><i class="bi bi-key-fill"></i></div>
+            <h3>Nøkkelen tilhører kunden</h3>
+            <p style="font-size:14.5px; line-height:1.55; color:#5a5a62; margin:0 0 12px;">
+              Tilgangen gis med en API-brukernøkkel kunden selv oppretter i Tripletex,
+              og kan trekkes tilbake når som helst — uten å gå veien om oss.
+            </p>
+            <p style="font-size:14.5px; line-height:1.55; color:#5a5a62; margin:0;">
+              Regnskapsdataene lagres i Norge.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== KOM I GANG ===================== -->
+    <section id="kom-i-gang" class="section" style="background:#fff;">
+      <div class="wrap doc">
+        <div class="eyebrow">Kom i gang</div>
+        <h2 style="margin:8px 0 16px;">Fire steg, cirka fem minutter</h2>
+        <p style="margin:0 0 34px;">
+          Oppsettet gjøres én gang per selskap. Regnskapskontor med flere klienter kan
+          bruke én felles nøkkel for hele porteføljen.
+        </p>
+
+        <div style="display:grid; gap:26px;">
+          <div class="step"><div class="step-no">1</div><div>
+            <h3 style="margin:2px 0 6px; font-size:17px;">Aktiver API-tilgang i Tripletex</h3>
+            <p style="margin:0; font-size:15.5px;">Krever Smart-pakke eller høyere. Finnes under Bedriftsopplysninger → Tilleggstjenester.</p></div></div>
+
+          <div class="step"><div class="step-no">2</div><div>
+            <h3 style="margin:2px 0 6px; font-size:17px;">Opprett en API-brukernøkkel</h3>
+            <p style="margin:0; font-size:15.5px;">På en ansatt eller kontakt med systemtilgang, under fanen «API-tilgang». Velg <strong>Revisjonsmotor</strong> i Applikasjon-feltet.</p></div></div>
+
+          <div class="step"><div class="step-no">3</div><div>
+            <h3 style="margin:2px 0 6px; font-size:17px;">Lim nøkkelen inn i Revisjonsmotor</h3>
+            <p style="margin:0; font-size:15.5px;">Velg regnskapsår og start importen. Nøkkelen lagres ikke — den brukes kun til hentingen.</p></div></div>
+
+          <div class="step"><div class="step-no">4</div><div>
+            <h3 style="margin:2px 0 6px; font-size:17px;">Kontrollene kjører</h3>
+            <p style="margin:0; font-size:15.5px;">Bilag, MVA, balanse og avstemminger gjennomgås automatisk. Revisor får avvikene med begrunnelse — og det usikre løftes til gjennomgang i stedet for å bli konkludert.</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== KONTROLLENE ===================== -->
+    <section class="section" style="background:linear-gradient(180deg,#eef4fd,#f7faff);">
+      <div class="wrap doc">
+        <div class="eyebrow">Hva som kontrolleres</div>
+        <h2 style="margin:8px 0 30px;">Kontrollene som kjører på Tripletex-data</h2>
+        <div class="grid-2" style="gap:20px;">
+          <div class="glass-card lift"><div class="icon-tile"><i class="bi bi-receipt"></i></div><h3>Bilagskontroll</h3><p style="font-size:14.5px; line-height:1.5; color:#5a5a62; margin:0;">Hvert kostnadsbilag leses og sammenlignes mot bokført beløp, MVA og leverandørens organisasjonsnummer — som verifiseres mot Enhetsregisteret.</p></div>
+          <div class="glass-card lift"><div class="icon-tile"><i class="bi bi-percent"></i></div><h3>MVA-avstemming</h3><p style="font-size:14.5px; line-height:1.5; color:#5a5a62; margin:0;">Skyldig MVA, omsetning og inngående fradrag avstemmes mot MVA-meldingen, og hver termin kontrolleres mot betaling og forfall.</p></div>
+          <div class="glass-card lift"><div class="icon-tile"><i class="bi bi-diagram-3"></i></div><h3>Balansekontroll</h3><p style="font-size:14.5px; line-height:1.5; color:#5a5a62; margin:0;">Hver balansepost kobles mot dokumentasjonen som bekrefter den. Mangler dokumentasjonen, sies det tydelig fra.</p></div>
+          <div class="glass-card lift"><div class="icon-tile"><i class="bi bi-clipboard2-check-fill"></i></div><h3>Avstemminger</h3><p style="font-size:14.5px; line-height:1.5; color:#5a5a62; margin:0;">Bank, langsiktig gjeld og kundefordringer avstemmes mot årsoppgaver, saldolister og åpne poster.</p></div>
+        </div>
+        <p style="font-size:14px; color:var(--ink-mut); margin:28px 0 0;">
+          Dokumenter leses maskinelt, men alle beregninger og konklusjoner gjøres
+          deterministisk i kode og avstemmes mot de bokførte tallene.
+          <a href="slik-fungerer-det.html">Slik fungerer kontrollene i detalj →</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- ===================== KONTAKT ===================== -->
+    <section class="section" style="background:#0b0f1a; color:#fff;">
+      <div class="blob" style="top:-120px; left:30%; width:480px; height:420px; background:radial-gradient(circle, rgba(var(--accent-rgb),.4), transparent 62%); filter:blur(40px);"></div>
+      <div style="position:relative; max-width:560px; margin:0 auto; text-align:center;">
+        <h2 style="color:#fff;">Vil du se det på deres egne tall?</h2>
+        <p style="color:rgba(255,255,255,.72); font-size:16.5px; line-height:1.6; margin:14px 0 28px;">
+          Vi kobler oss på Tripletex-regnskapet deres og viser hva kontrollene finner.
+        </p>
+        <a class="pill mag" href="index.html#kontakt">Be om demo</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer style="background:#0b0f1a; color:rgba(255,255,255,.5); padding:30px 24px;">
+    <div style="max-width:900px; margin:0 auto; display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap; font-size:13px;">
+      <span>© 2026 Revisorvennen AS</span>
+      <a href="index.html" style="color:rgba(255,255,255,.7);">← Tilbake til forsiden</a>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var hero = document.querySelector('header');
+      if (!hero) return;
+      var raf = 0;
+      window.addEventListener('pointermove', function (e) {
+        if (raf) return;
+        raf = requestAnimationFrame(function () {
+          raf = 0;
+          var r = hero.getBoundingClientRect();
+          if (e.clientY > r.bottom) return;
+          hero.style.setProperty('--sx', (((e.clientX - r.left) / r.width) * 100).toFixed(2) + '%');
+          hero.style.setProperty('--sy', (((e.clientY - r.top) / r.height) * 100).toFixed(2) + '%');
+        });
+      }, { passive: true });
+    })();
+  </script>
+
+</body>
+</html>

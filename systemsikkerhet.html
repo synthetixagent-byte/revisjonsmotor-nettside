@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Systemsikkerhet — Revisjonsmotor</title>
+  <meta name="description" content="Slik ivaretar Revisjonsmotor sikkerheten — kryptering, data lagret i Norge, tilgangsstyring, revisjonsspor, backup og samsvar.">
+  <link rel="canonical" href="https://revisjonsmotor.no/systemsikkerhet.html">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='%230071e3'/%3E%3Cpath d='M32 51 l12 12 l24-28' fill='none' stroke='white' stroke-width='9' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body style="background:#fff;">
+  <div class="legal-top">
+    <a href="index.html" style="display:flex; align-items:center; gap:12px;">
+      <span style="width:30px; height:30px; color:var(--accent); display:inline-block;">
+        <svg viewBox="0 0 100 100" aria-hidden="true" style="width:100%; height:100%; display:block; overflow:visible;">
+          <path d="M 92.84 53.75 A 43 43 0 0 0 50.00 7.00" fill="none" stroke="currentColor" stroke-width="5"></path>
+          <path d="M 31.83 11.03 A 43 43 0 0 0 12.76 71.50" fill="none" stroke="currentColor" stroke-width="5"></path>
+          <path d="M 25.34 85.22 A 43 43 0 0 0 87.24 71.50" fill="none" stroke="currentColor" stroke-width="5"></path>
+          <circle cx="50" cy="50" r="20" fill="currentColor"></circle>
+          <circle cx="50" cy="50" r="12.5" fill="#fff"></circle>
+          <path d="M44.5 50 L48 53.5 L56 43.5" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </span>
+      <span style="font-size:19px; font-weight:700; letter-spacing:-0.022em; color:var(--ink);">Revisjonsmotor</span>
+    </a>
+  </div>
+
+  <main class="legal">
+    <h1>Systemsikkerhet</h1>
+    <p class="muted" style="color:var(--ink-mut); font-size:14px;">Sist oppdatert: 13. august 2026</p>
+
+    <div class="draft">⚠️ <strong>Utkast.</strong> Beskrivelsen under skal speile de faktiske tiltakene i produksjon. Oppdater etter hvert som plattformen settes opp (jf. pre-deploy-sjekklisten).</div>
+
+    <p>Sikkerhet og etterprøvbarhet er en del av kontrollen i Revisjonsmotor — ikke et tillegg. Under er en oversikt over hvordan vi ivaretar dataene.</p>
+
+    <h2>Kryptering</h2>
+    <p>All data krypteres i transport (TLS) og i hvile. Ingen regnskapsdata forlater plattformen ukryptert.</p>
+
+    <h2>Data lagret i Norge</h2>
+    <p>Regnskapsdatabasen ligger i Norge (Microsoft Azure, Norway East). Applikasjonen kjører i Sverige og dokumentlesingen i en EU-region — alt innenfor EØS, i samsvar med GDPR.</p>
+
+    <h2>Tilgangsstyring</h2>
+    <p>Pålogging skjer med Microsoft-kontoen brukeren allerede har (Microsoft Entra ID). Vi lagrer ingen passord, og tofaktor arves fra revisjonsforetakets egne regler. Hvert revisjonsforetak er skilt fra alle andre, og innenfor foretaket ser hver revisor kun klientene hun er tildelt.</p>
+
+    <h2>Revisjonsspor</h2>
+    <p>Hver kontroll og hver handling logges med regel, kilde og beløp. Sporet er etterprøvbart og klart for arbeidspapirene.</p>
+
+    <h2>Sikkerhetskopiering og gjenoppretting</h2>
+    <p>Databasen sikkerhetskopieres kontinuerlig, med mulighet for gjenoppretting til et vilkårlig tidspunkt de siste sju dagene. Rutiner for regelmessig testing av gjenoppretting er under etablering.</p>
+
+    <h2>Sårbarhets- og hendelseshåndtering</h2>
+    <p>Avhengigheter overvåkes for kjente sårbarheter, og vi har rutiner for å oppdage, håndtere og varsle om sikkerhetshendelser uten ugrunnet opphold.</p>
+
+    <h2>Samsvar</h2>
+    <p>Kontrollene følger ISA-standardene og norsk bokføringslov, og behandlingen av personopplysninger følger GDPR. Se også <a href="personvern.html">Personvernerklæringen</a> og <a href="databehandleravtale.html">Databehandleravtalen</a>.</p>
+
+    <p style="margin-top:34px;">Spørsmål om sikkerhet? Kontakt <a href="mailto:info@revisjonsmotor.no">info@revisjonsmotor.no</a>.</p>
+  </main>
+
+  <footer style="background:#0b0f1a; color:rgba(255,255,255,.5); padding:30px 24px;">
+    <div style="max-width:820px; margin:0 auto; display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap; font-size:13px;">
+      <span>© 2026 Revisorvennen AS</span>
+      <a href="index.html" style="color:rgba(255,255,255,.7);">← Tilbake til forsiden</a>
+    </div>
+  </footer>
+</body>
+</html>
