@@ -229,24 +229,21 @@
              faktisk skjer, og terskelen er lavere: ingen trenger å levere fra seg
              klientdata for å se produktet. -->
         <p class="lead" style="color:rgba(255,255,255,.68); margin:0 0 32px;">Tretti minutter på video. Vi kjører kontrollene på vår egen testklient og går gjennom hva motoren fant, hvordan den fant det, og hva som havner hos revisor.</p>
-        <form id="demo-form" style="background:rgba(255,255,255,.08); backdrop-filter:blur(var(--blur)); -webkit-backdrop-filter:blur(var(--blur)); border:1px solid rgba(255,255,255,.16); border-radius:22px; padding:30px; box-shadow:0 1px 2px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.18); text-align:left; display:flex; flex-direction:column; gap:14px;">
-          <!-- honeypot: skjult for mennesker, fanger bots -->
-          <input type="text" name="firmanavn_bekreft" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute; left:-9999px; width:1px; height:1px; opacity:0;">
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
-            <input name="navn" required autocomplete="name" aria-label="Navn" placeholder="Navn" style="width:100%; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.18); border-radius:11px; padding:12px 14px; font-size:14.5px; font-family:inherit; color:#fff; outline:none;">
-            <input name="firma" required autocomplete="organization" aria-label="Firma" placeholder="Firma" style="width:100%; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.18); border-radius:11px; padding:12px 14px; font-size:14.5px; font-family:inherit; color:#fff; outline:none;">
-          </div>
-          <input name="epost" required type="email" autocomplete="email" aria-label="Jobb-e-post" placeholder="Jobb-e-post" style="width:100%; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.18); border-radius:11px; padding:12px 14px; font-size:14.5px; font-family:inherit; color:#fff; outline:none;">
-          <button class="btn-accent" type="submit" style="background:var(--accent); color:#fff; font-size:15.5px; font-weight:500; padding:14px; border:none; border-radius:980px; cursor:pointer; font-family:inherit; display:flex; align-items:center; justify-content:center; gap:9px;">Be om demo<i class="bi bi-arrow-right"></i></button>
-          <!-- Sier hva som faktisk skjer FØR man trykker. Skjemaet har ingen server
-               ennå, så det åpner e-postprogrammet. Uten denne linjen tror folk at
-               noe blir sendt, og de som ikke har e-postprogram oppdager aldri at
-               ingenting skjedde. -->
-          <p style="font-size:12.5px; color:rgba(255,255,255,.5); margin:0; text-align:center;">Vi åpner e-postprogrammet ditt med meldingen ferdig utfylt. Du svarer normalt innen én virkedag.</p>
-        </form>
-        <div style="display:flex; align-items:center; justify-content:center; gap:26px; flex-wrap:wrap; font-size:14.5px; color:rgba(255,255,255,.6); margin-top:26px;">
-          <span style="display:flex; align-items:center; gap:8px;"><i class="bi bi-envelope" style="color:#5aa6ff;"></i><a href="mailto:info@revisjonsmotor.no" style="color:inherit;">info@revisjonsmotor.no</a></span>
-        </div>
+        <!-- Skjema er byttet ut med en e-postlenke. Uten en server kunne skjemaet
+             bare åpne e-postprogrammet, og på maskiner uten et slikt oppsett skjedde
+             det ingenting mens siden sa at alt gikk bra. En lenke som alltid virker
+             slår et skjema som noen ganger lyver. Vurder skjema igjen den dagen det
+             finnes et endepunkt å sende til. -->
+        <a class="mag btn-accent" href="mailto:info@revisjonsmotor.no?subject=Demo%20av%20Revisjonsmotor"
+           style="background:var(--accent); color:#fff; font-size:16.5px; font-weight:500; padding:16px 34px; border-radius:980px; display:inline-flex; align-items:center; gap:10px; box-shadow:0 8px 30px rgba(var(--accent-rgb),.35); text-decoration:none;">
+          <i class="bi bi-envelope"></i>Send oss en e-post
+        </a>
+        <p style="font-size:15px; color:rgba(255,255,255,.62); margin:20px 0 0;">
+          <a href="mailto:info@revisjonsmotor.no" style="color:#5aa6ff; text-decoration:none;">info@revisjonsmotor.no</a>
+        </p>
+        <p style="font-size:13.5px; color:rgba(255,255,255,.45); margin:8px 0 0;">
+          Skriv gjerne hvilket regnskapssystem dere bruker. Du får svar innen én virkedag.
+        </p>
       </div>
       <div style="position:relative; max-width:1080px; margin:54px auto 0; padding-top:26px; border-top:1px solid rgba(255,255,255,.12); display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap;">
         <div style="display:flex; align-items:center; gap:10px;">
@@ -284,60 +281,6 @@
           });
         }, { passive: true });
       }
-      var form = document.getElementById('demo-form');
-      if (form) {
-        form.addEventListener('submit', function (e) {
-          e.preventDefault();
-          if (form.firmanavn_bekreft && form.firmanavn_bekreft.value) return;   // honeypot utfylt → bot, ignorer
-          if (!form.reportValidity()) return;
-          // Ingen server ennå, så dette åpner e-postprogrammet. Problemet med den
-          // gamle versjonen var at den skrev «Åpner e-posten din …» uansett hva som
-          // skjedde. På en maskin uten oppsatt e-postklient, som er vanlig i større
-          // firmaer, skjedde det ingenting, og den besøkende trodde hun hadde tatt
-          // kontakt. Nå får hun meldingen på skjermen med en kopiknapp, slik at hun
-          // kommer i mål uansett hvordan maskinen er satt opp.
-          // TODO: bytt til et reelt endepunkt (Formspree e.l.) og vis bekreftelse
-          //       FØRST når serveren har svart.
-          var firma = form.firma.value;
-          var emne = 'Demo-forespørsel fra ' + firma;
-          var body = 'Navn: ' + form.navn.value + '\nFirma: ' + firma +
-                     '\nE-post: ' + form.epost.value + '\n\nØnsker en demo av Revisjonsmotor.';
-          window.location.href = 'mailto:info@revisjonsmotor.no?subject=' +
-                                 encodeURIComponent(emne) + '&body=' + encodeURIComponent(body);
-
-          function tekst(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
-
-          form.innerHTML =
-            '<div style="text-align:center; padding:6px 0 2px; color:#fff;">' +
-              '<i class="bi bi-envelope-arrow-up" style="font-size:30px; color:#5aa6ff;"></i>' +
-              '<div style="font-size:17px; font-weight:600; margin-top:10px;">E-postprogrammet skal ha åpnet seg</div>' +
-              '<div style="font-size:14px; color:rgba(255,255,255,.62); margin-top:6px;">Skjedde det ingenting, kopier meldingen under og send den til ' +
-                '<a href="mailto:info@revisjonsmotor.no" style="color:#5aa6ff;">info@revisjonsmotor.no</a>.</div>' +
-              '<pre id="demo-melding" style="text-align:left; white-space:pre-wrap; word-break:break-word; font-family:inherit; font-size:13.5px; color:rgba(255,255,255,.8); background:rgba(0,0,0,.22); border-radius:12px; padding:14px; margin:16px 0 12px;">' +
-                tekst(body) + '</pre>' +
-              '<button type="button" id="demo-kopi" style="background:rgba(255,255,255,.12); color:#fff; border:1px solid rgba(255,255,255,.2); border-radius:980px; padding:10px 20px; font-size:14px; font-family:inherit; cursor:pointer;">Kopier meldingen</button>' +
-            '</div>';
-
-          var kopi = document.getElementById('demo-kopi');
-          kopi.addEventListener('click', function () {
-            var ferdig = function () { kopi.textContent = 'Kopiert'; };
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-              navigator.clipboard.writeText(body).then(ferdig, velgTeksten);
-            } else {
-              velgTeksten();
-            }
-          });
-          // Reserveløsning der utklippstavlen er sperret: merk teksten så den kan
-          // kopieres manuelt, i stedet for at knappen ikke gjør noe.
-          function velgTeksten() {
-            var pre = document.getElementById('demo-melding');
-            var r = document.createRange(); r.selectNodeContents(pre);
-            var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(r);
-            kopi.textContent = 'Merket, trykk Ctrl+C';
-          }
-        });
-      }
-
       // ===== Interaktiv «Prøv motoren»-demo =====
       var RUN = document.getElementById('demo-run');
       var ROWS = document.getElementById('demo-rows');

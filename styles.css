@@ -184,9 +184,8 @@ h3 { font-size: 18px; font-weight: 600; letter-spacing: -0.018em; margin: 0 0 va
   .nav-shell .btn-outline { display: none; }   /* «Gå til Revisjonsmotor» skjules på liten skjerm */
   .pill { padding: 9px 16px; }
 }
-/* Smal telefon: stable navn/firma-feltene i demo-skjemaet, skjul trust-skillestreker */
+/* Smal telefon: skjul trust-skillestreker */
 @media (max-width: 520px) {
-  #demo-form > div:first-child { grid-template-columns: 1fr !important; }
   .trust-divider { display: none; }
 }
 
