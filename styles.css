@@ -163,12 +163,19 @@ h3 { font-size: 18px; font-weight: 600; letter-spacing: -0.018em; margin: 0 0 va
   padding: 10px 12px 10px 22px; box-shadow: var(--shadow-1);
 }
 
+/* Nettbrett og små bærbare: to kolonner i stedet for å hoppe rett fra tre til én.
+   Uten dette blir kortene unødvendig brede mellom 640 og 920 px. */
 @media (max-width: 920px) {
-  /* h1/h2 skaleres nå flytende via clamp() — ingen hardt hopp her */
   .section { padding: 64px 24px; }
-  .grid-3, .grid-2 { grid-template-columns: 1fr; }
+  /* h1/h2 skaleres flytende via clamp() — ingen hardt hopp her */
+  .grid-3 { grid-template-columns: repeat(2,1fr); }
+  .grid-2 { grid-template-columns: 1fr; }
   .grid-4 { grid-template-columns: repeat(2,1fr); }
   .nav-links-extra { display: none; }
+}
+
+@media (max-width: 640px) {
+  .grid-3 { grid-template-columns: 1fr; }
 }
 
 /* Telefon: rydd opp i toppmenyen (logo + «Be om demo» får god plass) */
