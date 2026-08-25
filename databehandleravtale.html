@@ -24,40 +24,164 @@
 
   <main class="legal">
     <h1>Databehandleravtale</h1>
-    <p class="muted" style="color:var(--ink-mut); font-size:14px;">Sist oppdatert: 13. august 2026</p>
+    <p class="muted" style="color:var(--ink-mut); font-size:14px;">Sist oppdatert: 19. august 2026</p>
 
-    <div class="draft">⚠️ <strong>Utkast.</strong> En databehandleravtale er juridisk bindende og bør utarbeides/kvalitetssikres av advokat. Skjelettet under viser hva avtalen typisk skal dekke.</div>
+    <div class="draft">⚠️ <strong>Skal kvalitetssikres av advokat før signering.</strong> Teksten under er
+      komplett og speiler hvordan tjenesten faktisk er bygget, men en databehandleravtale er juridisk
+      bindende, og ansvarsbestemmelsene i punkt 11 bør vurderes av jurist sammen med brukervilkårene.</div>
 
-    <h2>1. Parter og roller</h2>
-    <p>Kunden er behandlingsansvarlig og Revisorvennen AS er databehandler for personopplysninger som behandles på Kundens vegne gjennom tjenesten.</p>
+    <h2>1. Parter, roller og forrang</h2>
+    <p>Denne avtalen inngås mellom Kunden, som er <strong>behandlingsansvarlig</strong>, og
+      <strong>Revisorvennen AS</strong> (org.nr. 938 075 123), som er <strong>databehandler</strong>.
+      Databehandleren er etablert i Norge.</p>
+    <p>Avtalen regulerer databehandlerens behandling av personopplysninger på vegne av den
+      behandlingsansvarlige i forbindelse med bruk av Revisjonsmotor, og gjelder som et tillegg til
+      avtalen om bruk av tjenesten. Ved motstrid om behandling av personopplysninger går denne
+      avtalen foran den øvrige avtalen mellom partene.</p>
+    <p>Begrepene personopplysning, særlige kategorier av personopplysninger, behandling, den
+      registrerte, behandlingsansvarlig og databehandler forstås slik de er definert i
+      personvernforordningen (EU) 2016/679 og personopplysningsloven.</p>
 
-    <h2>2. Formål og varighet</h2>
-    <p>Behandlingen skjer kun for å levere tjenesten, så lenge avtalen om bruk varer.</p>
+    <h2>2. Formål og behandlingens art</h2>
+    <p>Formålet med behandlingen er å levere Revisjonsmotor: å hente inn regnskapsmateriale fra
+      kildene Kunden peker på, kjøre automatiserte kontroller på materialet, og vise resultatet slik
+      at Kundens revisorer kan vurdere det.</p>
+    <p>Databehandleren behandler ikke personopplysningene til andre formål. Opplysningene brukes ikke
+      til å utvikle eller trene modeller, og de deles ikke med andre kunder.</p>
 
-    <h2>3. Behandlingens art og kategorier</h2>
-    <p>Behandlingen omfatter opplysninger som forekommer i regnskapsmaterialet Kunden gjør tilgjengelig: navn og kontaktopplysninger for leverandører, kunder og ansatte, organisasjonsnummer, bankkontonummer, beløp, samt innholdet i bilag og annen dokumentasjon. I tillegg behandles kontaktopplysninger for Kundens egne brukere av tjenesten (navn, jobb-e-post og innloggingshistorikk).</p>
-    <p>Registrerte er dermed Kundens ansatte og brukere, samt fysiske personer som opptrer som kunder eller leverandører i regnskapet som kontrolleres.</p>
+    <h2>3. Kategorier av registrerte og personopplysninger</h2>
+    <p>Behandlingen omfatter to grupper:</p>
+    <p><strong>Kundens egne brukere.</strong> Navn, jobb-e-post, rolle i tjenesten, hvilke klienter
+      brukeren er tildelt, tidspunkt for innlogging og hvilke vurderinger brukeren har registrert.</p>
+    <p><strong>Fysiske personer som forekommer i regnskapsmaterialet.</strong> Typisk ansatte,
+      kunder, leverandører, styremedlemmer og andre motparter. Opplysningene kan omfatte navn,
+      kontaktopplysninger, organisasjons- og kontonummer, beløp, datoer, tekst på bilag og innholdet
+      i dokumentasjon Kunden laster opp.</p>
+    <p>Databehandleren ber ikke om særlige kategorier av personopplysninger etter artikkel 9. Slike
+      opplysninger kan likevel forekomme i regnskapsmateriale, for eksempel ved at trekk for
+      fagforeningskontingent indirekte røper fagforeningsmedlemskap, eller ved at et bilag omtaler
+      sykefravær eller helserelaterte utlegg. Partene legger til grunn at dette kan skje, og
+      sikkerhetstiltakene i punkt 5 er innrettet deretter.</p>
 
     <h2>4. Instruksjonsrett</h2>
-    <p>Databehandleren behandler opplysningene kun etter dokumenterte instrukser fra den behandlingsansvarlige.</p>
+    <p>Databehandleren behandler personopplysninger bare etter dokumenterte instrukser fra den
+      behandlingsansvarlige. Bruk av tjenestens ordinære funksjoner regnes som slik instruks.</p>
+    <p>Blir databehandleren pålagt ved lov å behandle opplysningene i strid med instruksen, varsles
+      den behandlingsansvarlige før behandlingen skjer, med mindre varsel er forbudt.</p>
+    <p>Mener databehandleren at en instruks strider mot personvernregelverket, skal dette meldes til
+      den behandlingsansvarlige.</p>
 
-    <h2>5. Sikkerhetstiltak</h2>
-    <p>Kryptering i transport og i hvile, rollebasert tilgang, hendelseslogg og lagring innenfor EØS. Se <a href="systemsikkerhet.html">Systemsikkerhet</a>.</p>
+    <h2>5. Sikkerhet</h2>
+    <p>Databehandleren gjennomfører tekniske og organisatoriske tiltak etter artikkel 32. Følgende
+      tiltak er på plass i dag:</p>
+    <p><strong>Kryptering.</strong> All trafikk går over TLS. Data krypteres i hvile hos
+      driftsleverandøren. API-nøkler mot Kundens regnskapssystem lagres kryptert, med
+      krypteringsnøkkelen lagret utenfor databasen.</p>
+    <p><strong>Tilgangsstyring.</strong> Innlogging skjer med Kundens egen Microsoft-konto.
+      Databehandleren lagrer ingen passord. Hver bruker ser bare klientene hun er tildelt, og hvert
+      revisjonsforetak er skilt fra andre foretak i en adgangskontroll som gjelder alle
+      grensesnittets funksjoner.</p>
+    <p><strong>Sporbarhet.</strong> Hver kontroll lagres med regel, kilde og beløp. Revisors egne
+      vurderinger lagres med hvem som vurderte og når, og bevares også når kontrollene kjøres på
+      nytt. Sletting av regnskapsår føres i en egen slettelogg.</p>
+    <p><strong>Begrenset oppbevaring.</strong> Regnskapsdata slettes automatisk når oppbevaringstiden
+      er ute, se punkt 9.</p>
+    <p><strong>Taushetsplikt.</strong> Alle som får tilgang til personopplysninger hos
+      databehandleren er underlagt taushetsplikt som gjelder også etter at avtalen er avsluttet.</p>
 
     <h2>6. Underdatabehandlere</h2>
-    <p>Databehandleren benytter i dag <strong>Microsoft Azure</strong> til drift og lagring (database i Norge, applikasjon i Sverige) og <strong>Google Cloud Vertex AI</strong> til maskinell dokumentlesing (EU-region). Begge er bundet av tilsvarende forpliktelser, og dokumenter brukes ikke til å trene modeller. Endringer i listen varsles den behandlingsansvarlige i rimelig tid før de trer i kraft, slik at innsigelser kan fremmes. Oppdatert liste finnes i <a href="personvern.html#underdatabehandlere">personvernerklæringen</a>.</p>
+    <p>Den behandlingsansvarlige gir databehandleren generell tillatelse til å bruke
+      underdatabehandlere. Databehandleren skal binde disse til forpliktelser som tilsvarer denne
+      avtalen, og er fullt ut ansvarlig overfor den behandlingsansvarlige for behandlingen de
+      utfører.</p>
+    <p>Følgende underdatabehandlere benyttes:</p>
+    <table class="legal-tabell">
+      <thead><tr><th>Underdatabehandler</th><th>Oppgave</th><th>Behandlingssted</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Microsoft</td>
+          <td>Drift av applikasjonen, database, sikkerhetskopi og innlogging</td>
+          <td>Database i Norge. Applikasjon i Sverige.</td>
+        </tr>
+        <tr>
+          <td>Google</td>
+          <td>Maskinell avlesning av opplastede dokumenter</td>
+          <td>Nederland</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>All behandling skjer innenfor EØS. Skulle overføring ut av EØS bli aktuelt, skjer det ikke før
+      den behandlingsansvarlige er varslet og et gyldig overføringsgrunnlag er på plass.</p>
+    <p>Databehandleren varsler den behandlingsansvarlige før en underdatabehandler byttes ut eller
+      legges til, med rimelig frist til å komme med innsigelser. Innsigelse må ha saklig grunn, for
+      eksempel begrunnet tvil om personvernet svekkes. Opprettholdes innsigelsen, kan hver av partene
+      si opp avtalen med virkning fra det tidspunktet endringen skulle tre i kraft.</p>
+    <p>Regnskapssystemet Kunden henter data fra er ikke en underdatabehandler etter denne avtalen.
+      Kunden er selv ansvarlig for sitt forhold til den leverandøren, og for at API-tilgangen som
+      gis til Revisjonsmotor er i tråd med det forholdet.</p>
 
-    <h2>7. Bistand og avviksvarsling</h2>
-    <p>Databehandleren bistår ved henvendelser fra registrerte og varsler uten ugrunnet opphold ved brudd på personopplysningssikkerheten.</p>
+    <h2>7. Bistand til den behandlingsansvarlige</h2>
+    <p>Databehandleren bistår, i lys av behandlingens art og tilgjengelig informasjon, med å svare på
+      henvendelser fra registrerte etter forordningens kapittel III, og med å oppfylle pliktene etter
+      artikkel 32 til 36, herunder sikkerhet, avviksmelding og personvernkonsekvensvurdering.</p>
+    <p>Databehandleren svarer ikke registrerte direkte uten at den behandlingsansvarlige har bedt om
+      det.</p>
+    <p>Får databehandleren krav fra en offentlig myndighet om utlevering av personopplysninger som
+      behandles etter denne avtalen, varsles den behandlingsansvarlige umiddelbart, med mindre varsel
+      er forbudt. Opplysninger utleveres ikke uten rettslig grunnlag.</p>
 
-    <h2>8. Sletting og retur ved opphør</h2>
-    <p>Ved opphør slettes eller returneres personopplysningene, med forbehold for lovpålagt oppbevaring (bokføringsloven).</p>
+    <h2>8. Brudd på personopplysningssikkerheten</h2>
+    <p>Databehandleren varsler den behandlingsansvarlige uten ugrunnet opphold etter å ha blitt
+      oppmerksom på et brudd. Varselet skal så langt det er mulig beskrive hva som har skjedd, hvilke
+      kategorier og omtrent hvor mange registrerte og opplysninger som er berørt, sannsynlige
+      konsekvenser, og hvilke tiltak som er truffet eller foreslås.</p>
+    <p>Er ikke alt kjent i første varsel, ettersendes opplysningene så snart de foreligger. Det er den
+      behandlingsansvarlige som melder til Datatilsynet og eventuelt til de registrerte.</p>
 
-    <h2>9. Revisjon</h2>
-    <p>Den behandlingsansvarlige kan kontrollere at avtalen overholdes, i tråd med nærmere avtalte rutiner.</p>
+    <h2>9. Oppbevaring, sletting og retur</h2>
+    <p>Regnskapsdata slettes automatisk fem år etter utløpet av det regnskapsåret de gjelder.
+      Fristen regnes fra regnskapsårets siste dag, slik at avvikende regnskapsår behandles riktig.
+      Den behandlingsansvarlige kan avtale lengre oppbevaring, og kan sette slettesperre på et
+      enkelt regnskapsår ved tvist eller tilsynssak. Hver sletting føres i en logg som viser klient,
+      periode og omfang.</p>
+    <p>Ved opphør av avtalen kan den behandlingsansvarlige innen 30 dager be om å få utlevert
+      personopplysningene i et maskinlesbart format. Deretter sletter databehandleren
+      personopplysningene innen 90 dager, med mindre lov krever videre oppbevaring. Sletting
+      bekreftes skriftlig på forespørsel.</p>
+    <p>Sikkerhetskopier slettes etter databehandlerens ordinære rutine for sikkerhetskopiering.
+      Fram til det er de omfattet av sikkerhetstiltakene i punkt 5.</p>
 
-    <h2>10. Lovvalg</h2>
-    <p>Avtalen reguleres av norsk rett og GDPR.</p>
+    <h2>10. Revisjon og dokumentasjon</h2>
+    <p>Databehandleren gjør tilgjengelig den dokumentasjonen som er nødvendig for å vise at pliktene
+      etter artikkel 28 er oppfylt, og fører protokoll over behandlingsaktiviteter etter artikkel 30.
+      Kopi av protokollen utleveres på forespørsel.</p>
+    <p>Den behandlingsansvarlige kan revidere etterlevelsen av avtalen inntil én gang i året, og
+      oftere dersom lovgivning den behandlingsansvarlige er underlagt krever det, eller etter et
+      brudd på personopplysningssikkerheten. Revisjon varsles minst fire uker i forveien med en plan
+      for omfang og varighet.</p>
+    <p>Hver part dekker egne kostnader ved revisjon. Avdekker revisjonen avvik som ikke er
+      uvesentlige, dekker databehandleren begge parters rimelige kostnader.</p>
+
+    <h2>11. Ansvar</h2>
+    <p>Hver part svarer for overtredelsesgebyr og andre sanksjoner som ilegges parten selv.</p>
+    <p>Blir en part holdt erstatningsansvarlig etter artikkel 82 for forhold den andre parten svarer
+      for, skal den ansvarlige parten dekke kostnaden.</p>
+    <p class="draft" style="margin-top:10px">Ansvarsbegrensning og eventuelt tak på erstatning
+      følger av brukervilkårene og bør fastsettes sammen med dem.</p>
+
+    <h2>12. Varighet og opphør</h2>
+    <p>Avtalen gjelder så lenge databehandleren behandler personopplysninger på vegne av den
+      behandlingsansvarlige. Sies avtalen om bruk av tjenesten opp, opphører også denne avtalen.</p>
+    <p>Ved brudd på denne avtalen eller på personvernregelverket kan den behandlingsansvarlige kreve
+      at videre behandling stanses med umiddelbar virkning, og heve avtalen.</p>
+
+    <h2>13. Lovvalg og verneting</h2>
+    <p>Avtalen reguleres av norsk rett. Verneting følger av avtalen om bruk av tjenesten.</p>
+
+    <h2>Kontakt</h2>
+    <p>Henvendelser om personvern og varsel om brudd sendes til
+      <a href="mailto:info@revisjonsmotor.no">info@revisjonsmotor.no</a>.</p>
+
   </main>
 
   <footer style="background:#0b0f1a; color:rgba(255,255,255,.5); padding:30px 24px;">

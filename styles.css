@@ -194,3 +194,23 @@ h3 { font-size: 18px; font-weight: 600; letter-spacing: -0.018em; margin: 0 0 va
   .blob { animation: none !important; }
   .mag, .nav-link, .btn-ghost, .btn-accent, .btn-outline, .lift { transition: none !important; }
 }
+
+/* Tabell i de juridiske sidene (underdatabehandlere i databehandleravtalen) */
+.legal-tabell {
+  width: 100%; border-collapse: collapse; margin: 14px 0 18px; font-size: 15px;
+}
+.legal-tabell th, .legal-tabell td {
+  text-align: left; padding: 10px 12px; border-bottom: 1px solid rgba(0,0,0,.09);
+  vertical-align: top;
+}
+.legal-tabell th { font-weight: 600; color: var(--ink); background: rgba(0,0,0,.025); }
+.legal-tabell td { color: #45474f; }
+
+@media (max-width: 560px) {
+  .legal-tabell, .legal-tabell thead, .legal-tabell tbody,
+  .legal-tabell tr, .legal-tabell th, .legal-tabell td { display: block; }
+  .legal-tabell thead { display: none; }
+  .legal-tabell tr { border-bottom: 1px solid rgba(0,0,0,.12); padding: 6px 0; }
+  .legal-tabell td { border: none; padding: 4px 0; }
+  .legal-tabell td:first-child { font-weight: 600; color: var(--ink); }
+}
