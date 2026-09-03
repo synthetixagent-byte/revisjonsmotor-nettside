@@ -26,8 +26,6 @@
     <h1>Systemsikkerhet</h1>
     <p class="muted" style="color:var(--ink-mut); font-size:14px;">Sist oppdatert: 13. august 2026</p>
 
-    <div class="draft">⚠️ <strong>Utkast.</strong> Beskrivelsen under skal speile de faktiske tiltakene i produksjon. Oppdater etter hvert som plattformen settes opp (jf. pre-deploy-sjekklisten).</div>
-
     <p>Sikkerhet og etterprøvbarhet er en del av kontrollen i Revisjonsmotor, ikke et tillegg. Under er en oversikt over hvordan vi ivaretar dataene.</p>
 
     <h2>Kryptering</h2>
@@ -37,16 +35,16 @@
     <p>Regnskapsdatabasen ligger i Norge (Microsoft Azure, Norway East). Applikasjonen kjører i Sverige og dokumentlesingen i en EU-region, alt innenfor EØS og i samsvar med GDPR.</p>
 
     <h2>Tilgangsstyring</h2>
-    <p>Pålogging skjer med Microsoft-kontoen brukeren allerede har (Microsoft Entra ID). Vi lagrer ingen passord, og tofaktor arves fra revisjonsforetakets egne regler. Hvert revisjonsforetak er skilt fra alle andre, og innenfor foretaket ser hver revisor kun klientene hun er tildelt.</p>
+    <p>Pålogging skjer med Microsoft Entra ID. Vi lagrer ingen passord. Brukere opprettes i vår katalog, og tofaktor følger kravene der. Hvert revisjonsforetak er skilt fra alle andre, og innenfor foretaket ser hver revisor kun klientene hun er tildelt. Skillet ligger i datamodellen, ikke i skjermbildene, slik at det ikke kan glemmes i en enkelt visning.</p>
 
     <h2>Revisjonsspor</h2>
-    <p>Hver kontroll og hver handling logges med regel, kilde og beløp. Sporet er etterprøvbart og klart for arbeidspapirene.</p>
+    <p>Hver kontroll logges med regel, kilde og beløp. Revisors egne vurderinger lagres med hvem som konkluderte og når, og de består når kontrollene kjøres på nytt. Sletting av data kvitteres i egen logg. Sporet er etterprøvbart og klart for arbeidspapirene.</p>
 
     <h2>Sikkerhetskopiering og gjenoppretting</h2>
     <p>Databasen sikkerhetskopieres kontinuerlig, med mulighet for gjenoppretting til et vilkårlig tidspunkt de siste sju dagene. Rutiner for regelmessig testing av gjenoppretting er under etablering.</p>
 
     <h2>Sårbarhets- og hendelseshåndtering</h2>
-    <p>Avhengigheter overvåkes for kjente sårbarheter, og vi har rutiner for å oppdage, håndtere og varsle om sikkerhetshendelser uten ugrunnet opphold.</p>
+    <p>Avhengigheter overvåkes for kjente sårbarheter med GitHub Dependabot. Sikkerhetshendelser varsles til kunden uten ugrunnet opphold, slik databehandleravtalen krever.</p>
 
     <h2>Samsvar</h2>
     <p>Kontrollene følger ISA-standardene og norsk bokføringslov, og behandlingen av personopplysninger følger GDPR. Se også <a href="personvern.html">Personvernerklæringen</a> og <a href="databehandleravtale.html">Databehandleravtalen</a>.</p>
