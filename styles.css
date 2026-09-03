@@ -180,7 +180,10 @@ h3 { font-size: 18px; font-weight: 600; letter-spacing: -0.018em; margin: 0 0 va
 
 /* Telefon: rydd opp i toppmenyen (logo + «Be om demo» får god plass) */
 @media (max-width: 640px) {
-  .nav-shell { padding: 8px 10px 8px 16px; }
+  .nav-shell { padding: 8px 10px 8px 16px; gap: 12px; }
+  /* Uten gap endte ordmerket på nøyaktig samme piksel som knappen begynte,
+     helt ned til 320 px. Ingen overlapp, men det leses som at teksten løper
+     inn i knappen. */
   .nav-shell .btn-outline { display: none; }   /* «Gå til Revisjonsmotor» skjules på liten skjerm */
   .pill { padding: 9px 16px; }
 }

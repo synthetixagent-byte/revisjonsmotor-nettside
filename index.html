@@ -126,14 +126,14 @@
         </div>
         <div class="grid-3">
           <div class="glass-card lift"><div class="icon-tile"><i class="bi bi-receipt"></i></div><h3>Bilagskontroll</h3><p style="font-size:14.5px; line-height:1.5; color:#5a5a62; margin:0;">Leser hvert bilag og kontrollerer beløp, MVA-kode, konto og dato. Avvik over vesentlighetsgrensen flagges.</p></div>
-          <div class="glass-card lift"><div class="icon-tile"><i class="bi bi-percent"></i></div><h3>MVA-kontroll</h3><p style="font-size:14.5px; line-height:1.5; color:#5a5a62; margin:0;">Skyldig MVA, omsetning, inngående fradrag og betaling per termin, avstemt mot bokføring og Skatteetaten.</p></div>
+          <div class="glass-card lift"><div class="icon-tile"><i class="bi bi-percent"></i></div><h3>MVA-kontroll</h3><p style="font-size:14.5px; line-height:1.5; color:#5a5a62; margin:0;">Skyldig MVA, omsetning, inngående fradrag og betaling per termin, avstemt mot bokføringen og innsendt MVA-melding.</p></div>
           <div class="glass-card lift"><div class="icon-tile"><i class="bi bi-arrow-left-right"></i></div><h3>Avstemming</h3><p style="font-size:14.5px; line-height:1.5; color:#5a5a62; margin:0;">Hver balansepost kontrolleres mot dokumentasjon: bank, fordringer, varelager, renteinntekt og mer.</p></div>
           <!-- «Periodisering» sto her og lovet en cut-off-kontroll som ikke er bygget.
                Se funn A4 i docs/REVISJONSFAGLIG-GJENNOMGANG-2026-08-19.md. Kortet er
                tatt ned til kontrollen finnes. Et verktøy med «ingen konklusjon uten
                bevis» som slagord kan ikke love kontroller det ikke har. -->
           <div class="glass-card lift"><div class="icon-tile"><i class="bi bi-graph-up-arrow"></i></div><h3>Analyse og vesentlighet</h3><p style="font-size:14.5px; line-height:1.5; color:#5a5a62; margin:0;">Beregner vesentlighet og arbeidsvesentlighet, og vurderer avvik mot grensen for ubetydelige feil.</p></div>
-          <div class="glass-card lift"><div class="icon-tile"><i class="bi bi-bank"></i></div><h3>Skatt og offentlige krav</h3><p style="font-size:14.5px; line-height:1.5; color:#5a5a62; margin:0;">Avstemmer skattemessig resultat og terminbetalinger mot skattemelding og Skatteetatens kontoutskrift.</p></div>
+          <div class="glass-card lift"><div class="icon-tile"><i class="bi bi-bank"></i></div><h3>Skatt og offentlige krav</h3><p style="font-size:14.5px; line-height:1.5; color:#5a5a62; margin:0;">Avstemmer skattemessig resultat og terminbetalinger mot skattemeldingen og skatteoppgjøret.</p></div>
         </div>
       </div>
     </section>
@@ -169,24 +169,34 @@
         <div style="text-align:center; max-width:680px; margin:0 auto 46px;">
           <div class="eyebrow">Integrasjoner</div>
           <h2>Direkte API-tilgang til kildene</h2>
-          <p class="lead" style="margin:0;">Revisjonsmotor kobler seg rett på kildesystemene via API og henter dataene automatisk, uten manuell eksport eller filopplasting. Alt er kontrollerbart og fullt sporbart.</p>
+          <p class="lead" style="margin:0;">Revisjonsmotor kobler seg rett på kildesystemene via API og henter dataene automatisk. Under står det som er koblet på i dag, og det vi arbeider med. Alt er kontrollerbart og fullt sporbart.</p>
         </div>
-        <div class="grid-3" style="gap:34px 28px; max-width:940px; margin:0 auto;">
-          <!-- Tripletex er den eneste ferdige API-integrasjonen, og har egen side.
-               Logoen ligger på hvit flate uten omfarging. Det er deres merkevare, ikke vår. -->
-          <!-- .lift hører hjemme på den hvite ruten, ikke på lenken. Lenken har
-               ingen bakgrunn, så en skygge der tegner bare en firkant i løse lufta. -->
-          <a href="tripletex.html" style="display:flex; align-items:center; gap:15px; text-decoration:none; color:inherit;">
-            <div class="lift" style="width:54px; height:54px; border-radius:14px; background:#fff; border:1px solid rgba(0,0,0,.07); display:flex; align-items:center; justify-content:center; flex:none; padding:9px;"><img src="tripletex-logo.png" alt="Tripletex" style="max-width:100%; max-height:100%; display:block;"></div>
-            <div style="min-width:0;"><div style="font-size:16.5px; font-weight:600; color:#11131a; display:flex; align-items:center; gap:6px;">Tripletex <i class="bi bi-arrow-right" style="font-size:13px; color:var(--accent);"></i></div><div style="font-size:12.5px; color:var(--ink-mut); margin-top:3px; white-space:nowrap;">Regnskapssystem</div></div>
-          </a>
-          <div style="display:flex; align-items:center; gap:15px;"><div style="width:54px; height:54px; border-radius:14px; background:rgba(var(--accent-rgb),.10); display:flex; align-items:center; justify-content:center; flex:none;"><i class="bi bi-building" style="font-size:24px; color:var(--accent);"></i></div><div><div style="font-size:16.5px; font-weight:600; color:#11131a;">PowerOffice</div><div style="font-size:12.5px; color:var(--ink-mut); margin-top:3px;">Regnskapssystem</div></div></div>
-          <div style="display:flex; align-items:center; gap:15px;"><div style="width:54px; height:54px; border-radius:14px; background:rgba(var(--accent-rgb),.10); display:flex; align-items:center; justify-content:center; flex:none;"><i class="bi bi-bank" style="font-size:24px; color:var(--accent);"></i></div><div><div style="font-size:16.5px; font-weight:600; color:#11131a;">Skatteetaten</div><div style="font-size:12.5px; color:var(--ink-mut); margin-top:3px;">MVA og skatt</div></div></div>
-          <div style="display:flex; align-items:center; gap:15px;"><div style="width:54px; height:54px; border-radius:14px; background:rgba(var(--accent-rgb),.10); display:flex; align-items:center; justify-content:center; flex:none;"><i class="bi bi-file-earmark-text" style="font-size:24px; color:var(--accent);"></i></div><div><div style="font-size:16.5px; font-weight:600; color:#11131a;">Altinn</div><div style="font-size:12.5px; color:var(--ink-mut); margin-top:3px;">Innrapportering</div></div></div>
-          <div style="display:flex; align-items:center; gap:15px;"><div style="width:54px; height:54px; border-radius:14px; background:rgba(var(--accent-rgb),.10); display:flex; align-items:center; justify-content:center; flex:none;"><i class="bi bi-journals" style="font-size:24px; color:var(--accent);"></i></div><div><div style="font-size:16.5px; font-weight:600; color:#11131a;">Brønnøysundregistrene</div><div style="font-size:12.5px; color:var(--ink-mut); margin-top:3px;">Foretaksdata</div></div></div>
-          <div style="display:flex; align-items:center; gap:15px;"><div style="width:54px; height:54px; border-radius:14px; background:rgba(var(--accent-rgb),.10); display:flex; align-items:center; justify-content:center; flex:none;"><i class="bi bi-truck" style="font-size:24px; color:var(--accent);"></i></div><div><div style="font-size:16.5px; font-weight:600; color:#11131a;">Statens vegvesen</div><div style="font-size:12.5px; color:var(--ink-mut); margin-top:3px;">Kjøretøydata</div></div></div>
+        <!-- Delt i to med vilje. Trygghet-seksjonen lover at siden viser det som er
+             bygget, ikke det som er planlagt. Én samlet liste brøt det løftet, fordi
+             bare tre av dem er koblet på. -->
+        <div style="max-width:940px; margin:0 auto;">
+          <div class="eyebrow" style="text-align:center; margin:0 0 24px;">Koblet på i dag</div>
+          <div class="grid-3" style="gap:34px 28px;">
+            <!-- Tripletex har egen side. Logoen ligger på hvit flate uten omfarging.
+                 Det er deres merkevare, ikke vår. -->
+            <!-- .lift hører hjemme på den hvite ruten, ikke på lenken. Lenken har
+                 ingen bakgrunn, så en skygge der tegner bare en firkant i løse lufta. -->
+            <a href="tripletex.html" style="display:flex; align-items:center; gap:15px; text-decoration:none; color:inherit;">
+              <div class="lift" style="width:54px; height:54px; border-radius:14px; background:#fff; border:1px solid rgba(0,0,0,.07); display:flex; align-items:center; justify-content:center; flex:none; padding:9px;"><img src="tripletex-logo.png" alt="Tripletex" style="max-width:100%; max-height:100%; display:block;"></div>
+              <div style="min-width:0;"><div style="font-size:16.5px; font-weight:600; color:#11131a; display:flex; align-items:center; gap:6px;">Tripletex <i class="bi bi-arrow-right" style="font-size:13px; color:var(--accent);"></i></div><div style="font-size:12.5px; color:var(--ink-mut); margin-top:3px; white-space:nowrap;">Regnskapssystem</div></div>
+            </a>
+            <div style="display:flex; align-items:center; gap:15px;"><div style="width:54px; height:54px; border-radius:14px; background:rgba(var(--accent-rgb),.10); display:flex; align-items:center; justify-content:center; flex:none;"><i class="bi bi-journals" style="font-size:24px; color:var(--accent);"></i></div><div><div style="font-size:16.5px; font-weight:600; color:#11131a;">Brønnøysundregistrene</div><div style="font-size:12.5px; color:var(--ink-mut); margin-top:3px;">Foretaksdata</div></div></div>
+            <div style="display:flex; align-items:center; gap:15px;"><div style="width:54px; height:54px; border-radius:14px; background:rgba(var(--accent-rgb),.10); display:flex; align-items:center; justify-content:center; flex:none;"><i class="bi bi-currency-exchange" style="font-size:24px; color:var(--accent);"></i></div><div><div style="font-size:16.5px; font-weight:600; color:#11131a;">Norges Bank</div><div style="font-size:12.5px; color:var(--ink-mut); margin-top:3px;">Valutakurser</div></div></div>
+          </div>
+
+          <div class="eyebrow" style="text-align:center; margin:46px 0 24px;">Under arbeid</div>
+          <div class="grid-3" style="gap:34px 28px; opacity:.72;">
+            <div style="display:flex; align-items:center; gap:15px;"><div style="width:54px; height:54px; border-radius:14px; background:rgba(0,0,0,.05); display:flex; align-items:center; justify-content:center; flex:none;"><i class="bi bi-file-earmark-text" style="font-size:24px; color:#78787e;"></i></div><div><div style="font-size:16.5px; font-weight:600; color:#11131a;">Altinn</div><div style="font-size:12.5px; color:var(--ink-mut); margin-top:3px;">Skatteoppgjør og post</div></div></div>
+            <div style="display:flex; align-items:center; gap:15px;"><div style="width:54px; height:54px; border-radius:14px; background:rgba(0,0,0,.05); display:flex; align-items:center; justify-content:center; flex:none;"><i class="bi bi-building" style="font-size:24px; color:#78787e;"></i></div><div><div style="font-size:16.5px; font-weight:600; color:#11131a;">PowerOffice</div><div style="font-size:12.5px; color:var(--ink-mut); margin-top:3px;">Regnskapssystem</div></div></div>
+            <div style="display:flex; align-items:center; gap:15px;"><div style="width:54px; height:54px; border-radius:14px; background:rgba(0,0,0,.05); display:flex; align-items:center; justify-content:center; flex:none;"><i class="bi bi-bank" style="font-size:24px; color:#78787e;"></i></div><div><div style="font-size:16.5px; font-weight:600; color:#11131a;">Skatteetaten</div><div style="font-size:12.5px; color:var(--ink-mut); margin-top:3px;">MVA og skatt</div></div></div>
+          </div>
         </div>
-        <p style="text-align:center; font-size:13.5px; color:#78787e; margin:36px 0 0;">… og flere via standard SAF-T og åpne API-er.</p>
+        <p style="text-align:center; font-size:13.5px; color:#78787e; margin:36px 0 0;">Regnskapsdata kan også leses inn via standard SAF-T, uavhengig av system. Dokumenter som ennå ikke hentes automatisk, lastes opp av revisor.</p>
         <p style="text-align:center; font-size:13.5px; color:var(--ink-mut); margin:10px 0 0;">
           Tripletex er et registrert varemerke som tilhører Tripletex AS ·
           <a href="https://www.tripletex.no/" target="_blank" rel="noopener">tripletex.no</a>
@@ -209,10 +219,10 @@
              sanne nå og er skrevet om til presens. Det som ikke er ferdig, sies rett ut. -->
         <div class="grid-3">
           <div class="glass-card lift"><div class="icon-tile"><i class="bi bi-geo-alt-fill"></i></div><h3>Data i Norge</h3><p style="font-size:14.5px; line-height:1.5; color:#5a5a62; margin:0;">Databasen ligger i Microsoft Azure sin norske region. Regnskapsdata forlater ikke EØS, heller ikke når dokumenter leses maskinelt.</p></div>
-          <div class="glass-card lift"><div class="icon-tile"><i class="bi bi-person-badge-fill"></i></div><h3>Tilgangsstyring</h3><p style="font-size:14.5px; line-height:1.5; color:#5a5a62; margin:0;">Hver bruker ser kun klientene hun er tildelt, og revisjonsforetakene er adskilt fra hverandre. Innlogging med Microsoft-kontoen dere allerede bruker.</p></div>
+          <div class="glass-card lift"><div class="icon-tile"><i class="bi bi-person-badge-fill"></i></div><h3>Tilgangsstyring</h3><p style="font-size:14.5px; line-height:1.5; color:#5a5a62; margin:0;">Hver bruker ser kun klientene hun er tildelt, og revisjonsforetakene er adskilt fra hverandre. Innlogging med Microsoft-konto.</p></div>
           <div class="glass-card lift"><div class="icon-tile"><i class="bi bi-lock-fill"></i></div><h3>Kryptering</h3><p style="font-size:14.5px; line-height:1.5; color:#5a5a62; margin:0;">Data krypteres i transport og i hvile. API-nøkler mot regnskapssystemene lagres kryptert, med krypteringsnøkkelen utenfor databasen.</p></div>
           <div class="glass-card lift"><div class="icon-tile"><i class="bi bi-clipboard2-check-fill"></i></div><h3>Fullt revisjonsspor</h3><p style="font-size:14.5px; line-height:1.5; color:#5a5a62; margin:0;">Hver kontroll logges med regel, kilde og beløp. Revisors egne vurderinger og begrunnelser står, også når kontrollene kjøres på nytt.</p></div>
-          <div class="glass-card lift"><div class="icon-tile"><i class="bi bi-clock-history"></i></div><h3>Sletting etter fem år</h3><p style="font-size:14.5px; line-height:1.5; color:#5a5a62; margin:0;">Regnskapsdata slettes automatisk når oppbevaringstiden er ute, regnet fra regnskapsårets slutt. Hver sletting kvitteres i en logg.</p></div>
+          <div class="glass-card lift"><div class="icon-tile"><i class="bi bi-clock-history"></i></div><h3>Sletting etter fem år</h3><p style="font-size:14.5px; line-height:1.5; color:#5a5a62; margin:0;">Regnskapsdata slettes automatisk når oppbevaringstiden er ute. Hver sletting kvitteres i en logg, og sletting kan sperres ved tvist eller tilsynssak.</p></div>
           <div class="glass-card lift"><div class="icon-tile"><i class="bi bi-shield-check"></i></div><h3>Ingen konklusjon uten bevis</h3><p style="font-size:14.5px; line-height:1.5; color:#5a5a62; margin:0;">Det som ikke lar seg bekrefte, merkes «til gjennomgang» og går til revisor. Motoren gjetter aldri, og grønt betyr faktisk kontrollert.</p></div>
         </div>
       </div>
@@ -228,7 +238,7 @@
              motsa knappen i heroen som sa «på dine egne tall». Nå står det som
              faktisk skjer, og terskelen er lavere: ingen trenger å levere fra seg
              klientdata for å se produktet. -->
-        <p class="lead" style="color:rgba(255,255,255,.68); margin:0 0 32px;">Tretti minutter på video. Vi kjører kontrollene på vår egen testklient og går gjennom hva motoren fant, hvordan den fant det, og hva som havner hos revisor.</p>
+        <p class="lead" style="color:rgba(255,255,255,.68); margin:0 0 32px;">Vi kjører kontrollene på vår egen testklient og går gjennom hva motoren fant, hvordan den fant det, og hva som havner hos revisor. Sett av en halvtime.</p>
         <!-- Skjema er byttet ut med en e-postlenke. Uten en server kunne skjemaet
              bare åpne e-postprogrammet, og på maskiner uten et slikt oppsett skjedde
              det ingenting mens siden sa at alt gikk bra. En lenke som alltid virker
