@@ -1,219 +1,404 @@
-/* =====================================================================
-   Revisjonsmotor — delt designsystem (brukes av alle sider)
-   Brandfont: Inter (lastes i <head>), med SF Pro / system som fallback.
-   ===================================================================== */
+/* Revisjonsmotor: felles stil for revisjonsmotor.no. Farger, skrift og former følger brandbook 2.0. */
+@font-face{font-family:'Barlow';font-weight:300;font-style:normal;font-display:swap;src:url(fonter/barlow-300.woff2) format('woff2')}
+@font-face{font-family:'Barlow';font-weight:400;font-style:normal;font-display:swap;src:url(fonter/barlow-400.woff2) format('woff2')}
+@font-face{font-family:'Barlow';font-weight:500;font-style:normal;font-display:swap;src:url(fonter/barlow-500.woff2) format('woff2')}
+@font-face{font-family:'Barlow';font-weight:600;font-style:normal;font-display:swap;src:url(fonter/barlow-600.woff2) format('woff2')}
+@font-face{font-family:'Source Sans 3';font-weight:200 900;font-style:normal;font-display:swap;src:url(fonter/source-sans-3.woff2) format('woff2')}
+@font-face{font-family:'Saira Motor';font-weight:700;font-style:normal;font-display:swap;src:url(fonter/saira-motor.woff2) format('woff2')}
+:root{
+  --plomme:#6d2e72; --plomme-2:#59265d; --plomme-mork:#311533; --plomme-lys:#d3c0d5;
+  --bg:#f6f5f8; --flate:#fff; --flate-2:#faf9fb; --hover:#f8f6f9; --tint:rgba(109,46,114,.08);
+  --tekst:#1f1b26; --tekst-2:#56505f; --tekst-3:#67616f; --strek:#dcd8e2; --strek-2:#ebe8ef;
+  --ok:#1d6b43; --r:2px;
+  --ease:cubic-bezier(.23,1,.32,1);
+  --f-head:'Barlow',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --f-tekst:'Source Sans 3',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --maks:1200px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:84px}
+body{margin:0;font-family:var(--f-tekst);font-size:17px;line-height:1.55;color:var(--tekst);background:var(--bg);-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--f-head);font-weight:500;line-height:1.12;margin:0;letter-spacing:0;text-wrap:balance}
+p{margin:0;text-wrap:pretty}
+a{color:inherit}
+img,svg{display:block}
+.inner{max-width:var(--maks);margin:0 auto;padding:0 32px}
+.utkast{font:500 13px/1.4 var(--f-tekst);color:var(--tekst-2);background:var(--flate);border-bottom:1px solid var(--strek);padding:8px 32px;text-align:center}
+.utkast a{color:var(--plomme)}
 
-:root {
-  --accent: #0071e3;
-  --accent-rgb: 0, 113, 227;
-  --blur: 18px;
-  --glow-size: 620px;
-  --glow-alpha: .60;
-  --glow-stop: 50%;
-  --ink: #1d1d1f;
-  --ink-soft: #3a3a44;
-  --ink-mut: #6e6e73;
-  --ok: #34c759;
-  --ok-ink: #1c7a33;     /* mørknet for WCAG AA 4.5:1 på pille-bakgrunn */
+/* Topplinje */
+.topp{position:sticky;top:0;z-index:20;background:rgba(246,245,248,.94);border-bottom:1px solid var(--strek)}
+.topp .inner{height:68px;display:flex;align-items:center;gap:32px}
+.merke{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--plomme);flex:none}
+.merke .logo{width:34px;height:34px}
+.merke .ordmerke{height:13px;width:auto}
+.meny{display:flex;gap:28px;margin-left:auto;font:500 15px/1 var(--f-head);white-space:nowrap}
+.meny a{text-decoration:none;color:var(--tekst-2);padding:8px 0;transition:color 150ms ease}
 
-  /* elevasjonsskala — to-delt skygge (kontaktlinje + løft) */
-  --shadow-1: 0 1px 2px rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.05);
-  --shadow-2: 0 1px 2px rgba(0,0,0,.05), 0 18px 44px rgba(0,0,0,.10);
-  --shadow-3: 0 1px 2px rgba(0,0,0,.05), 0 24px 60px rgba(0,0,0,.12);
+/* Knapper: rette hjørner, fylt plomme og hvit med plommekant */
+.knapp{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:44px;padding:0 20px;border-radius:var(--r);
+  font:600 15px/1 var(--f-head);text-decoration:none;border:1px solid transparent;white-space:nowrap;cursor:pointer;
+  transition:background-color 150ms ease,color 150ms ease,border-color 150ms ease,transform 160ms var(--ease)}
+.knapp:active{transform:scale(.97)}
+.knapp-primar{background:var(--plomme);color:#fff}
+.knapp-sek{background:var(--flate);color:var(--plomme);border-color:var(--plomme)}
+.knapp-liten{height:36px;padding:0 14px;font-size:14px}
+.lenke{color:var(--plomme);text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
+@media (hover:hover) and (pointer:fine){
+  .knapp-primar:hover{background:var(--plomme-2)}
+  .knapp-sek:hover{background:var(--hover)}
+  .meny a:hover{color:var(--plomme)}
+  .lenke:hover{text-decoration-thickness:2px}
+}
+:focus-visible{outline:2px solid var(--plomme);outline-offset:3px}
 
-  /* mellomrom-skala (8-base rytme) */
-  --space-1: 8px;
-  --space-2: 12px;
-  --space-3: 16px;
-  --space-4: 24px;
-  --space-5: 32px;
-  --space-6: 48px;
-  --space-7: 64px;
+/* Ekte skjermbilder fra programmet, skalert ned som et bilde */
+.ui-ramme{position:relative;overflow:hidden;contain:inline-size;min-width:0;background:var(--bg);border:1px solid var(--strek);border-radius:var(--r)}
+.ui-ramme iframe{position:absolute;top:0;left:0;border:0;transform-origin:0 0;background:var(--bg)}
+.bildetekst{font-size:14px;color:var(--tekst-3);margin-top:10px}
+
+/* Bunn */
+.bunn{border-top:1px solid var(--strek);padding:40px 0 56px;font-size:15px;color:var(--tekst-2)}
+.bunn .inner{display:flex;flex-wrap:wrap;gap:16px 32px;align-items:center}
+.bunn nav{display:flex;flex-wrap:wrap;gap:8px 24px;margin-left:auto}
+.bunn a{text-decoration:none}
+@media (hover:hover) and (pointer:fine){.bunn a:hover{color:var(--plomme)}}
+
+/* Inn på siden: bare opasitet og flytt, kort og raskt */
+[data-inn]{transition:opacity 420ms var(--ease),transform 420ms var(--ease);transition-delay:calc(var(--i,0) * 60ms)}
+.js [data-inn]:not(.synlig){opacity:0;transform:translateY(10px)}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition:none!important;animation:none!important}
+  .js [data-inn]:not(.synlig){opacity:1;transform:none}
+}
+@media (max-width:860px){
+  .meny{display:none}
+  .topp .knapp{margin-left:auto}
+  .inner{padding:0 20px}
 }
 
-* { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body {
-  margin: 0;
-  font-family: 'Inter', -apple-system, 'SF Pro Text', 'Segoe UI', Roboto, system-ui, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  letter-spacing: -0.01em;
-  color: var(--ink);
-  background: #eef5ff;
+/* ── Runde 2: tydelig musa-over med lilla streker, bare på det som kan trykkes ── */
+.meny a{position:relative}
+.meny a::after{content:"";position:absolute;left:0;right:0;bottom:-3px;height:3px;background:var(--plomme);
+  transform:scaleX(0);transform-origin:left;transition:transform 200ms var(--ease)}
+.knapp{position:relative;overflow:hidden}
+.knapp::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--plomme-lys);
+  transform:scaleX(0);transform-origin:left;transition:transform 200ms var(--ease)}
+.knapp-sek::after{background:var(--plomme)}
+.rad-lenke{display:block;text-decoration:none;color:inherit;transition:background-color 150ms ease,box-shadow 150ms ease}
+.rad-lenke .mer{display:inline-flex;align-items:center;gap:6px;font:500 14px/1 var(--f-head);color:var(--plomme);margin-top:10px;
+  opacity:0;transform:translateX(-4px);transition:opacity 150ms ease,transform 200ms var(--ease)}
+.bunn a{position:relative}
+@media (hover:hover) and (pointer:fine){
+  .meny a:hover{color:var(--tekst)}
+  .meny a:hover::after{transform:scaleX(1)}
+  .knapp:hover::after{transform:scaleX(1)}
+  .rad-lenke:hover{background:var(--hover);box-shadow:inset 4px 0 0 var(--plomme)}
+  .rad-lenke:hover .mer{opacity:1;transform:none}
+  .bunn a:hover{color:var(--plomme);text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:2px}
 }
-::selection { background: rgba(var(--accent-rgb), .18); }
-a { text-decoration: none; color: inherit; }
+.rad-lenke:focus-visible{outline:2px solid var(--plomme);outline-offset:-2px}
+.merke-kommer{display:inline-block;font:500 12px/1 var(--f-head);color:var(--tekst-2);border:1px solid var(--strek);
+  padding:4px 7px;border-radius:var(--r);margin-left:10px;vertical-align:2px;background:var(--flate)}
+.bilde-flate{background-size:cover;background-position:center}
 
-@keyframes aurora1 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(40px,24px) scale(1.08); } }
-@keyframes aurora2 { 0%,100% { transform: translate(0,0) scale(1.05); } 50% { transform: translate(-44px,-28px) scale(.96); } }
-
-/* ===== subtil interaktivitet (det brukeren liker) ===== */
-.mag { transition: transform .2s cubic-bezier(.2,.7,.3,1); }
-.mag:hover { transform: scale(1.045); }
-.nav-link { transition: color .15s; }
-.nav-link:hover { color: var(--accent); }
-.btn-ghost { transition: background .15s, transform .2s cubic-bezier(.2,.7,.3,1); }
-.btn-ghost:hover { background: #fff !important; transform: translateY(-1px); }
-.btn-accent { transition: filter .15s, transform .2s cubic-bezier(.2,.7,.3,1); }
-.btn-accent:hover { filter: brightness(1.06); transform: translateY(-1px); }
-.lift { transition: transform .2s cubic-bezier(.2,.7,.3,1), box-shadow .2s; }
-.lift:hover { transform: translateY(-4px); box-shadow: var(--shadow-2); }
-input:focus, textarea:focus { border-color: var(--accent) !important; }
-
-/* synlig tastatur-fokus (tilgjengelighet) */
-a:focus-visible, button:focus-visible, input:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 3px;
-}
-
-/* sekundærknapp («Gå til Revisjonsmotor») */
-.btn-outline {
-  border: 1px solid rgba(0,0,0,.14); color: var(--ink); font-size: 14px; font-weight: 500;
-  padding: 9px 16px; border-radius: 980px; display: inline-flex; align-items: center; gap: 7px;
-  background: rgba(255,255,255,.5); transition: background .15s, border-color .15s, transform .2s;
-}
-.btn-outline:hover { background: #fff; border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
-
-/* ===== layout ===== */
-.section { padding: 96px 40px; position: relative; overflow: hidden; }
-.wrap { max-width: 1080px; margin: 0 auto; position: relative; }
-.blob { position: absolute; border-radius: 50%; pointer-events: none; }
-.glass-card {
-  background: #fff;
-  border: 1px solid rgba(0,0,0,.07);
-  border-radius: 18px;
-  padding: 28px;
-  box-shadow: var(--shadow-1);
-}
-.pill { background: var(--accent); color: #fff; font-size: 14px; font-weight: 500; padding: 9px 18px; border-radius: 980px; display: inline-block; }
-
-h1 { font-size: clamp(40px, 6vw, 62px); line-height: 1.04; font-weight: 600; letter-spacing: -0.038em; margin: 0 0 var(--space-4); color: #11131a; }
-h2 { font-size: clamp(28px, 4.5vw, 42px); line-height: 1.08; font-weight: 600; letter-spacing: -0.03em; margin: 0 0 var(--space-3); }
-h3 { font-size: 18px; font-weight: 600; letter-spacing: -0.018em; margin: 0 0 var(--space-1); }
-.eyebrow { font-size: 13px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--accent); margin-bottom: var(--space-2); }
-.lead { font-size: 18px; line-height: 1.55; color: var(--ink-soft); letter-spacing: -0.012em; }
-
-.icon-tile { width: 44px; height: 44px; border-radius: 12px; background: rgba(var(--accent-rgb),.12); display: flex; align-items: center; justify-content: center; margin-bottom: var(--space-3); }
-.icon-tile i { color: var(--accent); font-size: 20px; }
-
-.grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: var(--space-3); }
-.grid-2 { display: grid; grid-template-columns: repeat(2,1fr); gap: var(--space-3); }
-.grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: var(--space-3); }
-
-/* juridiske lenker i footer */
-.footer-legal a { color: rgba(255,255,255,.6); transition: color .15s; }
-.footer-legal a:hover { color: #fff; }
-
-/* juridiske sider (personvern, vilkår, DPA, sikkerhet) */
-.legal-top { max-width: 820px; margin: 0 auto; padding: 22px 24px; display: flex; align-items: center; gap: 11px; }
-.legal { max-width: 820px; margin: 0 auto; padding: 30px 24px 90px; }
-.legal h1 { font-size: 40px; margin-bottom: 6px; }
-.legal h2 { font-size: 21px; margin: 36px 0 10px; }
-.legal p, .legal li { font-size: 16px; line-height: 1.62; color: var(--ink-soft); }
-.legal ul { padding-left: 22px; }
-.legal a { color: var(--accent); }
-.legal .draft { background: #fff8e6; border: 1px solid #f0d98a; color: #7a5b00; border-radius: 12px; padding: 14px 18px; font-size: 14.5px; margin: 16px 0 30px; }
-
-/* ===== «Prøv motoren» — interaktiv demo ===== */
-.demo-card {
-  background: rgba(255,255,255,.72);
-  backdrop-filter: blur(var(--blur)) saturate(160%); -webkit-backdrop-filter: blur(var(--blur)) saturate(160%);
-  border: 1px solid rgba(255,255,255,.85); border-radius: 22px;
-  box-shadow: var(--shadow-3);
-  padding: 20px; max-width: 720px; margin: 0 auto; text-align: left;
-}
-.demo-head { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
-.demo-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin: 18px 0 14px; }
-.demo-stat { background: rgba(0,0,0,.025); border-radius: 14px; padding: 12px; text-align: center; }
-.demo-stat .n { font-size: 25px; font-weight: 700; letter-spacing: -0.02em; line-height: 1; }
-.demo-stat .l { font-size: 12px; color: var(--ink-mut); margin-top: 5px; }
-.demo-bar { height: 8px; border-radius: 980px; background: rgba(0,0,0,.07); overflow: hidden; }
-.demo-bar > i { display: block; height: 100%; width: 0; background: var(--accent); border-radius: 980px; transition: width .35s ease; }
-.demo-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 11px 6px; opacity: .45; transition: opacity .25s, background .25s; }
-.demo-row.done { opacity: 1; }
-.demo-row + .demo-row { border-top: 1px solid rgba(0,0,0,.06); }
-.demo-run { background: var(--accent); color: #fff; font-size: 14.5px; font-weight: 600; padding: 10px 18px; border: none; border-radius: 980px; cursor: pointer; font-family: inherit; display: inline-flex; align-items: center; gap: 8px; transition: filter .15s, transform .2s; }
-.demo-run:hover { filter: brightness(1.06); transform: translateY(-1px); }
-.demo-run:disabled { opacity: .7; cursor: default; transform: none; }
-.status { font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 980px; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
-.status .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
-.status.ok { background: rgba(52,199,89,.14); color: var(--ok-ink); }
-.status.review { background: rgba(255,149,0,.16); color: #8a5d00; }
-.status.avvik { background: rgba(255,59,48,.12); color: #c4231a; }
-.status.pending { background: rgba(0,0,0,.05); color: var(--ink-mut); }
-
-/* ===== mørkt «slik ser en kjøring ut»-band ===== */
-.dark-band { background: #0b0f1a; color: #fff; }
-.stat-big { text-align: center; }
-.stat-big .n { font-size: 44px; font-weight: 700; letter-spacing: -0.03em; line-height: 1; }
-.stat-big .l { font-size: 13.5px; color: rgba(255,255,255,.6); margin-top: 8px; }
-.badge-chip { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.14); color: rgba(255,255,255,.85); font-size: 13.5px; font-weight: 500; padding: 8px 15px; border-radius: 980px; }
-
-@media (max-width: 560px) {
-  .demo-stat .n { font-size: 21px; }
-  .stat-big .n { font-size: 34px; }
+/* ── Felles oppsett for runde 2, i rekkefølgen Vedran valgte ── */
+.helt{padding:96px 0 76px;text-align:center}
+.helt h1{font-size:clamp(42px,4.8vw,66px);max-width:17ch;margin:0 auto}
+.ingress{font-size:20px;line-height:1.5;color:var(--tekst-2);margin:22px auto 0;max-width:42ch}
+.knapper{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:32px}
+.flyt-liste{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr))}
+.steg{padding:34px 26px 40px;position:relative}
+.steg .hvem{font:500 14px/1 var(--f-head);margin-bottom:14px}
+.steg h3{font-size:25px;margin-bottom:10px}
+.steg p{font-size:16px;line-height:1.5}
+.seksjon{padding:96px 0}
+.seksjon h2{font-size:clamp(30px,3vw,40px)}
+.deling{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);margin-top:36px}
+.del{padding:36px 40px 40px}
+.del h3{font-size:23px;margin-bottom:18px}
+.del ul{margin:0;padding:0;list-style:none}
+.del li{padding:12px 0;font-size:17px}
+.utsagn{padding:72px 0}
+.utsagn-tekst{font:300 clamp(26px,2.6vw,38px)/1.3 var(--f-head);max-width:30ch}
+.utsagn-tekst span{font-weight:500;color:var(--plomme)}
+.under{color:var(--tekst-2);margin-top:16px;max-width:60ch;font-size:18px}
+.figur{margin:36px 0 0}
+.rute-4-8{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:0 56px;align-items:start}
+.rute-4-8>h2{grid-column:1;grid-row:1/span 3}
+.rute-4-8>:not(h2){grid-column:2}
+.kilde{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:4px 24px;padding:16px 16px 16px 20px;align-items:baseline;border-top:1px solid var(--strek-2)}
+.kilde:first-child{border-top:0}
+.kilde b{font:500 19px/1.3 var(--f-head)}
+.kilde>span:not(.mer){color:var(--tekst-2);font-size:16px}
+.merknad{color:var(--tekst-3);font-size:15px;margin-top:16px}
+.trygg-liste{display:grid;grid-template-columns:1fr 1fr;gap:8px 24px}
+.trygg{padding:18px 20px 20px}
+.trygg h3{font-size:20px;margin-bottom:6px}
+.trygg p{color:var(--tekst-2);font-size:16px}
+.kontakt{padding:96px 0;text-align:center}
+.kontakt h2{font-size:clamp(30px,3vw,42px)}
+.kontakt .under{margin:16px auto 0;max-width:48ch}
+.kontakt .merknad{margin-top:14px}
+@media (max-width:960px){
+  .helt{padding:64px 0 56px}
+  .flyt-liste{grid-template-columns:1fr}
+  .deling,.rute-4-8{grid-template-columns:1fr}
+  .rute-4-8>h2,.rute-4-8>:not(h2){grid-column:1;grid-row:auto}
+  .rute-4-8>h2{margin-bottom:20px}
+  .trygg-liste{grid-template-columns:1fr}
+  .kilde{grid-template-columns:1fr}
+  .del{padding:28px 24px}
 }
 
-/* nav-skall (felles topplinje) */
-.nav-shell {
-  display: flex; align-items: center; justify-content: space-between;
-  background: rgba(255,255,255,.5);
-  backdrop-filter: blur(var(--blur)) saturate(180%); -webkit-backdrop-filter: blur(var(--blur)) saturate(180%);
-  border: 1px solid rgba(255,255,255,.7); border-radius: 980px;
-  padding: 10px 12px 10px 22px; box-shadow: var(--shadow-1);
+/* Hele punktet under Trygghet er en lenke til Systemsikkerhet. «Les mer»-teksten tar ikke plass før musa er over */
+.rad-lenke{position:relative}
+.rad-lenke .mer{position:absolute;right:18px;top:20px;margin:0}
+.kilde.rad-lenke .mer{top:50%;transform:translate(-4px,-50%)}
+@media (hover:hover) and (pointer:fine){.kilde.rad-lenke:hover .mer{transform:translate(0,-50%)}}
+@media (max-width:960px){.rad-lenke .mer{display:none}}
+.topp .knapp{flex:none}
+@media (max-width:480px){.merke .ordmerke{height:10px} .topp .inner{gap:12px}}
+
+/* ── Runde 3 ── */
+:root{--lav:#f4eef5; --lav-2:#ebe1ec; --natt:#1c0b1e}
+/* Flytkortene: hva steget gjør, og hvordan når musa er over, kortet har fokus eller er trykket.
+   Begge tekstene ligger i samme rute, så kortet har samme høyde i begge tilstander. */
+.steg{display:flex;padding:0}
+.steg-knapp{appearance:none;border:0;margin:0;font:inherit;color:inherit;background:transparent;text-align:left;
+  display:flex;flex-direction:column;width:100%;padding:30px 24px 22px;cursor:pointer;position:relative;
+  -webkit-tap-highlight-color:transparent;
+  transition:background-color 220ms var(--ease),color 220ms var(--ease),box-shadow 220ms var(--ease),border-color 220ms var(--ease)}
+.steg-knapp>*{position:relative}
+.steg-knapp .hvem{font:500 14px/1 var(--f-head);margin-bottom:14px;transition:color 220ms var(--ease)}
+.steg-knapp .tittel{display:block;font:500 25px/1.12 var(--f-head);margin-bottom:10px;transition:color 220ms var(--ease)}
+.lag{display:grid;flex:1}
+.lag>span{grid-area:1/1;font-size:16px;line-height:1.5;transition:opacity 200ms var(--ease),transform 240ms var(--ease),color 220ms var(--ease)}
+.hvordan{opacity:0;transform:translateY(6px)}
+.hint{margin-top:18px;font:500 14px/1 var(--f-head);color:var(--plomme);transition:opacity 150ms ease}
+.steg.revisor .hint{color:var(--tekst-2)}
+.steg-knapp.apen .hva,.steg-knapp:focus-visible .hva{opacity:0;transform:translateY(-6px)}
+.steg-knapp.apen .hvordan,.steg-knapp:focus-visible .hvordan{opacity:1;transform:none}
+.steg-knapp.apen .hint,.steg-knapp:focus-visible .hint{opacity:0}
+.steg-knapp:active{transform:none}
+.steg-knapp:focus-visible{outline:2px solid var(--plomme);outline-offset:2px}
+@media (hover:hover) and (pointer:fine){
+  .steg-knapp:hover .hva{opacity:0;transform:translateY(-6px)}
+  .steg-knapp:hover .hvordan{opacity:1;transform:none}
+  .steg-knapp:hover .hint{opacity:0}
+}
+@media (max-width:960px){.steg-knapp{padding:24px 20px 18px}}
+/* Mørk bunn */
+.bunn.mork{background:var(--natt);border-top:0;color:#cdbcd0}
+.bunn.mork a{color:#e7dbe8}
+@media (hover:hover) and (pointer:fine){.bunn.mork a:hover{color:#fff}}
+/* Lys tekst på mørke flater */
+.lys-tekst{color:#fff}
+.lys-tekst .under,.lys-tekst .merknad{color:#e3d6e4}
+.lys-tekst .utsagn-tekst span{color:#f0d7ef}
+.helt-venstre .helt{text-align:left}
+.helt-venstre .helt h1{margin:0;max-width:15ch}
+.helt-venstre .helt .ingress{margin-left:0}
+.helt-venstre .helt .knapper{justify-content:flex-start}
+/* Hvit knapp på mørk flate */
+.pa-mork .knapp-primar{background:#fff;color:var(--plomme)}
+.pa-mork .knapp-sek{background:transparent;color:#fff;border-color:rgba(255,255,255,.7)}
+.pa-mork .knapp::after{background:var(--plomme)}
+@media (hover:hover) and (pointer:fine){.pa-mork .knapp-primar:hover{background:#f3eaf4} .pa-mork .knapp-sek:hover{background:rgba(255,255,255,.1)}}
+/* Rad-lenker på mørke flater */
+.pa-mork .rad-lenke .mer{color:#e9d3eb}
+.pa-mork .trygg p,.pa-mork .kilde>span:not(.mer){color:#ddcfe0}
+.pa-mork .kilde{border-top-color:rgba(255,255,255,.14)}
+@media (hover:hover) and (pointer:fine){.pa-mork .rad-lenke:hover{background:rgba(255,255,255,.07);box-shadow:inset 4px 0 0 var(--plomme-lys)}}
+.pa-mork .merke-kommer{background:transparent;color:#e3d6e4;border-color:rgba(255,255,255,.35)}
+/* Skrått lavendelfelt, som de lyse delene hos AVEVA */
+.skraa{position:relative;overflow:hidden;background:var(--lav)}
+.skraa::before{content:"";position:absolute;inset:0;background:var(--lav-2);clip-path:polygon(64% 0,100% 0,100% 100%,40% 100%)}
+.skraa>.inner{position:relative}
+/* Litt bredere side, så teksten i flytkortene får plass */
+:root{--maks:1280px}
+.steg-knapp{padding:28px 22px 22px}
+.helt-venstre .helt h1{max-width:17ch}
+
+/* Ordet «Motoren» i skriften fra ordmerket (Saira, bred og halvfet) */
+.motor-merke{font-family:'Saira Motor',var(--f-head);font-weight:700;letter-spacing:.02em}
+.steg-knapp .hvem.motor-merke{font-size:15px;line-height:1}
+.versal .motor-merke{text-transform:uppercase}
+.versal .steg-knapp .hvem.motor-merke{font-size:13px}
+.del.motor h3.motor-merke{font-size:22px}
+.versal .del.motor h3.motor-merke{font-size:19px}
+
+/* Toppen fra forslag 9: tekst på mørk plomme til venstre, et felt til høyre */
+.helt{position:relative;background:var(--plomme-mork);color:#fff;padding:120px 0 204px;overflow:hidden;text-align:left}
+.helt .inner{position:relative;z-index:1}
+.helt-tekst{max-width:min(500px,40vw)}
+.helt h1{font-size:clamp(40px,3.8vw,56px);max-width:none;margin:0}
+.helt .ingress{margin-left:0;color:#eadcec;max-width:36ch}
+.helt .knapper{justify-content:flex-start}
+.helt-side{position:absolute;top:0;bottom:0;right:0;width:50%;display:flex;flex-direction:column;justify-content:flex-start;padding:72px 56px 172px}
+.helt-side{padding-right:max(56px,calc((100vw - var(--maks))/2 + 32px))}
+.helt-side .ui-ramme{border-color:transparent}
+.helt-side .bildetekst{color:#e3d6e4;margin-top:12px;font-size:14px}
+.flyt{margin-top:-132px;position:relative;z-index:2}
+
+.flyt-liste{gap:12px}
+.steg-knapp{background:var(--flate);border:1px solid var(--strek)}
+.steg.motor .steg-knapp{box-shadow:inset 0 4px 0 var(--plomme)}
+.steg.motor .hvem,.steg.motor .tittel{color:var(--plomme)}
+.steg.revisor .steg-knapp{box-shadow:inset 0 4px 0 #bdb7c6}
+.steg.revisor .hvem{color:var(--tekst-3)}
+.steg-knapp .lag>span{color:var(--tekst-2)}
+.steg.motor .steg-knapp.apen,.steg.motor .steg-knapp:focus-visible{background:var(--plomme-mork);border-color:var(--plomme-mork)}
+@media (hover:hover) and (pointer:fine){.steg.motor .steg-knapp:hover{background:var(--plomme-mork);border-color:var(--plomme-mork)}}
+.steg.motor .steg-knapp.apen .hvem,.steg.motor .steg-knapp:focus-visible .hvem{color:#fff}
+@media (hover:hover) and (pointer:fine){.steg.motor .steg-knapp:hover .hvem{color:#fff}}
+.steg.motor .steg-knapp.apen .tittel,.steg.motor .steg-knapp:focus-visible .tittel{color:#fff}
+@media (hover:hover) and (pointer:fine){.steg.motor .steg-knapp:hover .tittel{color:#fff}}
+.steg.motor .steg-knapp.apen .lag>span,.steg.motor .steg-knapp:focus-visible .lag>span{color:#eadcec}
+@media (hover:hover) and (pointer:fine){.steg.motor .steg-knapp:hover .lag>span{color:#eadcec}}
+.steg.revisor .steg-knapp.apen,.steg.revisor .steg-knapp:focus-visible{background:#2a2530;border-color:#2a2530;box-shadow:inset 0 4px 0 #2a2530}
+@media (hover:hover) and (pointer:fine){.steg.revisor .steg-knapp:hover{background:#2a2530;border-color:#2a2530;box-shadow:inset 0 4px 0 #2a2530}}
+.steg.revisor .steg-knapp.apen .hvem,.steg.revisor .steg-knapp:focus-visible .hvem{color:#d8d2de}
+@media (hover:hover) and (pointer:fine){.steg.revisor .steg-knapp:hover .hvem{color:#d8d2de}}
+.steg.revisor .steg-knapp.apen .tittel,.steg.revisor .steg-knapp:focus-visible .tittel{color:#fff}
+@media (hover:hover) and (pointer:fine){.steg.revisor .steg-knapp:hover .tittel{color:#fff}}
+.steg.revisor .steg-knapp.apen .lag>span,.steg.revisor .steg-knapp:focus-visible .lag>span{color:#ece8f0}
+@media (hover:hover) and (pointer:fine){.steg.revisor .steg-knapp:hover .lag>span{color:#ece8f0}}
+
+/* Delingen fra forslag 10: hvite felt, plommestrek til venstre for motoren */
+.del.motor{background:var(--flate);border:1px solid var(--strek);box-shadow:inset 6px 0 0 var(--plomme)}
+.del.motor h3{color:var(--plomme)}
+.del.revisor{background:var(--flate);border:1px solid var(--strek);border-left:0}
+.del li{color:var(--tekst-2)} .del li+li{border-top:1px solid var(--strek-2)}
+/* Utsagnet: poenget er det store */
+.utsagn{background:var(--plomme-mork);padding:112px 0}
+.forlop{font:400 clamp(19px,1.6vw,22px)/1.45 var(--f-tekst);color:#dccbde;max-width:44ch}
+.poeng{font:500 clamp(44px,5.4vw,76px)/1.04 var(--f-head);color:#fff;margin-top:18px;letter-spacing:-.01em}
+.utsagn-ruter{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:24px 64px;align-items:center}
+.utsagn-ruter .poeng{font-size:clamp(40px,4.2vw,60px)}
+.rutepar{display:grid;grid-template-columns:1fr 1fr;gap:32px}
+.ruter{margin:0}
+.ruter svg{width:100%;height:auto}
+.ruter figcaption{font:500 16px/1 var(--f-head);color:#dccbde;margin-top:14px}
+.ruter.alle figcaption{color:#fff}
+.rute{fill:rgba(255,255,255,.13)}
+.rute.merket{fill:var(--plomme-lys)}
+.ruter.alle .rute{transition:fill 220ms var(--ease);transition-delay:var(--d)}
+.ruter.alle.synlig .rute,.no-js .ruter.alle .rute{fill:var(--plomme-lys)}
+.utsagn-ruter .merknad{grid-column:2;margin-top:0;color:#bca8bf}
+/* Kildene lyse, tryggheten mørk: skillet fra forslag 5 og 7 */
+.trygghet{background:var(--plomme-mork)}
+.kontakt{background:var(--plomme)}
+@media (max-width:960px){
+  .helt{padding:64px 0 140px}
+  .helt-tekst{max-width:none}
+  .helt-side{position:relative;width:auto;padding:40px 20px 0}
+  .del.revisor{border:1px solid var(--strek);border-top:0}
+  .utsagn-ruter{grid-template-columns:1fr} .utsagn-ruter .merknad{grid-column:1}
+  .rutepar{gap:20px}
+}
+@media (prefers-reduced-motion:reduce){.ruter.alle .rute{fill:var(--plomme-lys)}}
+
+.helt-side{background:var(--plomme);padding:0;overflow:hidden}
+.side-bunn{position:absolute;inset:0}
+.side-bunn svg{position:absolute;display:block}
+.stort-merke{position:absolute;left:calc(min(var(--maks),100vw)/2 - 154px);top:50%;width:min(640px,46vw);transform:translate(-50%,-58%)}
+.stort-merke>svg{position:relative;width:100%;height:auto}
+@media (max-width:960px){.helt-side{display:none}}
+.kontakt{position:relative;overflow:hidden}
+.kontakt-bunn{position:absolute;inset:0}
+.kontakt-bunn svg{position:absolute;display:block}
+.kontakt .inner{position:relative}
+.kontakt{background:var(--plomme-mork)}
+
+/* ═══ Nettstedet ═══ */
+.meny a[aria-current="page"]{color:var(--tekst)}
+.meny a[aria-current="page"]::after{transform:scaleX(1)}
+
+/* Forsiden på mobil: symbolet og de skrå feltene står under teksten */
+@media (max-width:960px){
+  .helt{padding:64px 0 0}
+  .helt-side{display:block;position:relative;width:auto;height:340px;margin-top:44px;padding:0}
+  .stort-merke{left:auto;right:-40px;top:24px;width:240px;transform:none}
 }
 
-/* Nettbrett og små bærbare: to kolonner i stedet for å hoppe rett fra tre til én.
-   Uten dette blir kortene unødvendig brede mellom 640 og 920 px. */
-@media (max-width: 920px) {
-  .section { padding: 64px 24px; }
-  /* h1/h2 skaleres flytende via clamp() — ingen hardt hopp her */
-  .grid-3 { grid-template-columns: repeat(2,1fr); }
-  .grid-2 { grid-template-columns: 1fr; }
-  .grid-4 { grid-template-columns: repeat(2,1fr); }
-  .nav-links-extra { display: none; }
-}
+/* Bildet av programmet */
+.ui-bilde{border:1px solid var(--strek);border-radius:var(--r);background:var(--bg);overflow:hidden}
+.ui-bilde img{display:block;width:100%;height:auto}
 
-@media (max-width: 640px) {
-  .grid-3 { grid-template-columns: 1fr; }
-}
+/* ── Undersidene ── */
+.side-topp{position:relative;overflow:hidden;background:var(--plomme-mork);color:#fff;padding:96px 0 88px}
+.side-topp .side-bunn{position:absolute;top:0;bottom:0;left:auto;right:0;width:40%;background:var(--plomme);clip-path:polygon(22% 0,100% 0,100% 100%,0 100%)}
+.side-topp .side-bunn svg{position:absolute;inset:0;width:100%;height:100%}
+.side-topp .inner{position:relative}
+.side-topp h1{font-size:clamp(30px,calc(4.4vw + 12px),58px);max-width:17ch;hyphens:auto;-webkit-hyphens:auto}
+.side-topp .ingress{color:#eadcec;max-width:46ch;margin:22px 0 0;text-align:left}
+.side-topp .dato{color:#d8c6da;font-size:15px;margin-top:16px}
+.hopp{display:flex;flex-wrap:wrap;gap:6px 28px;margin-top:36px;font:500 15px/1 var(--f-head)}
+.hopp a{color:#fff;text-decoration:none;position:relative;padding:8px 0}
+.hopp a::after{content:"";position:absolute;left:0;right:0;bottom:2px;height:2px;background:var(--plomme-lys);transform:scaleX(0);transform-origin:left;transition:transform 200ms var(--ease)}
+@media (hover:hover) and (pointer:fine){.hopp a:hover::after{transform:scaleX(1)}}
+@media (max-width:960px){.side-topp{padding:64px 0 56px} .side-topp .side-bunn{width:30%;opacity:.6}}
 
-/* Telefon: rydd opp i toppmenyen (logo + «Be om demo» får god plass) */
-@media (max-width: 640px) {
-  .nav-shell { padding: 8px 10px 8px 16px; gap: 12px; }
-  /* Uten gap endte ordmerket på nøyaktig samme piksel som knappen begynte,
-     helt ned til 320 px. Ingen overlapp, men det leses som at teksten løper
-     inn i knappen. */
-  .nav-shell .btn-outline { display: none; }   /* «Gå til Revisjonsmotor» skjules på liten skjerm */
-  .pill { padding: 9px 16px; }
-}
-/* Smal telefon: skjul trust-skillestreker */
-@media (max-width: 520px) {
-  .trust-divider { display: none; }
-}
+.hvit{background:var(--flate)}
+.tekst-blokk{max-width:68ch;margin-top:20px}
+.tekst-blokk p{color:var(--tekst-2)}
+.tekst-blokk p+p{margin-top:14px}
+.tekst-blokk strong{color:var(--tekst)}
+.kort-rute{display:grid;gap:16px;margin-top:36px}
+.kort-rute.tre{grid-template-columns:repeat(3,minmax(0,1fr))}
+.kort-rute.to{grid-template-columns:repeat(2,minmax(0,1fr))}
+.kort{background:var(--flate);border:1px solid var(--strek);padding:28px 26px 30px;box-shadow:inset 0 4px 0 var(--plomme)}
+.kort.revisor{box-shadow:inset 0 4px 0 #bdb7c6}
+.kort .hvem{display:block;font-size:15px;line-height:1;margin-bottom:14px;color:var(--plomme)}
+.kort.revisor .hvem{font:500 14px/1 var(--f-head);color:var(--tekst-3)}
+.kort h3{font-size:22px;margin-bottom:10px}
+.kort.motor h3{color:var(--plomme)}
+.kort p{color:var(--tekst-2);font-size:16px}
+.kontroll{background:var(--flate);border:1px solid var(--strek);box-shadow:inset 6px 0 0 var(--plomme);padding:30px 36px 32px;margin-top:16px}
+.kontroll h3{font-size:23px;color:var(--plomme);margin-bottom:10px}
+.kontroll p{color:var(--tekst-2)}
+.kontroll p+p{margin-top:10px}
+.kontroll-par{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.trinn{list-style:none;margin:16px 0 0;padding:0;counter-reset:trinn}
+.trinn li{counter-increment:trinn;position:relative;padding:14px 0 14px 52px;border-top:1px solid var(--strek-2);color:var(--tekst-2)}
+.trinn li::before{content:counter(trinn);position:absolute;left:0;top:12px;width:32px;height:32px;display:grid;place-items:center;background:var(--tint);color:var(--plomme);font:600 15px/1 var(--f-head);border-radius:var(--r)}
+.trinn strong{color:var(--tekst)}
+.mork-seksjon{background:var(--plomme-mork);color:#fff}
+.mork-seksjon .tekst-blokk p{color:#e3d6e4}
+.mork-seksjon .tekst-blokk strong{color:#fff}
+.seksjon .kilde-liste{margin-top:32px;background:var(--flate);border:1px solid var(--strek)}
+.lenke-rad{margin-top:24px}
+@media (max-width:960px){.kort-rute.tre,.kort-rute.to,.kontroll-par{grid-template-columns:1fr} .kontroll{padding:24px 22px}}
 
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  .blob { animation: none !important; }
-  .mag, .nav-link, .btn-ghost, .btn-accent, .btn-outline, .lift { transition: none !important; }
-}
+/* Juridiske sider: lesekolonne, og innholdet til høyre på store skjermer */
+.les-rute{display:grid;grid-template-columns:minmax(0,720px) minmax(0,1fr);gap:72px;align-items:start}
+.innhold{position:sticky;top:96px;border-left:4px solid var(--plomme);padding:2px 0 2px 20px}
+.innhold b{display:block;font:500 15px/1 var(--f-head);margin-bottom:10px}
+.innhold ol{list-style:none;margin:0;padding:0}
+.innhold a{display:block;padding:6px 0;font-size:15px;line-height:1.35;color:var(--tekst-2);text-decoration:none;transition:color 150ms ease}
+@media (hover:hover) and (pointer:fine){.innhold a:hover{color:var(--plomme)}}
+.tekst h2{font-size:24px;margin:44px 0 12px;scroll-margin-top:96px}
+.tekst>h2:first-child{margin-top:0}
+.tekst p,.tekst li{font-size:17px;line-height:1.65;color:var(--tekst-2)}
+.tekst p+p{margin-top:12px}
+.tekst ul,.tekst ol{padding-left:22px;margin:12px 0}
+.tekst li+li{margin-top:6px}
+.tekst a{color:var(--plomme);text-underline-offset:3px}
+.tekst strong{color:var(--tekst)}
+.tabell-ramme{overflow-x:auto;margin:16px 0}
+.tekst table{width:100%;border-collapse:collapse;font-size:15px;min-width:520px}
+.tekst th{font:500 14px/1.3 var(--f-head);text-align:left;color:var(--tekst);padding:10px 14px 10px 0;border-bottom:2px solid var(--strek)}
+.tekst td{padding:10px 14px 10px 0;border-bottom:1px solid var(--strek-2);vertical-align:top;color:var(--tekst-2);font-size:15px;line-height:1.5}
+@media (max-width:960px){.les-rute{grid-template-columns:minmax(0,1fr);gap:0} .innhold{display:none}}
 
-/* Tabell i de juridiske sidene (underdatabehandlere i databehandleravtalen) */
-.legal-tabell {
-  width: 100%; border-collapse: collapse; margin: 14px 0 18px; font-size: 15px;
-}
-.legal-tabell th, .legal-tabell td {
-  text-align: left; padding: 10px 12px; border-bottom: 1px solid rgba(0,0,0,.09);
-  vertical-align: top;
-}
-.legal-tabell th { font-weight: 600; color: var(--ink); background: rgba(0,0,0,.025); }
-.legal-tabell td { color: #45474f; }
-
-@media (max-width: 560px) {
-  .legal-tabell, .legal-tabell thead, .legal-tabell tbody,
-  .legal-tabell tr, .legal-tabell th, .legal-tabell td { display: block; }
-  .legal-tabell thead { display: none; }
-  .legal-tabell tr { border-bottom: 1px solid rgba(0,0,0,.12); padding: 6px 0; }
-  .legal-tabell td { border: none; padding: 4px 0; }
-  .legal-tabell td:first-child { font-weight: 600; color: var(--ink); }
-}
+/* Tripletex: våre merker side om side */
+.lockup{display:flex;align-items:center;gap:28px;flex-wrap:wrap}
+.lockup .merke .logo{width:40px;height:40px}
+.lockup .merke .ordmerke{height:15px}
+.lockup-skille{width:1px;height:44px;background:var(--strek)}
+.lockup img{height:46px;width:auto}
+.lockup a{display:block}
+.to-kol{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:48px;align-items:start}
+@media (max-width:960px){.to-kol{grid-template-columns:1fr;gap:28px} .lockup .merke .ordmerke{height:12px} .lockup img{height:36px}}
+@media (max-width:600px){.lockup{gap:18px} .lockup-skille{display:none}}

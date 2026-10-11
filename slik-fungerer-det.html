@@ -1,193 +1,112 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="nb">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Slik fungerer Revisjonsmotor: kontrollene forklart</title>
-  <meta name="description" content="Detaljert forklaring av hvordan Revisjonsmotor henter data fra kildene, leser dokumenter med AI og kontrollerer 100 % av transaksjonene deterministisk: bilag, MVA, avstemming, periodisering, vesentlighet og etterprøvbarhet.">
-  <link rel="canonical" href="https://revisjonsmotor.no/slik-fungerer-det.html">
-  <meta name="theme-color" content="#0071e3">
-  <meta property="og:type" content="article">
-  <meta property="og:locale" content="nb_NO">
-  <meta property="og:site_name" content="Revisjonsmotor">
-  <meta property="og:title" content="Slik fungerer Revisjonsmotor">
-  <meta property="og:description" content="AI leser dokumentene, koden kontrollerer tallene. Slik kontrollerer motoren 100 % av transaksjonene, etterprøvbart. Ingen konklusjon uten bevis.">
-  <meta property="og:url" content="https://revisjonsmotor.no/slik-fungerer-det.html">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='%230071e3'/%3E%3Cpath d='M32 51 l12 12 l24-28' fill='none' stroke='white' stroke-width='9' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  <link rel="stylesheet" href="styles.css">
-  <style>
-    .doc { max-width: 820px; margin: 0 auto; }
-    .doc p { font-size: 16.5px; line-height: 1.62; color: var(--ink-soft); }
-    .doc h2 { margin-top: 6px; }
-    .step { display: flex; gap: 18px; align-items: flex-start; }
-    .step-no { flex: none; width: 34px; height: 34px; border-radius: 50%; background: var(--accent); color: #fff; font-weight: 600; font-size: 15px; display: flex; align-items: center; justify-content: center; }
-    .anchor-nav a { color: var(--ink-mut); font-size: 14px; }
-    .anchor-nav a:hover { color: var(--accent); }
-    section[id] { scroll-margin-top: 90px; }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self'; form-action 'self' mailto:">
+<title>Slik fungerer Revisjonsmotor</title>
+<meta name="description" content="Slik henter Revisjonsmotor data fra kildene, leser dokumentene og kontrollerer alle transaksjonene i kode: bilag, MVA, avstemming, periodisering, vesentlighet og etterprøvbarhet.">
+<link rel="canonical" href="https://revisjonsmotor.no/slik-fungerer-det.html">
+<meta name="theme-color" content="#311533">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="nb_NO">
+<meta property="og:site_name" content="Revisjonsmotor">
+<meta property="og:title" content="Slik fungerer Revisjonsmotor">
+<meta property="og:description" content="Slik henter Revisjonsmotor data fra kildene, leser dokumentene og kontrollerer alle transaksjonene i kode: bilag, MVA, avstemming, periodisering, vesentlighet og etterprøvbarhet.">
+<meta property="og:url" content="https://revisjonsmotor.no/slik-fungerer-det.html">
+<meta property="og:image" content="https://revisjonsmotor.no/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Revisjonsmotor. Programmet gjør kontrollene. Revisor konkluderer.">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preload" href="fonter/barlow-500.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonter/source-sans-3.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="styles.css">
+<script src="nettside.js"></script>
 </head>
 <body>
-
-  <!-- topplinje -->
-  <header style="position:relative; background:linear-gradient(165deg,#e6eeff,#f3f8ff); overflow:hidden; --sx:50%; --sy:0%;">
-    <div class="blob" style="top:-160px; left:-60px; width:460px; height:460px; background:rgba(var(--accent-rgb),.22); filter:blur(95px); animation:aurora1 18s ease-in-out infinite;"></div>
-    <div id="spotlight" style="position:absolute; inset:0; pointer-events:none; background:radial-gradient(520px circle at var(--sx) var(--sy), rgba(255,255,255,.55), transparent 50%);"></div>
-
-    <nav style="position:relative; max-width:1200px; margin:18px auto 0; padding:18px 24px;">
-      <div class="nav-shell">
-        <a href="index.html" aria-label="Revisjonsmotor, forsiden" style="display:flex; align-items:center; gap:12px;">
-          <span style="width:33px; height:33px; color:var(--accent); display:inline-block;">
-            <svg viewBox="0 0 100 100" aria-hidden="true" style="width:100%; height:100%; display:block; overflow:visible;"><g class="rm-orbit"><path d="M 92.84 53.75 A 43 43 0 0 0 50 7" fill="none" stroke="currentColor" stroke-width="5"/><path d="M 31.83 11.03 A 43 43 0 0 0 12.76 71.5" fill="none" stroke="currentColor" stroke-width="5"/><path d="M 25.34 85.22 A 43 43 0 0 0 87.24 71.5" fill="none" stroke="currentColor" stroke-width="5"/><path d="M 41 7 L 53 0 L 53 14 Z" fill="currentColor"/><path d="M 17.26 79.29 L 5.2 72.4 L 17.32 65.4 Z" fill="currentColor"/><path d="M 91.74 63.71 L 91.8 77.6 L 79.68 70.6 Z" fill="currentColor"/></g><g fill="currentColor"><rect x="47" y="22" width="6" height="10" rx="1.3"/><rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(36 50 50)"/><rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(72 50 50)"/><rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(108 50 50)"/><rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(144 50 50)"/><rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(180 50 50)"/><rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(216 50 50)"/><rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(252 50 50)"/><rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(288 50 50)"/><rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(324 50 50)"/></g><mask id="rm-hull-slik-fungerer-det-5"><rect width="100" height="100" fill="#fff"/><circle cx="50" cy="50" r="12.5" fill="#000"/></mask><circle cx="50" cy="50" r="20" fill="currentColor" mask="url(#rm-hull-slik-fungerer-det-5)"/><path d="M44.5 52 L48 55.5 L56 45.5" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </span>
-          <span style="font-size:20px; font-weight:700; letter-spacing:-0.022em;">Revisjonsmotor</span>
-        </a>
-        <div style="display:flex; align-items:center; gap:22px;">
-          <a class="nav-link nav-links-extra" href="index.html#integrasjoner" style="font-size:14px; font-weight:500;">Integrasjoner</a>
-          <a class="nav-link nav-links-extra" href="index.html#trygghet" style="font-size:14px; font-weight:500;">Trygghet</a>
-          <a class="btn-outline" href="https://app.revisjonsmotor.no/">Gå til Revisjonsmotor</a>
-          <a class="pill mag" href="index.html#kontakt">Be om demo</a>
-        </div>
-      </div>
-    </nav>
-
-    <div class="doc" style="position:relative; padding:74px 24px 64px; text-align:center;">
-      <div class="eyebrow">Slik fungerer det</div>
-      <h1 style="font-size:52px;">Hvordan motoren kontrollerer</h1>
-      <p class="lead" style="font-size:19px; max-width:620px; margin:0 auto;">En åpen forklaring av hva Revisjonsmotor gjør, steg for steg, fra den henter dataene til den leverer en etterprøvbar konklusjon. Denne siden oppdateres løpende etter hvert som motoren utvides.</p>
-      <div class="anchor-nav" style="display:flex; gap:18px; justify-content:center; flex-wrap:wrap; margin-top:26px;">
-        <a href="#prinsipp">Prinsippet</a><a href="#data">Datakilder</a><a href="#kontroller">Kontrollene</a><a href="#vesentlighet">Vesentlighet</a><a href="#etterprovbar">Etterprøvbarhet</a>
-      </div>
-    </div>
-  </header>
-
-  <!-- PRINSIPPET -->
-  <section id="prinsipp" class="section" style="background:linear-gradient(180deg,#f3f8ff,#f7faff); padding:84px 24px;">
-    <div class="doc">
-      <div class="eyebrow">Prinsippet</div>
-      <h2>AI leser. Koden kontrollerer.</h2>
-      <p>Revisjonsmotor er bygget på ett enkelt skille som er avgjørende for tilliten: <strong>kunstig intelligens brukes kun til å lese</strong>, å forstå et ustrukturert dokument og hente ut tallene som står der, mens <strong>selve kontrollen gjøres deterministisk i kode</strong>. Datoer, beløp, summer og sammenligninger regnes ut av regler som gir samme svar hver gang, ikke av en språkmodell.</p>
-      <p>Det betyr at en faktura, en bankavstemming eller en MVA-oppstilling leses av AI og gjøres om til strukturerte tall, men spørsmålet «stemmer dette?» avgjøres av etterprøvbar logikk mot kilden. Klarer ikke AI å lese et tall sikkert, antar den ingenting: posten flagges «til gjennomgang». Motoren produserer aldri et grønt «stemmer» uten at det faktisk er bekreftet mot et tall.</p>
-      <div class="grid-3" style="margin-top:34px;">
-        <div class="glass-card lift"><div class="icon-tile"><i class="bi bi-eye"></i></div><h3>AI leser</h3><p style="font-size:14.5px; line-height:1.5; color:#5a5a62; margin:0;">Forstår ustrukturerte dokumenter som faktura-PDF, bankutskrift og avstemming i Excel, og henter ut beløp, datoer og parter.</p></div>
-        <div class="glass-card lift"><div class="icon-tile"><i class="bi bi-cpu"></i></div><h3>Koden kontrollerer</h3><p style="font-size:14.5px; line-height:1.5; color:#5a5a62; margin:0;">Regler regner ut og sammenligner mot bokføringen. Samme inndata gir alltid samme svar, fullt etterprøvbart.</p></div>
-        <div class="glass-card lift"><div class="icon-tile"><i class="bi bi-flag"></i></div><h3>Ingen konklusjon uten bevis</h3><p style="font-size:14.5px; line-height:1.5; color:#5a5a62; margin:0;">Det usikre flagges til revisor, aldri stemplet grønt på antakelser. Revisor konkluderer.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- DATAKILDER -->
-  <section id="data" class="section" style="background:linear-gradient(180deg,#f7faff,#eef5ff); padding:84px 24px;">
-    <div class="doc">
-      <div class="eyebrow">Datakilder</div>
-      <h2>Dataene hentes rett fra kilden</h2>
-      <p>Motoren henter regnskapsdataene direkte fra kildesystemene, enten via <strong>API</strong> (kontinuerlig og automatisk) eller via en <strong>SAF-T-fil</strong> (Skatteetatens standardformat for regnskapsdata). Alle kilder normaliseres til én felles datamodell, slik at kontrollene fungerer likt uansett hvor dataene kommer fra.</p>
-      <p>Fordelen med direkte tilkobling er at revisor slipper manuell eksport og opplasting, at dataene alltid er ferske, og at hele veien fra kilde til konklusjon er sporbar. Bilag og dokumentasjon kan også lastes opp manuelt der en kilde ikke har API.</p>
-      <div class="glass-card" style="margin-top:30px;">
-        <div class="grid-2" style="gap:14px 30px;">
-          <div style="display:flex; gap:12px; align-items:flex-start;"><i class="bi bi-box-seam" style="color:var(--accent); font-size:20px; margin-top:2px;"></i><div><strong>Regnskapssystem</strong><div style="font-size:14px; color:#5a5a62;">Tripletex, PowerOffice m.fl. Henter hovedbok, bilag og saldobalanse.</div></div></div>
-          <div style="display:flex; gap:12px; align-items:flex-start;"><i class="bi bi-bank" style="color:var(--accent); font-size:20px; margin-top:2px;"></i><div><strong>Skatteetaten</strong><div style="font-size:14px; color:#5a5a62;">MVA-meldinger, kontoutskrift og skatteoppgjør.</div></div></div>
-          <div style="display:flex; gap:12px; align-items:flex-start;"><i class="bi bi-journals" style="color:var(--accent); font-size:20px; margin-top:2px;"></i><div><strong>Brønnøysundregistrene</strong><div style="font-size:14px; color:#5a5a62;">Foretaksdata, roller og org.nr.-oppslag.</div></div></div>
-          <div style="display:flex; gap:12px; align-items:flex-start;"><i class="bi bi-file-earmark-arrow-down" style="color:var(--accent); font-size:20px; margin-top:2px;"></i><div><strong>SAF-T</strong><div style="font-size:14px; color:#5a5a62;">Standardformat som dekker systemene uten direkte API.</div></div></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- KONTROLLENE -->
-  <section id="kontroller" class="section" style="background:linear-gradient(180deg,#eef5ff,#f5f9ff); padding:84px 24px;">
-    <div class="doc">
-      <div class="eyebrow">Kontrollene</div>
-      <h2>Hva motoren faktisk kontrollerer</h2>
-      <p>Motoren kontrollerer <strong>100 % av transaksjonene</strong>, ikke et tilfeldig utvalg. Under er de viktigste kontrollene forklart. Hver av dem ender med én av tre tilstander: <em>stemmer</em> (bekreftet mot kilde), <em>kontroller</em> (avvik over grensen går til revisor), eller <em>mangler dokumentasjon</em>.</p>
-
-      <!-- Bilagskontroll -->
-      <div class="glass-card" style="margin-top:30px;">
-        <h3 style="font-size:21px;"><i class="bi bi-receipt" style="color:var(--accent); margin-right:8px;"></i>Bilagskontroll</h3>
-        <p style="margin:8px 0 0;">Hvert bilag leses og kontrolleres mot bokføringen: stemmer beløpet, er riktig MVA-kode brukt, er det ført på en konto som passer kjøpet, og er datoen rimelig? Avvik vurderes mot vesentlighetsgrensen. Ubetydelige avvik godkjennes automatisk, mens det vesentlige flagges. Fremmed valuta håndteres ved at dokumentets egen omregning til NOK brukes, slik at kursdifferanser ikke gir falske avvik.</p>
-      </div>
-
-      <!-- MVA -->
-      <div class="glass-card" style="margin-top:18px;">
-        <h3 style="font-size:21px;"><i class="bi bi-percent" style="color:var(--accent); margin-right:8px;"></i>MVA-kontroll</h3>
-        <p style="margin:8px 0 18px;">MVA kontrolleres i fire trinn, hver avstemt mot en uavhengig kilde:</p>
-        <div style="display:flex; flex-direction:column; gap:16px;">
-          <div class="step"><div class="step-no">1</div><div><strong>Skyldig MVA:</strong> bokført på oppgjørskontoen (2740) avstemmes mot skyldig MVA for siste termin i regnskapsførers MVA-avstemming, og kryssjekkes i tillegg mot terminoppgaven.</div></div>
-          <div class="step"><div class="step-no">2</div><div><strong>Omsetning:</strong> bokført omsetning sammenlignes mot avstemmingen, fordelt på avgiftspliktig, avgiftsfri og omsetning utenfor avgiftsområdet. Omsetning ført på feil kontoserie fanges opp.</div></div>
-          <div class="step"><div class="step-no">3</div><div><strong>Inngående fradrag:</strong> en fornuftighetsvurdering: de bokførte fradragsberettigede kostnadene summeres (med innførsel og omvendt avgiftsplikt holdt utenfor) og sammenlignes med fradragsgrunnlaget i avstemmingen.</div></div>
-          <div class="step"><div class="step-no">4</div><div><strong>Betaling per termin:</strong> Skatteetatens kontoutskrift leses, og hver av de seks terminene kontrolleres for om den er betalt innen forfall.</div></div>
-        </div>
-      </div>
-
-      <!-- Avstemming -->
-      <div class="glass-card" style="margin-top:18px;">
-        <h3 style="font-size:21px;"><i class="bi bi-arrow-left-right" style="color:var(--accent); margin-right:8px;"></i>Avstemming av balansen</h3>
-        <p style="margin:8px 0 0;">Hver balansepost kontrolleres mot dokumentasjon: bankinnskudd mot årsoppgave, kundefordringer mot aldersfordeling, varelager mot lagerliste, og så videre. Dokumenter kan lastes opp samlet, og motoren kjenner igjen hva hvert dokument er og kobler det til riktig konto. På bank avstemmes også renteinntekten mot bankens årsoppgave. Balansen vises som en oppstilling med delsummer, slik en revisor er vant til å lese den.</p>
-      </div>
-
-      <!-- Periodisering + analyse -->
-      <div class="grid-2" style="margin-top:18px; align-items:stretch;">
-        <div class="glass-card"><h3><i class="bi bi-calendar-range" style="color:var(--accent); margin-right:8px;"></i>Periodisering</h3><p style="font-size:14.5px; line-height:1.55; color:#5a5a62; margin:8px 0 0;">Kontrollerer at kostnader og inntekter er ført i riktig periode, og flagger poster som ser ut til å høre til en annen periode.</p></div>
-        <div class="glass-card"><h3><i class="bi bi-graph-up-arrow" style="color:var(--accent); margin-right:8px;"></i>Analyse</h3><p style="font-size:14.5px; line-height:1.55; color:#5a5a62; margin:8px 0 0;">Sammenligner årets tall mot fjoråret og forventning, og løfter fram uvanlige bevegelser til nærmere kontroll.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- VESENTLIGHET -->
-  <section id="vesentlighet" class="section" style="background:linear-gradient(180deg,#f5f9ff,#eef4fd); padding:84px 24px;">
-    <div class="doc">
-      <div class="eyebrow">Vesentlighet</div>
-      <h2>Skiller det vesentlige fra støy</h2>
-      <p>En kontroll uten vesentlighet drukner i bagateller. Motoren beregner <strong>vesentlighetsgrensen</strong> ut fra selskapets egne tall (omsetning, resultat, eiendeler og egenkapital), og avleder <strong>arbeidsvesentlighet</strong> og en <strong>grense for ubetydelige feil</strong> av den. Avvik under grensen for ubetydelige feil godkjennes automatisk som uvesentlige, mens alt over løftes til revisor. Grensene er innstillbare, og revisor ser alltid hvilken grense som er brukt.</p>
-    </div>
-  </section>
-
-  <!-- ETTERPRØVBARHET -->
-  <section id="etterprovbar" class="section" style="background:#0b0f1a; color:#fff; padding:84px 24px;">
-    <div class="blob" style="top:-120px; right:20%; width:460px; height:400px; background:radial-gradient(circle, rgba(var(--accent-rgb),.4), transparent 62%); filter:blur(40px);"></div>
-    <div class="doc" style="position:relative;">
-      <div class="eyebrow">Etterprøvbarhet</div>
-      <h2 style="color:#fff;">Hver konklusjon kan etterprøves</h2>
-      <p style="color:rgba(255,255,255,.74);">Et revisjonsverktøy er bare så godt som sporet det etterlater. Hver kontroll logges med <strong style="color:#fff;">regel, kilde og beløp</strong>: hvilken kontroll som ble kjørt, mot hvilket tall, og med hvilket resultat. Dokumentasjonen er bygget for å gå rett inn i arbeidspapirene, og «grønt» betyr alltid <em>faktisk bekreftet mot en kilde</em>, aldri en antakelse. Sikkerheten er en del av kontrollen: plattformen bygges med kryptering i transport og i hvile, lagring innenfor Norge/EØS, og rollebasert tilgang slik at hver bruker kun ser sine klienter.</p>
-      <div style="margin-top:30px; display:flex; gap:13px; flex-wrap:wrap;">
-        <a class="mag btn-accent" href="index.html#kontakt" style="background:var(--accent); color:#fff; font-size:15.5px; font-weight:500; padding:13px 26px; border-radius:980px; display:inline-flex; align-items:center; gap:9px;">Be om demo<i class="bi bi-arrow-right"></i></a>
-        <a class="btn-outline" href="index.html" style="background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.2); color:#fff;">Tilbake til forsiden</a>
-      </div>
-    </div>
-  </section>
-
-  <footer style="background:#0b0f1a; color:rgba(255,255,255,.45); padding:0 24px 40px;">
-    <div style="max-width:1080px; margin:0 auto; padding-top:26px; border-top:1px solid rgba(255,255,255,.12); display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; font-size:13px;">
-      <span>© 2026 Revisorvennen AS · Ingen konklusjon uten bevis.</span>
-      <nav class="footer-legal" style="display:flex; gap:22px; flex-wrap:wrap; font-size:13.5px;">
-        <a href="personvern.html">Personvernerklæring</a>
-        <a href="vilkar.html">Vilkår for bruk</a>
-        <a href="databehandleravtale.html">Databehandleravtale</a>
-        <a href="systemsikkerhet.html">Systemsikkerhet</a>
-      </nav>
-    </div>
-  </footer>
-
-  <script>
-    (function () {
-      var hero = document.querySelector('header');
-      if (!hero) return;
-      var raf = 0;
-      window.addEventListener('pointermove', function (e) {
-        if (raf) return;
-        raf = requestAnimationFrame(function () {
-          raf = 0;
-          var r = hero.getBoundingClientRect();
-          if (e.clientY > r.bottom) return;
-          hero.style.setProperty('--sx', (((e.clientX - r.left) / r.width) * 100).toFixed(2) + '%');
-          hero.style.setProperty('--sy', (((e.clientY - r.top) / r.height) * 100).toFixed(2) + '%');
-        });
-      }, { passive: true });
-    })();
-  </script>
-
+<header class="topp"><div class="inner">
+  <a class="merke" href="index.html" aria-label="Revisjonsmotor, forsiden"><svg class="logo" viewBox="0 0 100 100"  aria-hidden="true"><g class="rm-orbit"><path d="M 92.84 53.75 A 43 43 0 0 0 50 7" fill="none" stroke="#6d2e72" stroke-width="5"/><path d="M 31.83 11.03 A 43 43 0 0 0 12.76 71.5" fill="none" stroke="#6d2e72" stroke-width="5"/><path d="M 25.34 85.22 A 43 43 0 0 0 87.24 71.5" fill="none" stroke="#6d2e72" stroke-width="5"/><path d="M 41 7 L 53 0 L 53 14 Z" fill="#6d2e72"/><path d="M 17.26 79.29 L 5.2 72.4 L 17.32 65.4 Z" fill="#6d2e72"/><path d="M 91.74 63.71 L 91.8 77.6 L 79.68 70.6 Z" fill="#6d2e72"/></g><g fill="#6d2e72"><rect x="47" y="22" width="6" height="10" rx="1.3"/><rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(36 50 50)"/><rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(72 50 50)"/><rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(108 50 50)"/><rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(144 50 50)"/><rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(180 50 50)"/><rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(216 50 50)"/><rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(252 50 50)"/><rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(288 50 50)"/><rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(324 50 50)"/></g><circle cx="50" cy="50" r="20" fill="#6d2e72"/><circle cx="50" cy="50" r="12.5" fill="#fff"/><path d="M44.5 52 L48 55.5 L56 45.5" fill="none" stroke="#6d2e72" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg><svg class="ordmerke" viewBox="86 -696 10424 704" role="img" aria-label="Revisjonsmotor"><path fill="currentColor" d="M86 0V-688H478Q553 -688 599 -673Q646 -658 670 -630Q695 -602 704 -561Q712 -521 712 -468Q712 -422 705 -383Q697 -344 675 -314Q652 -285 608 -267L725 0H532L417 -286L478 -260Q463 -248 448 -246Q432 -244 420 -244H272V0ZM272 -373H399Q444 -373 469 -377Q495 -381 508 -391Q520 -402 524 -420Q527 -438 527 -466Q527 -494 524 -511Q521 -528 508 -538Q496 -547 471 -551Q445 -555 401 -555H272ZM885 0V-688H1448V-552H1071V-414H1389V-280H1071V-136H1448V0ZM1797 0 1544 -688H1737L1914 -190H1921L2097 -688H2287L2034 0ZM2406 0V-688H2592V0ZM3080 8Q3033 8 2979 6Q2924 4 2872 0Q2820 -4 2779 -8V-140Q2823 -137 2867 -134Q2912 -131 2953 -129Q2993 -128 3022 -128Q3077 -128 3107 -130Q3136 -133 3151 -140Q3162 -146 3166 -155Q3171 -163 3171 -175Q3172 -187 3172 -201Q3172 -219 3170 -231Q3167 -242 3159 -249Q3151 -255 3133 -259Q3116 -263 3088 -265L2920 -282Q2870 -287 2838 -301Q2805 -315 2788 -340Q2770 -365 2763 -403Q2756 -440 2756 -492Q2756 -561 2778 -602Q2801 -643 2841 -663Q2882 -683 2936 -690Q2990 -696 3052 -696Q3097 -696 3146 -694Q3195 -691 3241 -687Q3286 -682 3319 -675V-546Q3286 -551 3245 -554Q3203 -557 3160 -559Q3116 -560 3079 -560Q3037 -560 3010 -558Q2982 -555 2968 -549Q2950 -541 2946 -528Q2942 -516 2942 -496Q2942 -473 2946 -461Q2950 -448 2966 -442Q2983 -437 3020 -433L3188 -417Q3220 -414 3248 -407Q3276 -400 3297 -385Q3319 -371 3334 -343Q3342 -330 3348 -310Q3353 -291 3356 -266Q3359 -241 3359 -209Q3359 -148 3344 -108Q3330 -67 3305 -44Q3279 -20 3244 -9Q3210 2 3168 5Q3126 8 3080 8ZM3469 0V-132Q3530 -132 3564 -136Q3598 -140 3612 -153Q3627 -167 3631 -196Q3634 -226 3634 -277V-688H3820V-311Q3820 -221 3815 -162Q3810 -104 3793 -71Q3776 -38 3739 -23Q3701 -7 3636 -4Q3570 0 3469 0ZM4332 8Q4232 8 4169 -2Q4105 -12 4068 -35Q4031 -59 4014 -99Q3997 -139 3993 -199Q3989 -260 3989 -344Q3989 -427 3993 -488Q3997 -548 4014 -589Q4031 -629 4068 -652Q4105 -676 4169 -686Q4233 -696 4332 -696Q4432 -696 4496 -686Q4560 -676 4597 -652Q4633 -629 4650 -589Q4666 -548 4671 -488Q4675 -427 4675 -344Q4675 -260 4671 -199Q4666 -139 4650 -99Q4633 -59 4597 -35Q4560 -12 4496 -2Q4432 8 4332 8ZM4332 -129Q4378 -129 4407 -132Q4436 -135 4453 -145Q4469 -156 4477 -179Q4485 -202 4487 -242Q4488 -282 4488 -344Q4488 -406 4487 -446Q4485 -485 4477 -509Q4469 -532 4453 -542Q4436 -553 4407 -556Q4378 -559 4332 -559Q4287 -559 4258 -556Q4229 -553 4212 -543Q4195 -532 4187 -509Q4179 -485 4177 -446Q4175 -406 4175 -344Q4175 -282 4177 -242Q4179 -202 4187 -179Q4195 -156 4212 -145Q4229 -135 4258 -132Q4287 -129 4332 -129ZM4848 0V-688H5044L5326 -297H5331V-688H5509V0H5333L5030 -426H5025V0ZM5997 8Q5950 8 5896 6Q5841 4 5789 0Q5737 -4 5696 -8V-140Q5740 -137 5784 -134Q5829 -131 5870 -129Q5910 -128 5939 -128Q5994 -128 6024 -130Q6053 -133 6068 -140Q6079 -146 6083 -155Q6088 -163 6088 -175Q6089 -187 6089 -201Q6089 -219 6087 -231Q6084 -242 6076 -249Q6068 -255 6050 -259Q6033 -263 6005 -265L5837 -282Q5787 -287 5755 -301Q5722 -315 5705 -340Q5687 -365 5680 -403Q5673 -440 5673 -492Q5673 -561 5695 -602Q5718 -643 5758 -663Q5799 -683 5853 -690Q5907 -696 5969 -696Q6014 -696 6063 -694Q6112 -691 6158 -687Q6203 -682 6236 -675V-546Q6203 -551 6162 -554Q6120 -557 6077 -559Q6033 -560 5996 -560Q5954 -560 5927 -558Q5899 -555 5885 -549Q5867 -541 5863 -528Q5859 -516 5859 -496Q5859 -473 5863 -461Q5867 -448 5883 -442Q5900 -437 5937 -433L6105 -417Q6137 -414 6165 -407Q6193 -400 6214 -385Q6236 -371 6251 -343Q6259 -330 6265 -310Q6270 -291 6273 -266Q6276 -241 6276 -209Q6276 -148 6261 -108Q6247 -67 6222 -44Q6196 -20 6161 -9Q6127 2 6085 5Q6043 8 5997 8ZM6440 0V-688H6685L6862 -279H6870L7046 -688H7292V0H7113V-436H7106L6924 0H6801L6621 -436H6614V0ZM7808 8Q7708 8 7645 -2Q7581 -12 7544 -35Q7507 -59 7490 -99Q7473 -139 7469 -199Q7465 -260 7465 -344Q7465 -427 7469 -488Q7473 -548 7490 -589Q7507 -629 7544 -652Q7581 -676 7645 -686Q7709 -696 7808 -696Q7908 -696 7972 -686Q8036 -676 8073 -652Q8109 -629 8126 -589Q8142 -548 8147 -488Q8151 -427 8151 -344Q8151 -260 8147 -199Q8142 -139 8126 -99Q8109 -59 8073 -35Q8036 -12 7972 -2Q7908 8 7808 8ZM7808 -129Q7854 -129 7883 -132Q7912 -135 7929 -145Q7945 -156 7953 -179Q7961 -202 7963 -242Q7964 -282 7964 -344Q7964 -406 7963 -446Q7961 -485 7953 -509Q7945 -532 7929 -542Q7912 -553 7883 -556Q7854 -559 7808 -559Q7763 -559 7734 -556Q7705 -553 7688 -543Q7671 -532 7663 -509Q7655 -485 7653 -446Q7651 -406 7651 -344Q7651 -282 7653 -242Q7655 -202 7663 -179Q7671 -156 7688 -145Q7705 -135 7734 -132Q7763 -129 7808 -129ZM8488 0V-546H8263V-688H8900V-546H8674V0ZM9355 8Q9255 8 9192 -2Q9128 -12 9091 -35Q9054 -59 9037 -99Q9020 -139 9016 -199Q9012 -260 9012 -344Q9012 -427 9016 -488Q9020 -548 9037 -589Q9054 -629 9091 -652Q9128 -676 9192 -686Q9256 -696 9355 -696Q9455 -696 9519 -686Q9583 -676 9620 -652Q9656 -629 9673 -589Q9689 -548 9694 -488Q9698 -427 9698 -344Q9698 -260 9694 -199Q9689 -139 9673 -99Q9656 -59 9620 -35Q9583 -12 9519 -2Q9455 8 9355 8ZM9355 -129Q9401 -129 9430 -132Q9459 -135 9476 -145Q9492 -156 9500 -179Q9508 -202 9510 -242Q9511 -282 9511 -344Q9511 -406 9510 -446Q9508 -485 9500 -509Q9492 -532 9476 -542Q9459 -553 9430 -556Q9401 -559 9355 -559Q9310 -559 9281 -556Q9252 -553 9235 -543Q9218 -532 9210 -509Q9202 -485 9200 -446Q9198 -406 9198 -344Q9198 -282 9200 -242Q9202 -202 9210 -179Q9218 -156 9235 -145Q9252 -135 9281 -132Q9310 -129 9355 -129ZM9871 0V-688H10263Q10338 -688 10384 -673Q10431 -658 10455 -630Q10480 -602 10489 -561Q10497 -521 10497 -468Q10497 -422 10490 -383Q10482 -344 10460 -314Q10437 -285 10393 -267L10510 0H10317L10202 -286L10263 -260Q10248 -248 10233 -246Q10217 -244 10205 -244H10057V0ZM10057 -373H10184Q10229 -373 10254 -377Q10280 -381 10293 -391Q10305 -402 10309 -420Q10312 -438 10312 -466Q10312 -494 10309 -511Q10306 -528 10293 -538Q10281 -547 10256 -551Q10230 -555 10186 -555H10057Z"/></svg></a>
+  <nav class="meny" aria-label="Hovedmeny"><a href="index.html#flyten">Slik jobber den</a><a href="index.html#kilder">Kilder</a><a href="index.html#trygghet">Trygghet</a><a href="slik-fungerer-det.html" aria-current="page">Slik fungerer det</a></nav>
+  <a class="knapp knapp-primar knapp-liten" href="mailto:info@revisjonsmotor.no?subject=Demo%20av%20Revisjonsmotor">Be om demo</a>
+</div></header>
+<main>
+<section class="side-topp pa-mork"><div class="side-bunn" aria-hidden="true"><svg viewBox="0 0 700 800" preserveAspectRatio="xMidYMid slice" style="inset:0;width:100%;height:100%"><polygon points="0,0 360,0 120,800 0,800" fill="#7a3680"/><polygon points="360,0 520,0 280,800 120,800" fill="#62295f"/><polygon points="560,0 700,0 700,800 420,800" fill="#76337c"/></svg></div><div class="inner"><h1>Hvordan motoren kontrollerer</h1><p class="ingress">En åpen forklaring av hva Revisjonsmotor gjør, steg for steg, fra den henter dataene til den leverer en etterprøvbar konklusjon. Denne siden oppdateres løpende etter hvert som motoren utvides.</p><nav class="hopp" aria-label="På denne siden"><a href="#prinsipp">Prinsippet</a><a href="#data">Datakilder</a><a href="#kontroller">Kontrollene</a><a href="#vesentlighet">Vesentlighet</a><a href="#etterprovbar">Etterprøvbarhet</a></nav></div></section>
+<section id="prinsipp" class="seksjon"><div class="inner">
+  <h2>Lesetjenesten leser. Koden kontrollerer.</h2>
+  <div class="tekst-blokk">
+    <p>Revisjonsmotor er bygget på ett skille som er avgjørende for tilliten: <strong>lesetjenesten brukes bare til å lese</strong>, altså å forstå et ustrukturert dokument og hente ut tallene som står der, mens <strong>selve kontrollen gjøres i kode</strong>. Datoer, beløp, summer og sammenligninger regnes ut av regler som gir samme svar hver gang.</p>
+    <p>Det betyr at en faktura, en bankavstemming eller en MVA-oppstilling leses og gjøres om til strukturerte tall, men spørsmålet «stemmer dette?» avgjøres av etterprøvbar logikk mot kilden. Kan et tall ikke leses sikkert, antas ingenting: posten flagges «til gjennomgang». Motoren gir aldri et grønt «stemmer» uten at det faktisk er bekreftet mot et tall.</p>
+  </div>
+  <div class="kort-rute tre">
+    <div class="kort motor"><span class="hvem motor-merke">Motoren</span><h3>Leser</h3><p>Forstår ustrukturerte dokumenter som faktura-PDF, bankutskrift og avstemming i Excel, og henter ut beløp, datoer og parter.</p></div>
+    <div class="kort motor"><span class="hvem motor-merke">Motoren</span><h3>Kontrollerer i kode</h3><p>Regler regner ut og sammenligner mot bokføringen. Samme inndata gir alltid samme svar, fullt etterprøvbart.</p></div>
+    <div class="kort revisor"><span class="hvem">Revisor</span><h3>Konkluderer</h3><p>Det usikre flagges til revisor, aldri stemplet grønt på antakelser. Ingen konklusjon uten bevis.</p></div>
+  </div>
+</div></section>
+<section id="data" class="seksjon hvit"><div class="inner">
+  <h2>Dataene hentes rett fra kilden</h2>
+  <div class="tekst-blokk">
+    <p>Motoren henter regnskapsdataene direkte fra kildesystemene, automatisk. Alle kilder gjøres om til én felles datamodell, slik at kontrollene fungerer likt uansett hvor dataene kommer fra.</p>
+    <p>Fordelen med direkte tilkobling er at revisor slipper manuell eksport og opplasting, at dataene alltid er ferske, og at hele veien fra kilde til konklusjon er sporbar. Dokumenter programmet ikke kan hente, som bankutskrifter, lastes opp av revisor.</p>
+  </div>
+  <div class="kilde-liste">
+    <a class="kilde rad-lenke" href="tripletex.html"><b>Tripletex</b><span>Regnskap og bilag</span><span class="mer">Om koblingen <i class="bi bi-arrow-right" aria-hidden="true"></i></span></a>
+    <div class="kilde"><b>Skatteetaten</b><span>Skatteoppgjør, skattemelding, krav og betalinger</span></div>
+    <div class="kilde"><b>Altinn</b><span>Skatteoppgjøret som dokument</span></div>
+    <div class="kilde"><b>Brønnøysundregistrene</b><span>Foretaksdata, revisor og regnskapsfører</span></div>
+    <div class="kilde"><b>Statens vegvesen</b><span>Kjøretøyene som er registrert på foretaket</span></div>
+  </div>
+</div></section>
+<section id="kontroller" class="seksjon"><div class="inner">
+  <h2>Hva motoren faktisk kontrollerer</h2>
+  <div class="tekst-blokk">
+    <p>Motoren kontrollerer <strong>100 % av transaksjonene</strong>, ikke et tilfeldig utvalg. Under er de viktigste kontrollene forklart. Hver av dem ender med én av tre tilstander: <em>stemmer</em> (bekreftet mot kilde), <em>kontroller</em> (avvik over grensen går til revisor), eller <em>mangler dokumentasjon</em>.</p>
+  </div>
+  <div class="kontroll"><h3>Bilagskontroll</h3>
+    <p>Hvert bilag leses og kontrolleres mot bokføringen: stemmer beløpet, er riktig MVA-kode brukt, er det ført på en konto som passer kjøpet, og er datoen rimelig? Avvik vurderes mot vesentlighetsgrensen. Ubetydelige avvik godkjennes automatisk, mens det vesentlige flagges.</p>
+    <p>Er fakturaen i fremmed valuta, sammenlignes originalbeløpet med det som er bokført i samme valuta, eller beløpet regnes om med kursen for fakturadatoen. Kan ingen av delene gjøres, går bilaget til revisor, aldri til grønt.</p>
+  </div>
+  <div class="kontroll"><h3>MVA-kontroll</h3>
+    <p>MVA kontrolleres i fire trinn, hver avstemt mot en uavhengig kilde:</p>
+    <ol class="trinn">
+      <li><strong>Skyldig MVA:</strong> bokført på oppgjørskontoen (2740) avstemmes mot skyldig MVA for siste termin i regnskapsførers MVA-avstemming, og kryssjekkes i tillegg mot terminoppgaven.</li>
+      <li><strong>Omsetning:</strong> bokført omsetning sammenlignes mot avstemmingen, fordelt på avgiftspliktig, avgiftsfri og omsetning utenfor avgiftsområdet. Omsetning ført på feil kontoserie fanges opp.</li>
+      <li><strong>Inngående fradrag:</strong> en fornuftighetsvurdering: de bokførte fradragsberettigede kostnadene summeres (med innførsel og omvendt avgiftsplikt holdt utenfor) og sammenlignes med fradragsgrunnlaget i avstemmingen.</li>
+      <li><strong>Betaling per termin:</strong> Skatteetatens kontoutskrift leses, og hver av de seks terminene kontrolleres for om den er betalt innen forfall.</li>
+    </ol>
+  </div>
+  <div class="kontroll"><h3>Avstemming av balansen</h3>
+    <p>Hver balansepost kontrolleres mot dokumentasjon: bankinnskudd mot årsoppgave, kundefordringer mot aldersfordeling, varelager mot lagerliste, og så videre. Dokumenter kan lastes opp samlet, og motoren kjenner igjen hva hvert dokument er og kobler det til riktig konto. På bank avstemmes også renteinntekten mot bankens årsoppgave. Balansen vises som en oppstilling med delsummer, slik en revisor er vant til å lese den.</p>
+  </div>
+  <div class="kontroll-par">
+    <div class="kontroll"><h3>Periodisering</h3><p>Kontrollerer at kostnader og inntekter er ført i riktig periode, og flagger poster som ser ut til å høre til en annen periode.</p></div>
+    <div class="kontroll"><h3>Analyse</h3><p>Sammenligner årets tall mot fjoråret og forventning, og løfter fram uvanlige bevegelser til nærmere kontroll.</p></div>
+  </div>
+</div></section>
+<section id="vesentlighet" class="seksjon mork-seksjon"><div class="inner">
+  <h2>Skiller det vesentlige fra støy</h2>
+  <div class="tekst-blokk">
+    <p>En kontroll uten vesentlighet drukner i bagateller. Motoren beregner <strong>vesentlighetsgrensen</strong> ut fra selskapets egne tall (omsetning, resultat, eiendeler og egenkapital), og avleder <strong>arbeidsvesentlighet</strong> og en <strong>grense for ubetydelige feil</strong> av den. Avvik under grensen for ubetydelige feil godkjennes automatisk som uvesentlige, mens alt over løftes til revisor. Grensene er innstillbare, og revisor ser alltid hvilken grense som er brukt.</p>
+  </div>
+</div></section>
+<section id="etterprovbar" class="seksjon hvit"><div class="inner">
+  <h2>Hver konklusjon kan etterprøves</h2>
+  <div class="tekst-blokk">
+    <p>Et revisjonsverktøy er bare så godt som sporet det etterlater. Hver kontroll logges med <strong>regel, kilde og beløp</strong>: hvilken kontroll som ble kjørt, mot hvilket tall, og med hvilket resultat. Dokumentasjonen er bygget for å gå rett inn i arbeidspapirene, og «grønt» betyr alltid <em>faktisk bekreftet mot en kilde</em>, aldri en antakelse. Sikkerheten er en del av kontrollen: plattformen bygges med kryptering i transport og i hvile, lagring innenfor Norge og EØS, og rollebasert tilgang slik at hver bruker kun ser sine klienter.</p>
+  </div>
+  <p class="lenke-rad"><a class="lenke" href="systemsikkerhet.html">Les om systemsikkerheten</a></p>
+</div></section>
+<section id="kontakt" class="kontakt lys-tekst pa-mork"><div class="kontakt-bunn" aria-hidden="true"><svg viewBox="0 0 1440 440" preserveAspectRatio="xMidYMid slice" style="inset:0;width:100%;height:100%"><polygon points="0,0 260,0 120,440 0,440" fill="#3c1a40"/><polygon points="1180,0 1440,0 1440,440 1040,440" fill="#3c1a40"/><polygon points="1060,0 1180,0 1040,440 920,440" fill="#462049"/></svg></div><div class="inner"><h2>Se motoren på en ekte kjøring</h2>
+  <p class="under">Vi går gjennom en kjøring på vår egen testklient: hva motoren fant, hvordan, og hva som havner hos revisor. Sett av en halvtime.</p>
+  <div class="knapper"><a class="knapp knapp-primar" href="mailto:info@revisjonsmotor.no?subject=Demo%20av%20Revisjonsmotor">Be om demo</a></div>
+  <p class="merknad">info@revisjonsmotor.no. Svar innen én virkedag.</p></div></section>
+</main>
+<footer class="bunn mork"><div class="inner"><span>© 2026 Revisorvennen AS</span>
+  <nav aria-label="Sider"><a href="slik-fungerer-det.html">Slik fungerer det</a><a href="tripletex.html">Tripletex</a><a href="personvern.html">Personvern</a><a href="vilkar.html">Vilkår</a><a href="databehandleravtale.html">Databehandleravtale</a><a href="systemsikkerhet.html">Systemsikkerhet</a></nav></div></footer>
 </body>
 </html>
