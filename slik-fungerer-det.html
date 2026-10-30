@@ -205,36 +205,49 @@ main [id]{scroll-margin-top:96px}
 .sh{position:sticky}
 .sf-kontroll{border-radius:2px}
 
-.sf-topp+.mr{padding-top:clamp(8px,2vw,24px)}
-.mr-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,5vw,80px);align-items:start;margin-top:clamp(32px,4vw,56px)}
-.mr-hold{container-type:inline-size;position:sticky;top:110px}
-/* Hjulet er så stort som plassen tillater når etikettene skal stå utenfor ringen: --lr er etikett + avstand. */
-.mr-ring{--lr:128px;--S:min(400px,max(150px,calc((50cqi - var(--lr)) * 2.28)));position:relative;height:calc(var(--S) + 76px)}
-.mr-hjul{position:absolute;left:50%;top:48px;width:var(--S);height:var(--S);transform:translateX(-50%)}
-.mr-sirkel{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}
-.mr-spor{fill:none;stroke:rgba(109,46,114,.14);stroke-width:5}
-.mr-fyll{fill:none;stroke:var(--rm-brand);stroke-width:5;stroke-linecap:round;stroke-dasharray:1156.1;stroke-dashoffset:var(--av,1156.1);transition:stroke-dashoffset 700ms cubic-bezier(.65,0,.35,1)}
-.mr-ring.mr-auto .mr-fyll{transition:none}
-.mr-ring.mr-auto.mr-hopp .mr-fyll{transition:stroke-dashoffset 450ms cubic-bezier(.23,1,.32,1)}
-.mr-ut{fill:none;stroke:var(--rm-brand);stroke-width:5;opacity:0;pointer-events:none}
-.mr-merke{position:absolute;left:50%;top:50%;width:30%;height:auto;transform:translate(-50%,-50%)}
-.mr-stasjoner{position:absolute;inset:0}
-.mr-st{position:absolute;width:44px;height:44px;border:0;padding:0;background:transparent;cursor:pointer;display:grid;place-items:center;transform:translate(-50%,-50%);color:var(--rm-mut);-webkit-tap-highlight-color:transparent}
-.mr-prikk{width:24px;height:24px;border-radius:50%;background:var(--rm-lbg);box-shadow:inset 0 0 0 3px var(--rm-brand);transition:background-color 300ms ease,transform 300ms cubic-bezier(.23,1,.32,1)}
-.mr-st.forbi .mr-prikk{background:var(--rm-brand)}
-.mr-st[aria-selected=true] .mr-prikk{background:var(--rm-brand);transform:scale(1.25);box-shadow:inset 0 0 0 3px var(--rm-brand),0 0 0 8px rgba(109,46,114,.14)}
-/* Etiketten står utenfor ringen, i retning bort fra midten, så den aldri ligger over streken. */
-.mr-navn{position:absolute;left:50%;top:50%;white-space:nowrap;font:500 16px/1.2 'Barlow',system-ui,sans-serif;transform:translate(calc(-50% + var(--ux) * (50% + 30px)),calc(-50% + var(--uy) * (50% + 30px)));transition:color 150ms ease}
-.mr-st[aria-selected=true] .mr-navn,.mr-st:hover .mr-navn{color:var(--rm-ink)}
-.mr-st:focus-visible{outline:none}.mr-st:focus-visible .mr-prikk{outline:2px solid var(--rm-brand);outline-offset:4px}
+.mr.natt{--rm-ink:#f3ecf4;--rm-hi:#ffffff;--rm-mut:#cfc6e0;--rm-mut2:#b3a9cc;--rm-mut3:#9a90b5;--rm-panel:rgba(255,255,255,.06);--rm-lrgb:243,236,244;--rm-ok:#7fd3a6;--rm-chk:#f2b660;--rm-miss:#b9aecb;--rm-link:#f3ecf4;--rm-lmut:#cfc6e0;--rm-acc:#c9a2ff;padding:clamp(56px,6vw,88px) 0;overflow:hidden;background:radial-gradient(80% 70% at 22% 40%,#2c1a4c 0%,#171238 55%,#0f1230 100%);color:var(--rm-ink)}
+.mr.natt .sf-h2{color:#fff}
+.mr-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,5vw,72px);align-items:stretch}
+.mr-venstre{display:flex;flex-direction:column;min-width:0}
+.mr-venstre>.mr-hold{margin:auto 0;width:100%}
 .mr-paneler{display:grid}
 .mr-panel{grid-area:1/1;min-width:0}
 .mr-panel[hidden]{display:block;visibility:hidden}
-.mr-h3{margin-top:12px;font:500 clamp(36px,4vw,56px)/1 'Barlow',system-ui,sans-serif;letter-spacing:-.025em;color:var(--rm-ink)}
+.mr-h3{margin-top:12px;font:500 clamp(36px,4vw,56px)/1 'Barlow',system-ui,sans-serif;letter-spacing:-.025em;color:#fff}
 .mr-kort{margin-top:16px;max-width:46ch;font-size:19px;line-height:1.5;color:var(--rm-ink)}
 .mr-mer{margin:12px 0 28px;max-width:56ch;font-size:16px;line-height:1.55;color:var(--rm-mut)}
-@media (max-width:900px){.mr-grid{grid-template-columns:minmax(0,1fr)}.mr-hold{position:relative;top:0}.mr-ring{--lr:108px}.mr-navn{font-size:14px}}
-@media (max-width:360px){.mr-ring{--lr:96px}.mr-navn{font-size:13px;transform:translate(calc(-50% + var(--ux) * (50% + 24px)),calc(-50% + var(--uy) * (50% + 24px)))}}
+.natt .panel-ramme{border-radius:4px;background:rgba(255,255,255,.04);box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}
+
+.nb{position:relative;width:100%;max-width:660px;aspect-ratio:1/.78;margin:0 auto;--tilt:60deg;--loft:4px;container-type:inline-size}
+.nb-scene{position:absolute;inset:0;perspective:1100px}
+.nb-gulv{position:absolute;left:50%;top:58%;width:190%;aspect-ratio:1;transform:translate(-50%,-50%) rotateX(var(--tilt));background:repeating-linear-gradient(0deg,rgba(125,151,255,.16) 0 1px,transparent 1px 40px),repeating-linear-gradient(90deg,rgba(125,151,255,.16) 0 1px,transparent 1px 40px);-webkit-mask:radial-gradient(closest-side,#000 30%,transparent 75%);mask:radial-gradient(closest-side,#000 30%,transparent 75%);pointer-events:none}
+.nb-plan{position:absolute;left:50%;top:56%;width:96%;aspect-ratio:1;transform:translate(-50%,-50%) rotateX(var(--tilt)) rotateZ(var(--rot,180deg));transform-style:preserve-3d}
+.nb-lag{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg);overflow:visible;filter:drop-shadow(0 0 6px rgba(125,151,255,.85)) drop-shadow(0 0 16px rgba(199,127,205,.4))}
+.nb circle{fill:none}
+.nb-spor{stroke:rgba(255,255,255,.12);stroke-width:3}
+.nb-fyll{stroke:url(#nbg);stroke-width:6;stroke-linecap:round;stroke-dasharray:1156.1;stroke-dashoffset:1156.1}
+.nb-ut{stroke:url(#nbg);stroke-width:6;opacity:0}
+.nb-maske{stroke:#fff;stroke-width:16;stroke-dasharray:1156.1;stroke-dashoffset:1156.1}
+.nb-partikler{stroke:#fff;stroke-width:4;stroke-linecap:round;stroke-dasharray:.1 22;animation:nbflyt 1.1s linear infinite}
+@keyframes nbflyt{to{stroke-dashoffset:-22.1}}
+.nb-stasjoner{position:absolute;inset:0;transform-style:preserve-3d}
+.mr-st{position:absolute;width:0;height:0;border:0;padding:0;background:none;cursor:pointer;transform-style:preserve-3d;-webkit-tap-highlight-color:transparent}
+.mr-st .chip{position:absolute;left:0;top:0;padding:10px 18px;border-radius:999px;white-space:nowrap;font:600 15px/1 'Barlow',system-ui,sans-serif;color:rgba(243,236,244,.85);background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);box-shadow:0 10px 24px -12px rgba(0,0,0,.6);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);transform-origin:50% 100%;
+  transform:translate(-50%,-100%) rotateZ(calc(-1 * var(--rot,180deg))) rotateX(calc(-1 * var(--tilt))) translateY(-6px) scale(var(--sk,1));opacity:var(--op,1);transition:background .3s,color .3s,box-shadow .3s}
+.mr-st.forbi .chip{color:#c9d3ff}
+.mr-st[aria-selected=true] .chip{color:#fff;background:linear-gradient(135deg,#9a4fa1,#4f72ef);border-color:transparent;box-shadow:0 0 22px 2px rgba(125,151,255,.6)}
+.mr-st:focus-visible{outline:none}.mr-st:focus-visible .chip{outline:2px solid #fff;outline-offset:2px}
+.nb-sentrum{position:absolute;left:50%;top:50%;width:0;height:0;transform-style:preserve-3d}
+.nb-svev{position:absolute;left:0;top:0;width:96px;height:96px;width:min(96px,16cqi);height:min(96px,16cqi);transform-origin:50% 100%;transform:translate(-50%,-100%) rotateZ(calc(-1 * var(--rot,180deg))) rotateX(calc(-1 * var(--tilt))) translateY(calc(-1 * var(--loft)))}
+.nb-puck{width:100%;aspect-ratio:1;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.22);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:0 0 40px 4px rgba(125,151,255,.35),inset 0 1px 0 rgba(255,255,255,.3);animation:nbsvev 4s ease-in-out infinite}
+.nb-puck .mr-merke{width:62%;height:auto;filter:drop-shadow(0 0 8px rgba(125,151,255,.8))}
+@keyframes nbsvev{50%{transform:translateY(-8px)}}
+@media (min-width:1200px){.mr-grid{grid-template-columns:minmax(0,1.12fr) minmax(0,1fr)}}
+@media (max-width:900px){.mr-grid{grid-template-columns:minmax(0,1fr);gap:8px}.mr-venstre>.mr-hold{margin:8px 0 0}}
+/* Smalere bane: brikkene skal holde seg innenfor skjermen og fri av logoen. */
+@media (max-width:1199px){.nb{--tilt:55deg;aspect-ratio:1/.66}.nb-plan{width:86%}}
+@media (max-width:600px){.nb{--tilt:52deg;--loft:0px;aspect-ratio:1/.64}.nb-plan{width:82%}.mr-st .chip{font-size:13px;padding:8px 12px}}
+@media (prefers-reduced-motion:reduce){.nb-partikler,.nb-puck{animation:none}}
 
 .vm-lag{position:fixed;inset:0;pointer-events:none;z-index:40;overflow:hidden;mix-blend-mode:multiply;opacity:var(--vmv,1);transition:opacity .4s ease}
 .vm{position:absolute;aspect-ratio:1/1;height:min(118vh,1300px);right:calc(46vw - min(118vh,1300px));top:50%;transform:translateY(-50%);opacity:.06}
@@ -242,7 +255,6 @@ main [id]{scroll-margin-top:96px}
 .vm-pil{transform:rotate(var(--vmrot,0deg))}
 .vm-gir{transform:rotate(calc(var(--vmrot,0deg) * -0.6))}
 @media (max-width:700px){.vm{height:92vh;right:calc(45vw - 92vh)}}
-@media (min-width:901px){.mr-hold{align-self:center;position:relative;top:0}}
 </style>
 </head>
 <body>
@@ -258,14 +270,18 @@ main [id]{scroll-margin-top:96px}
   <p class="sf-ingress">En åpen forklaring av hva Revisjonsmotor gjør, steg for steg, fra den henter dataene til den leverer en etterprøvbar konklusjon. Denne siden oppdateres løpende etter hvert som motoren utvides.</p>
   <nav class="sf-hopp" aria-label="På denne siden"><a href="#slik-jobber-den">Slik jobber den</a><a href="#prinsipp">Prinsippet</a><a href="#data">Datakilder</a><a href="#kontroller">Kontrollene</a><a href="#vesentlighet">Vesentlighet</a><a href="#etterprovbar">Etterprøvbarhet</a></nav>
 </div></section>
-<section id="slik-jobber-den" class="sf-seksjon mr"><div class="sf-ramme">
-  <h2 class="sf-h2">Slik jobber den</h2>
+<section id="slik-jobber-den" class="sf-seksjon mr natt"><div class="sf-ramme">
   <div class="mr-grid">
-    <div class="mr-hold"><div class="mr-ring"><div class="mr-hjul">
-      <svg class="mr-sirkel" viewBox="0 0 400 400" aria-hidden="true"><circle cx="200" cy="200" r="184" class="mr-spor"></circle><circle cx="200" cy="200" r="184" class="mr-fyll"></circle><circle cx="200" cy="200" r="184" class="mr-ut"></circle></svg>
-      <svg class="mr-merke" viewBox="0 0 100 100" aria-hidden="true"><g class="mr-dreie"><path d="M 7.16 53.75 A 43 43 0 0 1 50 7" fill="none" stroke="#3a5fd9" stroke-width="5"/><path d="M 68.17 11.03 A 43 43 0 0 1 87.24 71.5" fill="none" stroke="#3a5fd9" stroke-width="5"/><path d="M 74.66 85.22 A 43 43 0 0 1 12.76 71.5" fill="none" stroke="#3a5fd9" stroke-width="5"/><path d="M 59 7 L 47 0 L 47 14 Z" fill="#3a5fd9"/><path d="M 82.74 79.29 L 94.8 72.4 L 82.68 65.4 Z" fill="#3a5fd9"/><path d="M 8.26 63.71 L 8.2 77.6 L 20.32 70.6 Z" fill="#3a5fd9"/><g fill="#3a5fd9"><rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(0 50 50)"/><rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(36 50 50)"/><rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(72 50 50)"/><rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(108 50 50)"/><rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(144 50 50)"/><rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(180 50 50)"/><rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(216 50 50)"/><rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(252 50 50)"/><rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(288 50 50)"/><rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(324 50 50)"/></g><circle cx="50" cy="50" r="16.25" fill="none" stroke="#3a5fd9" stroke-width="7.5"/></g><path d="M44.5 52 L48 55.5 L56 45.5" fill="none" stroke="#3a5fd9" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      <div role="tablist" aria-label="Stegene" class="mr-stasjoner"><button type="button" role="tab" id="mr-t0" aria-controls="mr-p0" aria-selected="true" tabindex="0" class="mr-st" style="left:50.00%;top:4.00%;--ux:0.000;--uy:-1.000"><span class="mr-prikk"></span><span class="mr-navn">Henter</span></button><button type="button" role="tab" id="mr-t1" aria-controls="mr-p1" aria-selected="false" tabindex="-1" class="mr-st" style="left:93.75%;top:35.79%;--ux:0.951;--uy:-0.309"><span class="mr-prikk"></span><span class="mr-navn">Leser</span></button><button type="button" role="tab" id="mr-t2" aria-controls="mr-p2" aria-selected="false" tabindex="-1" class="mr-st" style="left:77.04%;top:87.21%;--ux:0.588;--uy:0.809"><span class="mr-prikk"></span><span class="mr-navn">Kontrollerer</span></button><button type="button" role="tab" id="mr-t3" aria-controls="mr-p3" aria-selected="false" tabindex="-1" class="mr-st" style="left:22.96%;top:87.21%;--ux:-0.588;--uy:0.809"><span class="mr-prikk"></span><span class="mr-navn">Sorterer</span></button><button type="button" role="tab" id="mr-t4" aria-controls="mr-p4" aria-selected="false" tabindex="-1" class="mr-st" style="left:6.25%;top:35.79%;--ux:-0.951;--uy:-0.309"><span class="mr-prikk"></span><span class="mr-navn">Konkluderer</span></button></div>
-    </div></div></div>
+    <div class="mr-venstre"><h2 class="sf-h2">Slik jobber den</h2>
+    <div class="mr-hold"><div class="mr-ring nb"><div class="nb-scene"><div class="nb-gulv"></div><div class="nb-plan">
+      <svg class="nb-lag" viewBox="0 0 400 400" aria-hidden="true"><defs>
+        <linearGradient id="nbg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c77fcd"/><stop offset="1" stop-color="#7d97ff"/></linearGradient>
+        <mask id="nbm" maskUnits="userSpaceOnUse" x="0" y="0" width="400" height="400"><circle cx="200" cy="200" r="184" class="nb-maske"/></mask></defs>
+        <circle cx="200" cy="200" r="184" class="nb-spor"/><circle cx="200" cy="200" r="184" class="nb-fyll mr-fyll"/>
+        <circle cx="200" cy="200" r="184" class="nb-partikler" mask="url(#nbm)"/><circle cx="200" cy="200" r="184" class="nb-ut mr-ut"/></svg>
+      <div role="tablist" aria-label="Stegene" class="nb-stasjoner"><button type="button" role="tab" id="mr-t0" aria-controls="mr-p0" aria-selected="true" tabindex="0" class="mr-st" style="left:50.000%;top:4.000%"><span class="chip">Henter</span></button><button type="button" role="tab" id="mr-t1" aria-controls="mr-p1" aria-selected="false" tabindex="-1" class="mr-st" style="left:93.749%;top:35.785%"><span class="chip">Leser</span></button><button type="button" role="tab" id="mr-t2" aria-controls="mr-p2" aria-selected="false" tabindex="-1" class="mr-st" style="left:77.038%;top:87.215%"><span class="chip">Kontrollerer</span></button><button type="button" role="tab" id="mr-t3" aria-controls="mr-p3" aria-selected="false" tabindex="-1" class="mr-st" style="left:22.962%;top:87.215%"><span class="chip">Sorterer</span></button><button type="button" role="tab" id="mr-t4" aria-controls="mr-p4" aria-selected="false" tabindex="-1" class="mr-st" style="left:6.251%;top:35.785%"><span class="chip">Konkluderer</span></button></div>
+      <div class="nb-sentrum"><div class="nb-svev"><div class="nb-puck"><svg class="mr-merke" viewBox="0 0 100 100" aria-hidden="true"><g class="mr-dreie"><path d="M 7.16 53.75 A 43 43 0 0 1 50 7" fill="none" stroke="#9fb2ff" stroke-width="5"/><path d="M 68.17 11.03 A 43 43 0 0 1 87.24 71.5" fill="none" stroke="#9fb2ff" stroke-width="5"/><path d="M 74.66 85.22 A 43 43 0 0 1 12.76 71.5" fill="none" stroke="#9fb2ff" stroke-width="5"/><path d="M 59 7 L 47 0 L 47 14 Z" fill="#9fb2ff"/><path d="M 82.74 79.29 L 94.8 72.4 L 82.68 65.4 Z" fill="#9fb2ff"/><path d="M 8.26 63.71 L 8.2 77.6 L 20.32 70.6 Z" fill="#9fb2ff"/><g fill="#9fb2ff"><rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(0 50 50)"/><rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(36 50 50)"/><rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(72 50 50)"/><rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(108 50 50)"/><rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(144 50 50)"/><rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(180 50 50)"/><rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(216 50 50)"/><rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(252 50 50)"/><rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(288 50 50)"/><rect x="47" y="22" width="6" height="10" rx="1.3" transform="rotate(324 50 50)"/></g><circle cx="50" cy="50" r="16.25" fill="none" stroke="#9fb2ff" stroke-width="7.5"/></g><path d="M44.5 52 L48 55.5 L56 45.5" fill="none" stroke="#9fb2ff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div></div>
+    </div></div></div></div></div>
     <div class="mr-innhold"><div class="mr-paneler"><div role="tabpanel" id="mr-p0" aria-labelledby="mr-t0" class="mr-panel">
         <span class="hvem">Motoren</span><h3 class="mr-h3">Henter</h3><p class="mr-kort">Automatisk fra Skatteetaten, Altinn og regnskapssystemet: skatteoppgjør, skattemelding, regnskap og bilag.</p><p class="mr-mer">Skattemelding og skatteoppgjør for alle kundene med ett trykk. Alt hentes med revisjonsforetakets egen tilgang, og kunden blir aldri bedt om å godkjenne noe.</p><div class="panel-ramme anim "><div aria-hidden="true" style="position:relative;height:100%;opacity:var(--p);transform:translateY(calc((1 - var(--p)) * 14px));transition:opacity 450ms ease,transform 650ms cubic-bezier(.23,1,.32,1);background:var(--rm-panel,#211023);border-radius:2px;padding:clamp(24px,2.6vw,36px);display:flex;flex-direction:column;overflow:hidden">
             <div style="display:flex;justify-content:space-between;gap:16px;font:500 12px/1 'Barlow',system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--rm-mut2,#a993ad)"><span>Motoren</span><span>Henter</span></div>

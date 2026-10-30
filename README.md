@@ -6,8 +6,8 @@ Statisk nettsted for revisjonsmotor.no. Ren HTML, CSS og skript, ingen byggesteg
 - `index.html`: forsiden. Skriptene står i `forside-1.js` (kjøremotoren for malen), `forside-2.js`
   (siden selv: partikkelmerket, populasjonen, kildene) og `forside-3.js` (oppstart, ventelisten,
   fanene og menyen på mobil).
-- `slik-fungerer-det.html`: Motorringen og kontrollene. Skriptene står i `js-klasse.js` (merker at
-  skript kjører), `slik.js` (menyen på mobil og Motorringen) og `vannmerke.js` (vannmerket som
+- `slik-fungerer-det.html`: banen med stegene og kontrollene. Skriptene står i `js-klasse.js` (merker at
+  skript kjører), `slik.js` (menyen på mobil og banen) og `vannmerke.js` (vannmerket som
   snur seg når siden rulles).
 - `tripletex.html`, `personvern.html`, `vilkar.html`, `databehandleravtale.html`,
   `systemsikkerhet.html`: i samme ramme som «Slik fungerer det», med vannmerket. Skriptene står i
