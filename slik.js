@@ -41,7 +41,7 @@ window.vedSyn = function (sel, terskel, rot) {
     var d = ((maal - vis_rot) % 360 + 540) % 360 - 180; vis_rot += d * 0.12;
     ring.style.setProperty('--rot', vis_rot.toFixed(2) + 'deg');
     tabs.forEach(function (t, i) { var f = (1 - Math.cos((i * 72 + vis_rot) * Math.PI / 180)) / 2;
-      t.style.setProperty('--sk', (0.86 + 0.19 * f).toFixed(3)); t.style.setProperty('--op', (0.55 + 0.45 * f).toFixed(3)); });
+      t.style.setProperty('--sk', (0.86 + 0.19 * f).toFixed(3)); t.style.setProperty('--op', (0.7 + 0.3 * f).toFixed(3)); });
   }
   function vis(i, fokus) {
     var ny = (i + 5) % 5; if (ny !== akt) snu(72 * (((ny - akt) % 5 + 5) % 5)); akt = ny;
