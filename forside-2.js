@@ -268,7 +268,7 @@ const V = {
       flush(c);
       for (let j = 0; j < fq.length; j += 3) sq(ctx, fq[j], fq[j + 1], 4 + fq[j + 2] * 3, 0.95 * f);
       if (prog > 0 && prog < 1) glowLine(ctx, [xs, g.y, xs, g.y + g.h]);
-      label(ctx, 'Stemmer', c.lab.s, c.lab.y, TH.sortOkLabel); label(ctx, 'Til revisor', c.lab.r, c.lab.y, TH.sortChkLabel);
+      label(ctx, 'OK', c.lab.s, c.lab.y, TH.sortOkLabel); label(ctx, 'Til revisor', c.lab.r, c.lab.y, TH.sortChkLabel);
       const reset = tc >= 11.4; c.out('sorter-s', fmt(reset ? 0 : ns)); c.out('sorter-r', fmt(reset ? 0 : nr));
     }
   }

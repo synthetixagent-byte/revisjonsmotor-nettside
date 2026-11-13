@@ -134,25 +134,14 @@ body{background:var(--rm-bg)}
 .vl-tekst{flex:7 1 480px;min-width:0}
 .vl-tittel{max-width:12ch;font:500 clamp(44px,5.6vw,88px)/.98 'Barlow',system-ui,sans-serif;letter-spacing:-.03em;color:var(--rm-pink,#fff);text-wrap:balance}
 .vl-ingress{margin-top:24px;max-width:46ch;font-size:clamp(17px,1.4vw,19px);line-height:1.55;color:var(--rm-pmut,#e3d6e4);text-wrap:pretty}
-.vl-skjema{flex:5 1 340px;min-width:0;max-width:480px;display:flex;flex-direction:column;gap:18px;position:relative;z-index:1}
-.vl-felt{display:flex;flex-direction:column;gap:8px}
-.vl-felt label{font:500 14px/1.2 'Barlow',system-ui,sans-serif;letter-spacing:.02em;color:var(--rm-pmut,#e3d6e4)}
-.vl-valgfritt{margin-left:6px;color:var(--rm-pmut2,#cdbcd0);font-weight:400}
-.vl-felt input{height:52px;padding:0 16px;border:0;border-radius:8px;background:rgba(255,255,255,.09);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);color:var(--rm-pink,#fff);font:400 17px/1 'Source Sans 3',system-ui,sans-serif;outline:none;transition:background-color 160ms ease,box-shadow 160ms ease}
-.vl-felt input::placeholder{color:rgba(255,255,255,.42)}
-.vl-felt input:hover{background:rgba(255,255,255,.12)}
-.vl-felt input:focus-visible{background:rgba(255,255,255,.14);box-shadow:0 0 0 2px rgba(143,178,255,.9)}
-.vl-felt input[aria-invalid="true"]{box-shadow:0 0 0 2px #f2b660}
-.vl-feil{font-size:14px;line-height:1.4;color:#f7c77f}
-.vl-feil:empty{display:none}
-.knapp-fade,.vl-knapp{display:inline-flex;align-items:center;gap:10px;height:52px;padding:0 24px;border:0;border-radius:8px;cursor:pointer;background:var(--rm-pctabg,#fff);background-size:160% 100%;background-position:0 0;color:var(--rm-pctaink,#6d2e72);font:600 16px/1 'Barlow',system-ui,sans-serif;text-decoration:none;white-space:nowrap;transition:background-position 420ms cubic-bezier(.23,1,.32,1),transform 220ms cubic-bezier(.23,1,.32,1),filter 200ms ease}
-.vl-knapp{align-self:flex-start}
-.knapp-fade:hover,.vl-knapp:hover{background-position:100% 0;transform:translateY(-1px);filter:brightness(1.06);color:var(--rm-pctaink,#6d2e72)}
-.vl-knapp:disabled{opacity:.7;cursor:progress;transform:none}
-.vl-svar{font-size:15px;line-height:1.5;color:var(--rm-pink,#fff)}
-.vl-svar:empty{display:none}
+.vl-kontakt{flex:5 1 340px;min-width:0;max-width:480px;display:flex;flex-direction:column;gap:14px;position:relative;z-index:1}
+.vl-led{font:500 12px/1.2 'Barlow',system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--rm-pmut,#e3d6e4)}
+.vl-adresse{width:fit-content;max-width:100%;overflow-wrap:anywhere;font:500 clamp(24px,2.6vw,34px)/1.15 'Barlow',system-ui,sans-serif;letter-spacing:-.01em;color:var(--rm-pink,#fff);text-decoration:underline;text-decoration-color:rgba(255,255,255,.4);text-decoration-thickness:1px;text-underline-offset:7px;transition:text-decoration-color 150ms ease}
+.vl-adresse:hover{text-decoration-color:currentColor}
+.vl-adresse:focus-visible{outline:2px solid rgba(143,178,255,.9);outline-offset:6px;border-radius:2px}
 .vl-sporsmal{font-size:15px;line-height:1.5;color:var(--rm-pmut2,#cdbcd0)}
-.vl-sporsmal a{color:var(--rm-pink,#fff);text-underline-offset:3px}
+.knapp-fade{display:inline-flex;align-items:center;gap:10px;height:52px;padding:0 24px;border:0;border-radius:8px;cursor:pointer;background:var(--rm-pctabg,#fff);background-size:160% 100%;background-position:0 0;color:var(--rm-pctaink,#6d2e72);font:600 16px/1 'Barlow',system-ui,sans-serif;text-decoration:none;white-space:nowrap;transition:background-position 420ms cubic-bezier(.23,1,.32,1),transform 220ms cubic-bezier(.23,1,.32,1),filter 200ms ease}
+.knapp-fade:hover{background-position:100% 0;transform:translateY(-1px);filter:brightness(1.06);color:var(--rm-pctaink,#6d2e72)}
 
 .ft{background:var(--rm-fbg,#311533);color:var(--rm-fmut,#cdbcd0)}
 .ft-ramme{max-width:1280px;margin:0 auto;padding:0 clamp(20px,4vw,40px)}
@@ -172,7 +161,7 @@ body{background:var(--rm-bg)}
 /* Knappene glir mellom plomme og kobolt når musa er over */
 #dc-rot header a[href="#kontakt"], #topp a[href="#kontakt"]{background-size:160% 100%!important;transition:background-position 420ms cubic-bezier(.23,1,.32,1),transform 220ms cubic-bezier(.23,1,.32,1),filter 200ms ease!important}
 #dc-rot header a[href="#kontakt"]:hover, #topp a[href="#kontakt"]:hover{background-position:100% 0!important}
-@media (prefers-reduced-motion:reduce){.vl-knapp,.knapp-fade{transition:none}}
+@media (prefers-reduced-motion:reduce){.knapp-fade,.vl-adresse{transition:none}}
 
 .mm-knapp{display:none;flex:none;align-items:center;justify-content:center;width:44px;height:44px;border:0;border-radius:8px;background:transparent;color:var(--rm-ink);cursor:pointer;transition:background-color 150ms ease}
 .mm-knapp:hover,.mm-knapp[aria-expanded=true]{background:rgba(var(--rm-lrgb),.08)}
@@ -200,7 +189,8 @@ main [id]{scroll-margin-top:96px}
 .knapp-rolig:hover{background:rgba(var(--rm-lrgb),.12)}
 .knapp-rolig:active{transform:scale(.97)}
 .knapp-rolig:disabled{opacity:.4;cursor:default}
-@media (max-width:860px){.panel-ramme{height:440px;--hn:118px;--fl:92px}.sj-smal-skjul{display:none!important}.sj-boks{padding:14px 12px!important;gap:8px!important;font-size:18px!important}}
+/* På smale skjermer vokser panelet med innholdet, så ingen tekst klippes bort. Prikkene i Sorterer har et tak (--pm). */
+@media (max-width:860px){.panel-ramme{display:grid;height:auto;min-height:440px;--hn:118px;--fl:92px;--pm:228px}.sj-smal-skjul{display:none!important}.sj-boks{padding:14px 12px!important;gap:8px!important;font-size:18px!important}}
 
 .sh{position:sticky}
 .sf-kontroll{border-radius:2px}

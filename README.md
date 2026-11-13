@@ -4,8 +4,8 @@ Statisk nettsted for revisjonsmotor.no. Ren HTML, CSS og skript, ingen byggesteg
 Åpne `index.html` i nettleseren for å se det lokalt.
 
 - `index.html`: forsiden. Skriptene står i `forside-1.js` (kjøremotoren for malen), `forside-2.js`
-  (siden selv: partikkelmerket, populasjonen, kildene) og `forside-3.js` (oppstart, ventelisten,
-  fanene og menyen på mobil).
+  (siden selv: partikkelmerket, populasjonen, kildene) og `forside-3.js` (oppstart, fanene og
+  menyen på mobil). Ventelisten har ikke skjema: e-postadressen står på siden.
 - `slik-fungerer-det.html`: banen med stegene og kontrollene. Skriptene står i `js-klasse.js` (merker at
   skript kjører), `slik.js` (menyen på mobil og banen) og `vannmerke.js` (vannmerket som
   snur seg når siden rulles).
@@ -17,6 +17,8 @@ Statisk nettsted for revisjonsmotor.no. Ren HTML, CSS og skript, ingen byggesteg
   `<article>` på de juridiske sidene: den finnes bare her, og byggeskriptet legger rammen rundt.
 - Farger, skrift og former følger brandbook 2.1 (`docs/Revisjonsmotor-Brandbook-2.0.html` i
   programmets repo): plomme og kobolt.
+- `404.html`: vises av GitHub Pages for adresser som ikke finnes. Samme ramme som de andre sidene.
+- `robots.txt` og `sitemap.xml`: lages av byggeskriptet, med adressene til de sju sidene.
 - `tripletex-logo.png`: leses av byggeskriptet og legges inn i Tripletex-siden og forsiden
 - `fonter/`: Barlow, Source Sans 3 og Saira (bare bokstavene i «Motoren»), med lisensene (SIL Open Font License 1.1)
 
