@@ -105,11 +105,6 @@ body{background:var(--rm-bg)}
 .sf-kontroll li::marker{color:var(--rm-acc);font-weight:600}
 
 .sf-slutt{background:var(--rm-pbg);padding:clamp(88px,10vw,152px) 0 clamp(72px,8vw,112px)}
-.sf-slutt .sf-ramme{display:flex;flex-wrap:wrap;align-items:flex-end;gap:32px 80px}
-.sf-slutt h2{flex:7 1 480px;max-width:12ch;font:500 clamp(44px,5.6vw,88px)/.98 'Barlow',system-ui,sans-serif;letter-spacing:-.03em;color:var(--rm-pink,#fff);text-wrap:balance}
-.sf-slutt .h{flex:5 1 340px;max-width:460px}
-.sf-slutt p{font-size:18px;line-height:1.55;color:var(--rm-pmut);text-wrap:pretty}
-.sf-slutt .knapp-fade{margin-top:28px}
 
 @media (max-width:860px){
   .sj-steg{grid-template-columns:1fr}
@@ -119,16 +114,12 @@ body{background:var(--rm-bg)}
   .sf-kilder .navn{flex-basis:100%}
 }
 
-.vl-ramme{position:relative;z-index:1;max-width:1280px;margin:0 auto;padding:0 clamp(20px,4vw,40px);display:flex;flex-wrap:wrap;align-items:flex-end;gap:40px 80px}
-.vl-tekst{flex:7 1 480px;min-width:0}
-.vl-tittel{max-width:12ch;font:500 clamp(44px,5.6vw,88px)/.98 'Barlow',system-ui,sans-serif;letter-spacing:-.03em;color:var(--rm-pink,#fff);text-wrap:balance}
-.vl-ingress{margin-top:24px;max-width:46ch;font-size:clamp(17px,1.4vw,19px);line-height:1.55;color:var(--rm-pmut,#e3d6e4);text-wrap:pretty}
-.vl-kontakt{flex:5 1 340px;min-width:0;max-width:480px;display:flex;flex-direction:column;gap:14px;position:relative;z-index:1}
-.vl-led{font:500 12px/1.2 'Barlow',system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--rm-pmut,#e3d6e4)}
-.vl-adresse{width:fit-content;max-width:100%;overflow-wrap:anywhere;font:500 clamp(24px,2.6vw,34px)/1.15 'Barlow',system-ui,sans-serif;letter-spacing:-.01em;color:var(--rm-pink,#fff);text-decoration:underline;text-decoration-color:rgba(255,255,255,.4);text-decoration-thickness:1px;text-underline-offset:7px;transition:text-decoration-color 150ms ease}
-.vl-adresse:hover{text-decoration-color:currentColor}
-.vl-adresse:focus-visible{outline:2px solid rgba(143,178,255,.9);outline-offset:6px;border-radius:2px}
-.vl-sporsmal{font-size:15px;line-height:1.5;color:var(--rm-pmut2,#cdbcd0)}
+.kt-ramme{position:relative;z-index:1;max-width:1280px;margin:0 auto;padding:0 clamp(20px,4vw,40px);display:flex;flex-wrap:wrap;align-items:flex-end;gap:32px 80px}
+.kt-tittel{flex:7 1 480px;min-width:0;max-width:12ch;font:500 clamp(44px,5.6vw,88px)/.98 'Barlow',system-ui,sans-serif;letter-spacing:-.03em;color:var(--rm-pink,#fff);text-wrap:balance}
+.kt-h{flex:5 1 340px;min-width:0;max-width:460px}
+.kt-ingress{font-size:18px;line-height:1.55;color:var(--rm-pmut,#e3d6e4);text-wrap:pretty}
+.kt-h .knapp-fade{margin-top:28px}
+.kt-epost{margin-top:22px;font-size:15px;line-height:1.5;color:var(--rm-pmut2,#cdbcd0)}
 .knapp-fade{display:inline-flex;align-items:center;gap:10px;height:52px;padding:0 24px;border:0;border-radius:8px;cursor:pointer;background:var(--rm-pctabg,#fff);background-size:160% 100%;background-position:0 0;color:var(--rm-pctaink,#6d2e72);font:600 16px/1 'Barlow',system-ui,sans-serif;text-decoration:none;white-space:nowrap;transition:background-position 420ms cubic-bezier(.23,1,.32,1),transform 220ms cubic-bezier(.23,1,.32,1),filter 200ms ease}
 .knapp-fade:hover{background-position:100% 0;transform:translateY(-1px);filter:brightness(1.06);color:var(--rm-pctaink,#6d2e72)}
 
@@ -150,7 +141,7 @@ body{background:var(--rm-bg)}
 /* Knappene glir mellom plomme og kobolt når musa er over */
 #dc-rot header a[href="#kontakt"], #topp a[href="#kontakt"]{background-size:160% 100%!important;transition:background-position 420ms cubic-bezier(.23,1,.32,1),transform 220ms cubic-bezier(.23,1,.32,1),filter 200ms ease!important}
 #dc-rot header a[href="#kontakt"]:hover, #topp a[href="#kontakt"]:hover{background-position:100% 0!important}
-@media (prefers-reduced-motion:reduce){.knapp-fade,.vl-adresse{transition:none}}
+@media (prefers-reduced-motion:reduce){.knapp-fade{transition:none}}
 
 .mm-knapp{display:none;flex:none;align-items:center;justify-content:center;width:44px;height:44px;border:0;border-radius:8px;background:transparent;color:var(--rm-ink);cursor:pointer;transition:background-color 150ms ease}
 .mm-knapp:hover,.mm-knapp[aria-expanded=true]{background:rgba(var(--rm-lrgb),.08)}
@@ -219,11 +210,10 @@ main [id]{scroll-margin-top:96px}
 .fs-skille{width:1px;height:44px;background:var(--rm-lline)}
 .fs-ttx{width:auto;height:46px}
 .fs-merknad{margin-top:22px;font-size:14px;color:var(--rm-lmut)}
-.fs-merknad a,.fs-epost a{color:inherit;text-decoration:underline;text-underline-offset:3px}
+.fs-merknad a{color:inherit;text-decoration:underline;text-underline-offset:3px}
 .fs-kort-seksjon{padding:clamp(48px,5vw,72px) 0}
 .sf-kontroll .hvem{margin-bottom:12px}
 .sf-kontroll p+p{margin-top:12px}
-.sf-slutt .fs-epost{margin-top:22px;font-size:15px}
 @media (max-width:420px){.fs-rm .o{width:180px}.fs-skille{display:none}}
 
 .vm-lag{position:fixed;inset:0;pointer-events:none;z-index:40;overflow:hidden;mix-blend-mode:multiply;opacity:var(--vmv,1);transition:opacity .4s ease}

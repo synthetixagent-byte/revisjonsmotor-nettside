@@ -5,7 +5,8 @@ Statisk nettsted for revisjonsmotor.no. Ren HTML, CSS og skript, ingen byggesteg
 
 - `index.html`: forsiden. Skriptene står i `forside-1.js` (kjøremotoren for malen), `forside-2.js`
   (siden selv: partikkelmerket, populasjonen, kildene) og `forside-3.js` (oppstart, fanene og
-  menyen på mobil). Ventelisten har ikke skjema: e-postadressen står på siden.
+  menyen på mobil). Kontaktdelen nederst er lik på forsiden, «Slik fungerer det» og Tripletex-siden: knappen åpner
+  e-postprogrammet, og adressen står som tekst under.
 - `slik-fungerer-det.html`: banen med stegene og kontrollene. Skriptene står i `js-klasse.js` (merker at
   skript kjører), `slik.js` (menyen på mobil og banen) og `vannmerke.js` (vannmerket som
   snur seg når siden rulles).

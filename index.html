@@ -47,16 +47,12 @@ a:hover{color:var(--rm-hi,#ffffff)}
 </style>
 
 <style>
-.vl-ramme{position:relative;z-index:1;max-width:1280px;margin:0 auto;padding:0 clamp(20px,4vw,40px);display:flex;flex-wrap:wrap;align-items:flex-end;gap:40px 80px}
-.vl-tekst{flex:7 1 480px;min-width:0}
-.vl-tittel{max-width:12ch;font:500 clamp(44px,5.6vw,88px)/.98 'Barlow',system-ui,sans-serif;letter-spacing:-.03em;color:var(--rm-pink,#fff);text-wrap:balance}
-.vl-ingress{margin-top:24px;max-width:46ch;font-size:clamp(17px,1.4vw,19px);line-height:1.55;color:var(--rm-pmut,#e3d6e4);text-wrap:pretty}
-.vl-kontakt{flex:5 1 340px;min-width:0;max-width:480px;display:flex;flex-direction:column;gap:14px;position:relative;z-index:1}
-.vl-led{font:500 12px/1.2 'Barlow',system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--rm-pmut,#e3d6e4)}
-.vl-adresse{width:fit-content;max-width:100%;overflow-wrap:anywhere;font:500 clamp(24px,2.6vw,34px)/1.15 'Barlow',system-ui,sans-serif;letter-spacing:-.01em;color:var(--rm-pink,#fff);text-decoration:underline;text-decoration-color:rgba(255,255,255,.4);text-decoration-thickness:1px;text-underline-offset:7px;transition:text-decoration-color 150ms ease}
-.vl-adresse:hover{text-decoration-color:currentColor}
-.vl-adresse:focus-visible{outline:2px solid rgba(143,178,255,.9);outline-offset:6px;border-radius:2px}
-.vl-sporsmal{font-size:15px;line-height:1.5;color:var(--rm-pmut2,#cdbcd0)}
+.kt-ramme{position:relative;z-index:1;max-width:1280px;margin:0 auto;padding:0 clamp(20px,4vw,40px);display:flex;flex-wrap:wrap;align-items:flex-end;gap:32px 80px}
+.kt-tittel{flex:7 1 480px;min-width:0;max-width:12ch;font:500 clamp(44px,5.6vw,88px)/.98 'Barlow',system-ui,sans-serif;letter-spacing:-.03em;color:var(--rm-pink,#fff);text-wrap:balance}
+.kt-h{flex:5 1 340px;min-width:0;max-width:460px}
+.kt-ingress{font-size:18px;line-height:1.55;color:var(--rm-pmut,#e3d6e4);text-wrap:pretty}
+.kt-h .knapp-fade{margin-top:28px}
+.kt-epost{margin-top:22px;font-size:15px;line-height:1.5;color:var(--rm-pmut2,#cdbcd0)}
 .knapp-fade{display:inline-flex;align-items:center;gap:10px;height:52px;padding:0 24px;border:0;border-radius:8px;cursor:pointer;background:var(--rm-pctabg,#fff);background-size:160% 100%;background-position:0 0;color:var(--rm-pctaink,#6d2e72);font:600 16px/1 'Barlow',system-ui,sans-serif;text-decoration:none;white-space:nowrap;transition:background-position 420ms cubic-bezier(.23,1,.32,1),transform 220ms cubic-bezier(.23,1,.32,1),filter 200ms ease}
 .knapp-fade:hover{background-position:100% 0;transform:translateY(-1px);filter:brightness(1.06);color:var(--rm-pctaink,#6d2e72)}
 
@@ -78,7 +74,7 @@ a:hover{color:var(--rm-hi,#ffffff)}
 /* Knappene glir mellom plomme og kobolt når musa er over */
 #dc-rot header a[href="#kontakt"], #topp a[href="#kontakt"]{background-size:160% 100%!important;transition:background-position 420ms cubic-bezier(.23,1,.32,1),transform 220ms cubic-bezier(.23,1,.32,1),filter 200ms ease!important}
 #dc-rot header a[href="#kontakt"]:hover, #topp a[href="#kontakt"]:hover{background-position:100% 0!important}
-@media (prefers-reduced-motion:reduce){.knapp-fade,.vl-adresse{transition:none}}
+@media (prefers-reduced-motion:reduce){.knapp-fade{transition:none}}
 
 .mm-knapp{display:none;flex:none;align-items:center;justify-content:center;width:44px;height:44px;border:0;border-radius:8px;background:transparent;color:var(--rm-ink);cursor:pointer;transition:background-color 150ms ease}
 .mm-knapp:hover,.mm-knapp[aria-expanded=true]{background:rgba(var(--rm-lrgb),.08)}
@@ -457,15 +453,12 @@ main [id]{scroll-margin-top:96px}
 
 <section id="kontakt" ref="{{ endRoot }}" class="vl" style="position:relative;overflow:hidden;background:var(--rm-pbg,#311533);padding:clamp(200px,22vw,340px) 0 clamp(72px,8vw,112px)">
   <canvas ref="{{ endCanvas }}" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none"></canvas>
-  <div class="vl-ramme">
-    <div class="vl-tekst">
-      <h2 class="vl-tittel">Vil dere bruke motoren?</h2>
-      <p class="vl-ingress">Vi tar inn nye revisjonsforetak gradvis. Send oss en e&#8209;post, så tar vi kontakt når det er plass.</p>
-    </div>
-    <div class="vl-kontakt">
-      <p class="vl-led">Ventelisten</p>
-      <a class="vl-adresse" href="mailto:info@revisjonsmotor.no?subject=Venteliste%20for%20Revisjonsmotor">info@revisjonsmotor.no</a>
-      <p class="vl-sporsmal">Skriv hvilket revisjonsforetak det gjelder. Svar innen én virkedag.</p>
+  <div class="kt-ramme">
+    <h2 class="kt-tittel">Vil dere bruke motoren?</h2>
+    <div class="kt-h">
+      <p class="kt-ingress">Vi tar inn nye revisjonsforetak gradvis. Send oss en e&#8209;post, så tar vi kontakt når det er plass.</p>
+      <a class="knapp-fade" href="mailto:info@revisjonsmotor.no?subject=Venteliste%20for%20Revisjonsmotor">Sett meg på ventelisten<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6"></path></svg></a>
+      <p class="kt-epost">info@revisjonsmotor.no. Svar innen én virkedag.</p>
     </div>
   </div>
 </section>
